@@ -1,0 +1,26 @@
+{
+  "name": "todo-list",
+  "version": "1.0.0",
+  "description": "by [Ryan](https://github.com/rvvergara) and [Dipto](https://github.com/dipto0321)",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dipto0321/todo-list.git"
+  },
+  "author": "Ryan and Dipto",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dipto0321/todo-list/issues"
+  },
+  "homepage": "https://github.com/dipto0321/todo-list#readme",
+  "devDependencies": {
+    "webpack": "^4.29.5",
+    "webpack-cli": "^3.2.3"
+  },
+  "dependencies": {
+    "date-fns": "^1.30.1"
+  }
+}
