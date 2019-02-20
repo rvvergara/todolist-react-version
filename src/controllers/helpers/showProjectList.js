@@ -1,4 +1,8 @@
-import { showTodoBody } from './showTodoBody';
+import {
+  showTodoBody
+} from './showTodoBody';
+import projectsController from "../projectsController"
+
 const showProjectList = () => {
   // show project list only if there are projects in the projectsArray
   let projectsArray = JSON.parse(localStorage.getItem("projectsArray"));
@@ -18,10 +22,32 @@ const showProjectList = () => {
 
 const appendNewProject = project => {
   let li = document.createElement("li");
+  let deleteBtn = document.createElement("button");
+  deleteBtn.setAttribute("class", "btn btn-sm btn-danger ml-3");
+  deleteBtn.setAttribute("id", `delete-proj-${project.id}`);
+  deleteBtn.innerText = "Delete";
+  deleteBtn.addEventListener("click", e => {
+    e.stopPropagation();
+    projectsController.delete(project.name);
+    removeProjFromList(project);
+
+  })
+
   li.setAttribute("class", "list-group-item");
+  li.setAttribute("id", `projectLi-${project.id}`)
   li.innerText = project.name;
-  li.addEventListener('click', ()=> showTodoBody(project.name));
+  li.addEventListener('click', () => showTodoBody(project.name));
+  li.appendChild(deleteBtn);
   document.getElementsByTagName("ul")[0].appendChild(li);
 }
 
-export  {showProjectList, appendNewProject};
+export {
+  showProjectList,
+  appendNewProject
+};
+
+// Candidates for refactor
+const removeProjFromList = project => {
+  let projectLi = document.getElementById(`projectLi-${project.id}`);
+  document.getElementsByTagName("ul")[0].removeChild(projectLi);
+}

@@ -23,6 +23,7 @@ showProjectList();
 
 
 // Candidates for transfer into their own modules
+// Logic for New Project Submission
 document.getElementById("projectNameForm").addEventListener('submit', e => {
   e.preventDefault();
   let name = document.getElementById("projectName").value;
@@ -32,8 +33,10 @@ document.getElementById("projectNameForm").addEventListener('submit', e => {
   e.target.reset();
   document.getElementById("addProjBtn").setAttribute("class", "btn btn-sm btn-primary mt-2");
 });
-
+// Logic for Add New Project Button
 document.getElementById("addProjBtn").addEventListener("click", e => {
   document.getElementById("projectNameForm").removeAttribute("class");
   e.target.setAttribute("class", "d-none");
-})
+});
+
+// Logic for deleting a project from the list
