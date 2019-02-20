@@ -6,4 +6,4 @@ export default class Project {
   }
 }
 
-Project.count = 0;
+Project.count = 1;

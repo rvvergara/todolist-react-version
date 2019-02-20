@@ -7,7 +7,7 @@ const projectsController = (
       create(name) {
         let project = new Project(name);
         localStorage.setItem(name, JSON.stringify(project));
-        projectsArray.push(project.name);
+        projectsArray.push(project);
         localStorage.setItem("projectsArray", JSON.stringify(projectsArray));
         return project;
       },
