@@ -5,6 +5,7 @@ const projectsController = (
     let projectsArray = JSON.parse(localStorage.getItem("projectsArray")) ? JSON.parse(localStorage.getItem("projectsArray")) : [];
     return {
       create(name) {
+        if (name === "") name = "Project Name (Please customize name)";
         let project = new Project(name);
         localStorage.setItem(name, JSON.stringify(project));
         projectsArray.push(project);
