@@ -1,10 +1,9 @@
 export const showTodoBody = (name) => {
   // Create the parent div 
   let project = JSON.parse(localStorage.getItem(name));
-  let id = project.id;
-  let todoBody = document.createElement("tbody");
-  todoBody.setAttribute("class", "projectTodo");
-  todoBody.setAttribute("id", `project-${id}`)
+  // let id = project.id;
+  let todoBody = document.getElementById("todoBody");
+  todoBody.innerHTML = "";
   // Create the table if there is already a todo in the project
   if (project.todos.length === 0) {
     let emptyTodoMessage = document.createElement("p");
@@ -28,5 +27,4 @@ export const showTodoBody = (name) => {
       todoBody.appendChild(tr);
     });
   }
-  document.getElementsByTagName("table")[0].innerHTML = todoBody;
-}
+};
