@@ -1,17 +1,17 @@
 import Project from '../models/project';
 
 const projectsController = (
-  ()=>{
+  () => {
     return {
-      create(name){
+      create(name) {
         let project = new Project(name);
         localStorage.setItem(name, JSON.stringify(project));
-        // console.log(localStorage.getItem(name));
+        return project;
       },
-      update(){
+      update() {
 
       },
-      delete(name){
+      delete(name) {
         localStorage.removeItem(name);
       }
 
