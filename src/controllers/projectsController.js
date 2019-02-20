@@ -2,7 +2,7 @@ import Project from '../models/project';
 
 const projectsController = (
   () => {
-    let projectsArray = JSON.parse(localStorage.getItem("projectsArray"));
+    let projectsArray = JSON.parse(localStorage.getItem("projectsArray")) ? JSON.parse(localStorage.getItem("projectsArray")) : [];
     return {
       create(name) {
         let project = new Project(name);

@@ -1,17 +1,27 @@
 import projectsController from './controllers/projectsController';
 import todosController from "./controllers/todosController";
-import showProjectList from "./controllers/helpers/showProjectList";
+import {showProjectList,appendNewProject} from "./controllers/helpers/showProjectList";
 import {
   showTodoBody
 } from './controllers/helpers/showTodoBody';
-let defaultProject = {
-  name: "Default Project",
-  todos: [],
-  id: 0
-};
-let projectsArray = [defaultProject];
-localStorage.setItem("projectsArray", JSON.stringify(projectsArray));
-localStorage.setItem("Default Project", JSON.stringify(defaultProject));
+
+
+if (localStorage.getItem("projectsArray") === null ) {
+  let projectsArray = [];
+  localStorage.setItem("projectsArray", JSON.stringify(projectsArray));
+  if (localStorage.getItem("Default Project") === null ) {
+  let defaultProject = projectsController.create("Default Project");
+}
+}
 
 
 showProjectList();
+
+document.getElementById("projectNameForm").addEventListener('submit', e=>{
+  e.preventDefault();
+  let name = document.getElementById("projectName").value;
+  let project = projectsController.create(name);
+  appendNewProject(project);
+  document.getElementById("projectName").value = "";
+});
+
