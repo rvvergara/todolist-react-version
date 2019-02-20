@@ -29,6 +29,7 @@ document.getElementById("projectNameForm").addEventListener('submit', e => {
   let project = projectsController.create(name);
   appendNewProject(project);
   e.target.setAttribute("class", "d-none");
+  e.target.reset();
   document.getElementById("addProjBtn").setAttribute("class", "btn btn-sm btn-primary mt-2");
 });
 
