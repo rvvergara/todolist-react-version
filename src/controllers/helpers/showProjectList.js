@@ -1,3 +1,4 @@
+import { showTodoBody } from './showTodoBody';
 const showProjectList = () => {
   // show project list only if there are projects in the projectsArray
   let projectsArray = JSON.parse(localStorage.getItem("projectsArray"));
@@ -8,6 +9,7 @@ const showProjectList = () => {
       let li = document.createElement("li");
       li.setAttribute("class", "list-group-item");
       li.innerText = project.name;
+      li.addEventListener('click', ()=> showTodoBody(project.name));
       projectsUl.appendChild(li);
     });
   } else {

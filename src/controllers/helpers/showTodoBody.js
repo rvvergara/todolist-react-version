@@ -9,10 +9,11 @@ export const showTodoBody = (name) => {
     let emptyTodoMessage = document.createElement("p");
     emptyTodoMessage.setAttribute("class", "emptyTodoMessage")
     emptyTodoMessage.innerText = `No todo items for ${name} yet`;
-    document.getElementById("todosTable").appendChild(emptyTodoMessage);
+    document.getElementsByTagName("table")[0].setAttribute("class", "table table-striped");
+    document.getElementById("todoBody").appendChild(emptyTodoMessage);
   } else {
     // Remove class d-none for table
-    document.getElementsByTagName("table")[0].setAttribute("class", "table table-striped")
+    document.getElementsByTagName("table")[0].setAttribute("class", "table table-striped");
     // Iterate thru each todo and create tr for them
     project.todos.forEach(todo => {
       // Create tr
