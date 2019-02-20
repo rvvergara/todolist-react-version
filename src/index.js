@@ -4,6 +4,9 @@ import {
   showTodoBody
 } from './controllers/helpers/showTodoBody';
 
+let projectsArray = [];
+localStorage.setItem("projectsArray", JSON.stringify(projectsArray));
+
 let projects = projectsController.create("Test Project");
 
 let newTodo = todosController.create("Test Todo", "This is just to practice doing this", new Date(), "high", "No notes just this", "Test Project");
