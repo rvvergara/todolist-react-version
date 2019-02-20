@@ -14,7 +14,6 @@ const projectsController = (
       delete(name) {
         localStorage.removeItem(name);
       }
-
     };
   }
 )();
