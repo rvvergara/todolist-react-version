@@ -27,7 +27,12 @@ const appendNewProject = project => {
 }
 
 export const generateBtn = (action, project) => {
-  // Assigning 
+  let btn = createBtnElement(action, project);
+  addBtnEventListeners(btn, project, action);
+  return btn;
+}
+
+const createBtnElement = (action, project) => {
   let btnType = action === "update" ? "btn-info" : "btn-danger";
   let btnId = action === "update" ? `update-proj-${project.id}` : `delete-proj-${project.id}`;
   let btn = document.createElement("button");
@@ -37,7 +42,6 @@ export const generateBtn = (action, project) => {
   if (action === "update") {
     btn.setAttribute("data-id", `${project.id}`);
   }
-  addBtnEventListeners(btn, project, action);
   return btn;
 }
 
