@@ -32,7 +32,7 @@
         </ul>
         <button class="btn btn-primary btn-sm mt-2" id="addProjBtn">Add New Project</button>
       </div>
-      <div class="col-md-8">
+      <div class="col-md-8" id="todosDiv">
         <h1>Todos</h1>
         <hr>
         <section id="todosTable">
@@ -51,8 +51,8 @@
             </tbody>
           </table>
         </section>
-        <section id="todosForm" class="d-none">
-          <form>
+        <section id="todosSection" class="d-none">
+          <form id="todosForm">
             <div class="form-row">
               <div class="col">
                 <input type="text" class="form-control todo-form" placeholder="Title">
@@ -75,9 +75,10 @@
                 <input type="text" class="form-control todo-form" placeholder="Note">
               </div>
             </div>
+            <input type="submit" class="btn btn-primary">
           </form>
         </section>
-        <button id="addTodoBtn" class="btn btn-sm btn-block btn-primary">Add todo</button>
+        <!-- <button id="addTodoBtn" class="btn btn-sm btn-block btn-primary">Add todo</button> -->
 
       </div>
     </div>
