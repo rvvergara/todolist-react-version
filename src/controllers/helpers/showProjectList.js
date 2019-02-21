@@ -23,20 +23,7 @@ const showProjectList = () => {
 const appendNewProject = project => {
 
   removeEmptyProjMessage();
-  let li = document.createElement("li");
-  let span = document.createElement("span");
-  span.setAttribute("id", `projectSpan-${project.id}`);
-
-  let deleteBtn = generateBtn("delete", project);
-  let updateBtn = generateBtn("update", project);
-  li.setAttribute("class", "list-group-item");
-  li.setAttribute("id", `projectLi-${project.id}`)
-  span.innerText = project.name;
-  li.appendChild(span);
-  li.addEventListener('click', () => showTodoBody(project.name));
-  li.appendChild(deleteBtn);
-  li.appendChild(updateBtn);
-  document.getElementsByTagName("ul")[0].appendChild(li);
+  generateProjectLi(project);
 }
 
 export const generateBtn = (action, project) => {
@@ -104,4 +91,23 @@ const removeEmptyProjMessage = () => {
   if (emptyLi !== undefined) {
     document.getElementsByTagName("ul")[0].removeChild(emptyLi);
   }
+};
+
+//  Generate projec's li
+
+const generateProjectLi = project => {
+  let li = document.createElement("li");
+  let span = document.createElement("span");
+  span.setAttribute("id", `projectSpan-${project.id}`);
+
+  let deleteBtn = generateBtn("delete", project);
+  let updateBtn = generateBtn("update", project);
+  li.setAttribute("class", "list-group-item");
+  li.setAttribute("id", `projectLi-${project.id}`)
+  span.innerText = project.name;
+  li.appendChild(span);
+  li.addEventListener('click', () => showTodoBody(project.name));
+  li.appendChild(deleteBtn);
+  li.appendChild(updateBtn);
+  document.getElementsByTagName("ul")[0].appendChild(li);
 };
