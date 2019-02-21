@@ -12,8 +12,15 @@ const projectsController = (
         localStorage.setItem("projectsArray", JSON.stringify(projectsArray));
         return project;
       },
-      update() {
-
+      update(name) {
+        // Extract the right project
+        let project = JSON.parse(localStorage.getItem(name));
+        let index = projectsArray.findIndex(x => x.name === project.name);
+        project.name = document.getElementById("projectName").value;
+        projectsArray.splice(index, 1, project);
+        localStorage.setItem(project.name, project);
+        localStorage.setItem("projectsArray", projectsArray);
+        return project;
       },
       delete(name) {
         // let projectsArray = JSON.parse(localStorage.getItem("projectsArray"));
