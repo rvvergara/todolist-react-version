@@ -29,9 +29,12 @@ const appendNewProject = project => {
 
   let li = document.createElement("li");
   let deleteBtn = document.createElement("button");
+  let updateBtn = document.createElement("button");
   deleteBtn.setAttribute("class", "btn btn-sm btn-danger ml-3");
+  updateBtn.setAttribute("class", "btn btn-sm btn-info ml-3");
   deleteBtn.setAttribute("id", `delete-proj-${project.id}`);
   deleteBtn.innerText = "Delete";
+  updateBtn.innerText = "Update";
   deleteBtn.addEventListener("click", e => {
     e.stopPropagation();
     projectsController.delete(project.name);
@@ -44,6 +47,7 @@ const appendNewProject = project => {
   li.innerText = project.name;
   li.addEventListener('click', () => showTodoBody(project.name));
   li.appendChild(deleteBtn);
+  li.appendChild(updateBtn);
   document.getElementsByTagName("ul")[0].appendChild(li);
 }
 
