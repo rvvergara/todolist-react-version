@@ -3,7 +3,7 @@ import {
 } from './showTodoBody';
 import projectsController from "../projectsController"
 
-const showProjectList = () => {
+export const showProjectList = () => {
   // show project list only if there are projects in the projectsArray
   let projectsArray = JSON.parse(localStorage.getItem("projectsArray"));
   if (projectsArray.length > 0) {
@@ -20,79 +20,10 @@ const showProjectList = () => {
   }
 }
 
-const appendNewProject = project => {
+export const appendNewProject = project => {
 
   removeEmptyProjMessage();
   generateProjectLi(project);
-}
-
-export const generateBtn = (action, project) => {
-  let btn = createBtnElement(action, project);
-  addBtnEventListeners(btn, project, action);
-  return btn;
-}
-
-const createBtnElement = (action, project) => {
-  let btnType = action === "update" ? "btn-info" : "btn-danger";
-  let btnId = action === "update" ? `update-proj-${project.id}` : `delete-proj-${project.id}`;
-  let btn = document.createElement("button");
-  btn.setAttribute("class", `btn btn-sm ml-3 ${btnType}`);
-  btn.setAttribute("id", btnId);
-  btn.innerText = action.toUpperCase();
-  if (action === "update") {
-    btn.setAttribute("data-id", `${project.id}`);
-  }
-  return btn;
-}
-
-// Adding event listeners to btns
-const addBtnEventListeners = (btn, project, action) => {
-  btn.addEventListener("click", e => {
-    e.stopPropagation();
-    // call here function appropriate for type of action
-    action === "update" ? updateCallback(e.target, project) : deleteCallback(project);
-  });
-}
-
-const updateCallback = (target, project) => {
-  let action = "update";
-  showProjectForm(target, action, target.getAttribute("data-id"));
-  document.getElementById("projectName").value = project.name;
-}
-
-const deleteCallback = project => {
-  projectsController.delete(project.name);
-  removeProjFromList(project);
-}
-
-export {
-  showProjectList,
-  appendNewProject
-};
-
-// Candidates for refactor
-const removeProjFromList = project => {
-  let projectLi = document.getElementById(`projectLi-${project.id}`);
-  document.getElementsByTagName("ul")[0].removeChild(projectLi);
-  if (localStorage.projectsArray === "[]") {
-    // The display should show "No Projects Yet"
-    let li = document.createElement("li");
-    li.setAttribute("class", "list-group-item emptyMessage");
-    li.innerText = "No projects yet, create one";
-    document.getElementsByTagName("ul")[0].appendChild(li);
-  }
-}
-
-// Logic for showing the project form
-export const showProjectForm = (target, action, id) => {
-  document.getElementById("projectNameForm").removeAttribute("class");
-  document.getElementById("projectNameForm").setAttribute("data-action", action);
-  document.getElementById("projectNameForm").setAttribute("data-id", id);
-  target.setAttribute("class", "d-none");
-}
-
-export const updateProjectDisplay = (id) => {
-
 };
 
 // Upon appending a new project to ul remove emptyMessage
@@ -120,4 +51,65 @@ const generateProjectLi = project => {
   li.appendChild(deleteBtn);
   li.appendChild(updateBtn);
   document.getElementsByTagName("ul")[0].appendChild(li);
+};
+
+export const generateBtn = (action, project) => {
+  let btn = createBtnElement(action, project);
+  addBtnEventListeners(btn, project, action);
+  return btn;
+};
+
+const createBtnElement = (action, project) => {
+  let btnType = action === "update" ? "btn-info" : "btn-danger";
+  let btnId = action === "update" ? `update-proj-${project.id}` : `delete-proj-${project.id}`;
+  let btn = document.createElement("button");
+  btn.setAttribute("class", `btn btn-sm ml-3 ${btnType}`);
+  btn.setAttribute("id", btnId);
+  btn.innerText = action.toUpperCase();
+  if (action === "update") {
+    btn.setAttribute("data-id", `${project.id}`);
+  }
+  return btn;
+};
+
+// Adding event listeners to btns
+const addBtnEventListeners = (btn, project, action) => {
+  btn.addEventListener("click", e => {
+    e.stopPropagation();
+    // call here function appropriate for type of action
+    action === "update" ? updateCallback(e.target, project) : deleteCallback(project);
+  });
+};
+
+const updateCallback = (target, project) => {
+  let action = "update";
+  showProjectForm(target, action, target.getAttribute("data-id"));
+  document.getElementById("projectName").value = project.name;
+};
+
+// Logic for showing the project form
+export const showProjectForm = (target, action, id) => {
+  document.getElementById("projectNameForm").removeAttribute("class");
+  document.getElementById("projectNameForm").setAttribute("data-action", action);
+  document.getElementById("projectNameForm").setAttribute("data-id", id);
+  target.setAttribute("class", "d-none");
+};
+
+const deleteCallback = project => {
+  projectsController.delete(project.name);
+  removeProjFromList(project);
+};
+
+
+// Candidates for refactor
+const removeProjFromList = project => {
+  let projectLi = document.getElementById(`projectLi-${project.id}`);
+  document.getElementsByTagName("ul")[0].removeChild(projectLi);
+  if (localStorage.projectsArray === "[]") {
+    // The display should show "No Projects Yet"
+    let li = document.createElement("li");
+    li.setAttribute("class", "list-group-item emptyMessage");
+    li.innerText = "No projects yet, create one";
+    document.getElementsByTagName("ul")[0].appendChild(li);
+  }
 };
