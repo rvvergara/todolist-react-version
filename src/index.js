@@ -9,6 +9,10 @@ import {
   submitProjectForm
 } from "./controllers/helpers/formHelpers";
 
+import {
+  showTodoBody
+} from './controllers/helpers/showTodoBody';
+
 if (localStorage.getItem("projectsArray") === null) {
   let projectsArray = [];
   localStorage.setItem("projectsArray", JSON.stringify(projectsArray));
@@ -17,10 +21,8 @@ if (localStorage.getItem("projectsArray") === null) {
 if (localStorage["projectCount"] === "0") {
   let defaultProject = projectsController.create("Default Project");
 }
-
-
 showProjectList();
-
+if (localStorage["Default Project"] !== undefined) showTodoBody(JSON.parse(localStorage["Default Project"]).name);
 
 // For refactor
 document.getElementById("projectNameForm").addEventListener('submit', e => {
