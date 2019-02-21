@@ -3,6 +3,7 @@ import {
   showTodoBody
 } from './showTodoBody';
 
+import todosController from "../todosController";
 // Create projects array
 
 export const createProjectsArray = () => {
@@ -18,4 +19,12 @@ export const createDefaultProject = () => {
   }
 
   if (localStorage["Default Project"] !== undefined) showTodoBody(JSON.parse(localStorage["Default Project"]).name);
+
+  // For testing
+  if (JSON.parse(localStorage["Default Project"]).todos.length === 0) {
+    todosController.create("First task", "Basic stuff", new Date().toDateString(), "High", "No notes", "Default Project");
+
+    showTodoBody("Default Project");
+  };
+
 };

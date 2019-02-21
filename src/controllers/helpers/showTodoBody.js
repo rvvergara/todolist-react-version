@@ -23,7 +23,7 @@ export const showTodoBody = (name) => {
         <td>${todo.description}</td>
         <td>${todo.dueDate}</td>
         <td>${todo.priority}</td>
-        <td>${todo.note}</td>
+        <td>${todo.notes}</td>
         <td><button class="btn-sm btn btn-primary">Delete</button></td>
       `;
       tr.innerHTML = trContent;
