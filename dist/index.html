@@ -51,6 +51,34 @@
             </tbody>
           </table>
         </section>
+        <section id="todosForm" class="d-none">
+          <form>
+            <div class="form-row">
+              <div class="col">
+                <input type="text" class="form-control" placeholder="Title">
+              </div>
+              <div class="col">
+                <input type="text" class="form-control" placeholder="Description">
+              </div>
+              <div class="col">
+                <input type="date" class="form-control">
+              </div>
+              <div class="col">
+                <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+                  <option selected>Priority</option>
+                  <option value="1">Low</option>
+                  <option value="2">Midium</option>
+                  <option value="3">High</option>
+                </select>
+              </div>
+              <div class="col">
+                <input type="text" class="form-control" placeholder="Note">
+              </div>
+            </div>
+          </form>
+        </section>
+        <button id="addTodoBtn" class="btn btn-sm btn-block btn-primary">Add todo</button>
+
       </div>
     </div>
   </div>
