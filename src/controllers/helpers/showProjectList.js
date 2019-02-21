@@ -67,7 +67,7 @@ export const generateBtn = (action, project) => {
   let btn = document.createElement("button");
   btn.setAttribute("class", `btn btn-sm ml-3 ${btnType}`);
   btn.setAttribute("id", btnId);
-  btn.innerText = action;
+  btn.innerText = action.toUpperCase();
   if (action === "update") {
     btn.setAttribute("data-id", `${project.id}`);
   }
