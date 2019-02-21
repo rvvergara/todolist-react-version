@@ -21,7 +21,8 @@ export const createDefaultProject = () => {
   if (localStorage["Default Project"] !== undefined) showTodoBody(JSON.parse(localStorage["Default Project"]).name);
 
   // For testing
-  if (JSON.parse(localStorage["Default Project"]).todos.length === 0) {
+  let defaultProject = localStorage["Default Project"]
+  if (defaultProject !== undefined && JSON.parse(defaultProject).todos.length === 0) {
     todosController.create("First task", "Basic stuff", new Date().toDateString(), "High", "No notes", "Default Project");
 
     showTodoBody("Default Project");
