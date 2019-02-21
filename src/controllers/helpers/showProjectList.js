@@ -14,13 +14,17 @@ const showProjectList = () => {
   } else {
     // The display should show "No Projects Yet"
     let li = document.createElement("li");
-    li.setAttribute("class", "list-group-item");
+    li.setAttribute("class", "list-group-item emptyMessage");
     li.innerText = "No projects yet, create one";
     document.getElementsByTagName("ul")[0].appendChild(li);
   }
 }
 
 const appendNewProject = project => {
+  // Upon appending a new project to ul remove emptyMessage
+  let emptyLi = document.getElementsByClassName("emptyMessage")[0];
+  if (emptyLi !== null) document.getElementsByTagName("ul")[0].removeChild(emptyLi);
+
   let li = document.createElement("li");
   let deleteBtn = document.createElement("button");
   deleteBtn.setAttribute("class", "btn btn-sm btn-danger ml-3");

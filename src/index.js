@@ -14,9 +14,9 @@ if (localStorage.getItem("projectsArray") === null) {
   localStorage.setItem("projectsArray", JSON.stringify(projectsArray));
 }
 
-if (localStorage.getItem("Default Project") === null) {
-  let defaultProject = projectsController.create("Default Project");
-}
+// if (localStorage.getItem("Default Project") === null) {
+//   let defaultProject = projectsController.create("Default Project");
+// }
 
 
 showProjectList();
