@@ -20,7 +20,7 @@ const projectsController = (
         let project = JSON.parse(localStorage.getItem(name));
         let index = projectsArray.indexOf(project);
         localStorage.removeItem(name);
-        projectsArray.splice(index, 1);
+        projectsArray.splice(index - 1, 1);
         localStorage.setItem("projectsArray", JSON.stringify(projectsArray));
       }
     };
