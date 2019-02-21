@@ -33,6 +33,7 @@ const appendNewProject = project => {
   deleteBtn.setAttribute("class", "btn btn-sm btn-danger ml-3");
   updateBtn.setAttribute("class", "btn btn-sm btn-info ml-3");
   deleteBtn.setAttribute("id", `delete-proj-${project.id}`);
+  updateBtn.setAttribute("id", `update-proj-${project.id}`);
   deleteBtn.innerText = "Delete";
   updateBtn.innerText = "Update";
   deleteBtn.addEventListener("click", e => {
@@ -40,7 +41,13 @@ const appendNewProject = project => {
     projectsController.delete(project.name);
     removeProjFromList(project);
 
-  })
+  });
+  updateBtn.addEventListener("click", e => {
+    e.stopPropagation();
+    let action = "update";
+    showProjectForm(e.target, action);
+    document.getElementById("projectName").value = project.name;
+  });
 
   li.setAttribute("class", "list-group-item");
   li.setAttribute("id", `projectLi-${project.id}`)
@@ -67,4 +74,11 @@ const removeProjFromList = project => {
     li.innerText = "No projects yet, create one";
     document.getElementsByTagName("ul")[0].appendChild(li);
   }
+}
+
+// Logic for showing the project form
+export const showProjectForm = (target, action) => {
+  document.getElementById("projectNameForm").removeAttribute("class");
+  document.getElementById("projectNameForm").setAttribute("data-action", action);
+  target.setAttribute("class", "d-none");
 }

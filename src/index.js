@@ -2,7 +2,8 @@ import projectsController from './controllers/projectsController';
 import todosController from "./controllers/todosController";
 import {
   showProjectList,
-  appendNewProject
+  appendNewProject,
+  showProjectForm
 } from "./controllers/helpers/showProjectList";
 import {
   showTodoBody
@@ -35,8 +36,6 @@ document.getElementById("projectNameForm").addEventListener('submit', e => {
 });
 // Logic for Add New Project Button
 document.getElementById("addProjBtn").addEventListener("click", e => {
-  document.getElementById("projectNameForm").removeAttribute("class");
-  e.target.setAttribute("class", "d-none");
+  let action = "new";
+  showProjectForm(e.target, action)
 });
-
-// Logic for deleting a project from the list
