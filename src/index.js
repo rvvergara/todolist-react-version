@@ -35,6 +35,7 @@ document.getElementById("projectNameForm").addEventListener('submit', e => {
   } else {
     console.log(e.target);
     projectsController.update(Number(e.target.getAttribute("data-id")));
+    document.getElementById(`update-proj-${e.target.getAttribute("data-id")}`).setAttribute("class", "btn btn-sm btn-info ml-3");
   }
 
   e.target.setAttribute("class", "d-none");
