@@ -28,8 +28,15 @@ showProjectList();
 document.getElementById("projectNameForm").addEventListener('submit', e => {
   e.preventDefault();
   let name = document.getElementById("projectName").value;
-  let project = projectsController.create(name);
-  appendNewProject(project);
+  // if data-action == new then this
+  if (e.target.getAttribute("data-action") === "new") {
+    let project = projectsController.create(name);
+    appendNewProject(project);
+  } else {
+    console.log(e.target);
+    projectsController.update(Number(e.target.getAttribute("data-id")));
+  }
+
   e.target.setAttribute("class", "d-none");
   e.target.reset();
   document.getElementById("addProjBtn").setAttribute("class", "btn btn-sm btn-primary mt-2");

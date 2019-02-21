@@ -34,6 +34,7 @@ const appendNewProject = project => {
   updateBtn.setAttribute("class", "btn btn-sm btn-info ml-3");
   deleteBtn.setAttribute("id", `delete-proj-${project.id}`);
   updateBtn.setAttribute("id", `update-proj-${project.id}`);
+  updateBtn.setAttribute("data-id", `${project.id}`);
   deleteBtn.innerText = "Delete";
   updateBtn.innerText = "Update";
   deleteBtn.addEventListener("click", e => {
@@ -45,7 +46,7 @@ const appendNewProject = project => {
   updateBtn.addEventListener("click", e => {
     e.stopPropagation();
     let action = "update";
-    showProjectForm(e.target, action);
+    showProjectForm(e.target, action, e.target.getAttribute("data-id"));
     document.getElementById("projectName").value = project.name;
   });
 
@@ -77,8 +78,9 @@ const removeProjFromList = project => {
 }
 
 // Logic for showing the project form
-export const showProjectForm = (target, action) => {
+export const showProjectForm = (target, action, id) => {
   document.getElementById("projectNameForm").removeAttribute("class");
   document.getElementById("projectNameForm").setAttribute("data-action", action);
+  document.getElementById("projectNameForm").setAttribute("data-id", id);
   target.setAttribute("class", "d-none");
 }
