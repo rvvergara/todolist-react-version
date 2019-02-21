@@ -1,5 +1,3 @@
-import projectsController from './controllers/projectsController';
-
 import {
   showProjectList,
   showProjectForm
@@ -10,28 +8,9 @@ import {
 } from "./controllers/helpers/formHelpers";
 
 import {
-  showTodoBody
-} from './controllers/helpers/showTodoBody';
-
-
-// Create projects array
-
-const createProjectsArray = () => {
-  if (localStorage.getItem("projectsArray") === null) {
-    let projectsArray = [];
-    localStorage.setItem("projectsArray", JSON.stringify(projectsArray));
-  }
-};
-
-const createDefaultProject = () => {
-  if (localStorage["projectCount"] === "0") {
-    let defaultProject = projectsController.create("Default Project");
-  }
-
-  if (localStorage["Default Project"] !== undefined) showTodoBody(JSON.parse(localStorage["Default Project"]).name);
-};
-
-
+  createProjectsArray,
+  createDefaultProject
+} from './controllers/helpers/generalHelpers';
 
 createProjectsArray();
 createDefaultProject();
