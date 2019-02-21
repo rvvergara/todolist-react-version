@@ -44,5 +44,5 @@ document.getElementById("projectNameForm").addEventListener('submit', e => {
 // Logic for Add New Project Button
 document.getElementById("addProjBtn").addEventListener("click", e => {
   let action = "new";
-  showProjectForm(e.target, action)
+  showProjectForm(e.target, action);
 });

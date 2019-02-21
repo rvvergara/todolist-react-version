@@ -18,8 +18,8 @@ const projectsController = (
         let index = projectsArray.findIndex(x => x.name === project.name);
         project.name = document.getElementById("projectName").value;
         projectsArray.splice(index, 1, project);
-        localStorage.setItem(project.name, project);
-        localStorage.setItem("projectsArray", projectsArray);
+        localStorage.setItem(project.name, JSON.stringify(project));
+        localStorage.setItem("projectsArray", JSON.stringify(projectsArray));
         return project;
       },
       delete(name) {
