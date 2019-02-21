@@ -33,11 +33,10 @@ document.getElementById("projectNameForm").addEventListener('submit', e => {
     let project = projectsController.create(name);
     appendNewProject(project);
   } else {
-    console.log(e.target);
-    projectsController.update(Number(e.target.getAttribute("data-id")));
+    let updatedProject = projectsController.update(Number(e.target.getAttribute("data-id")));
     document.getElementById(`update-proj-${e.target.getAttribute("data-id")}`).setAttribute("class", "btn btn-sm btn-info ml-3");
+    document.getElementById(`projectSpan-${e.target.getAttribute("data-id")}`).innerText = updatedProject.name;
   }
-
   e.target.setAttribute("class", "d-none");
   e.target.reset();
   document.getElementById("addProjBtn").setAttribute("class", "btn btn-sm btn-primary mt-2");

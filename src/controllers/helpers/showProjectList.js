@@ -28,6 +28,8 @@ const appendNewProject = project => {
   };
 
   let li = document.createElement("li");
+  let span = document.createElement("span");
+  span.setAttribute("id", `projectSpan-${project.id}`);
   let deleteBtn = document.createElement("button");
   let updateBtn = document.createElement("button");
   deleteBtn.setAttribute("class", "btn btn-sm btn-danger ml-3");
@@ -52,7 +54,8 @@ const appendNewProject = project => {
 
   li.setAttribute("class", "list-group-item");
   li.setAttribute("id", `projectLi-${project.id}`)
-  li.innerText = project.name;
+  span.innerText = project.name;
+  li.appendChild(span);
   li.addEventListener('click', () => showTodoBody(project.name));
   li.appendChild(deleteBtn);
   li.appendChild(updateBtn);
@@ -84,3 +87,7 @@ export const showProjectForm = (target, action, id) => {
   document.getElementById("projectNameForm").setAttribute("data-id", id);
   target.setAttribute("class", "d-none");
 }
+
+export const updateProjectDisplay = (id) => {
+
+};
