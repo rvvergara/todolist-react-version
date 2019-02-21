@@ -14,7 +14,6 @@ const projectsController = (
       },
       update(id) {
         let project = projectsArray.find(x => x.id === id);
-        console.log(project);
         let index = projectsArray.findIndex(x => x.name === project.name);
         project.name = document.getElementById("projectName").value;
         projectsArray.splice(index, 1, project);

@@ -13,18 +13,31 @@ import {
   showTodoBody
 } from './controllers/helpers/showTodoBody';
 
-if (localStorage.getItem("projectsArray") === null) {
-  let projectsArray = [];
-  localStorage.setItem("projectsArray", JSON.stringify(projectsArray));
-}
 
-if (localStorage["projectCount"] === "0") {
-  let defaultProject = projectsController.create("Default Project");
-}
+// Create projects array
+
+const createProjectsArray = () => {
+  if (localStorage.getItem("projectsArray") === null) {
+    let projectsArray = [];
+    localStorage.setItem("projectsArray", JSON.stringify(projectsArray));
+  }
+};
+
+const createDefaultProject = () => {
+  if (localStorage["projectCount"] === "0") {
+    let defaultProject = projectsController.create("Default Project");
+  }
+
+  if (localStorage["Default Project"] !== undefined) showTodoBody(JSON.parse(localStorage["Default Project"]).name);
+};
+
+
+
+createProjectsArray();
+createDefaultProject();
 showProjectList();
-if (localStorage["Default Project"] !== undefined) showTodoBody(JSON.parse(localStorage["Default Project"]).name);
 
-// For refactor
+// For refactor:
 document.getElementById("projectNameForm").addEventListener('submit', e => {
   e.preventDefault();
   submitProjectForm(e.target);
