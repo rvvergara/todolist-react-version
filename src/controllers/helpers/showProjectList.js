@@ -26,32 +26,31 @@ const appendNewProject = project => {
   if (emptyLi !== undefined) {
     document.getElementsByTagName("ul")[0].removeChild(emptyLi)
   };
-
+  // 
   let li = document.createElement("li");
   let span = document.createElement("span");
   span.setAttribute("id", `projectSpan-${project.id}`);
-  let deleteBtn = document.createElement("button");
-  let updateBtn = document.createElement("button");
-  deleteBtn.setAttribute("class", "btn btn-sm btn-danger ml-3");
-  updateBtn.setAttribute("class", "btn btn-sm btn-info ml-3");
-  deleteBtn.setAttribute("id", `delete-proj-${project.id}`);
-  updateBtn.setAttribute("id", `update-proj-${project.id}`);
-  updateBtn.setAttribute("data-id", `${project.id}`);
-  deleteBtn.innerText = "Delete";
-  updateBtn.innerText = "Update";
-  deleteBtn.addEventListener("click", e => {
-    e.stopPropagation();
-    projectsController.delete(project.name);
-    removeProjFromList(project);
+  // let deleteBtn = document.createElement("button");
+  // let updateBtn = document.createElement("button");
+  // deleteBtn.setAttribute("class", "btn btn-sm btn-danger ml-3");
+  // updateBtn.setAttribute("class", "btn btn-sm btn-info ml-3");
+  // deleteBtn.setAttribute("id", `delete-proj-${project.id}`);
+  // updateBtn.setAttribute("id", `update-proj-${project.id}`);
+  // updateBtn.setAttribute("data-id", `${project.id}`);
+  // deleteBtn.innerText = "Delete";
+  // updateBtn.innerText = "Update";
+  // deleteBtn.addEventListener("click", e => {
+  //   e.stopPropagation();
+  //   deleteCallback(project);
 
-  });
-  updateBtn.addEventListener("click", e => {
-    e.stopPropagation();
-    let action = "update";
-    showProjectForm(e.target, action, e.target.getAttribute("data-id"));
-    document.getElementById("projectName").value = project.name;
-  });
+  // });
+  // updateBtn.addEventListener("click", e => {
+  //   e.stopPropagation();
+  //   updateCallback(e.target, project);
+  // });
 
+  let deleteBtn = generateBtn("delete");
+  let updateBtn = generateBtn("update");
   li.setAttribute("class", "list-group-item");
   li.setAttribute("id", `projectLi-${project.id}`)
   span.innerText = project.name;
@@ -60,6 +59,35 @@ const appendNewProject = project => {
   li.appendChild(deleteBtn);
   li.appendChild(updateBtn);
   document.getElementsByTagName("ul")[0].appendChild(li);
+}
+
+export const generateBtn = (action, project) => {
+  let btnType = action === "update" ? "btn-info" : "btn-danger";
+  let btnId = action === "update" ? `update-proj-${project.id}` : `delete-proj-${project.id}`;
+  let btn = document.createElement("button");
+  btn.setAttribute("class", `btn btn-sm ml-3 ${btnType}`);
+  btn.setAttribute("id", btnId);
+  btn.innerText = action.toUppercase();
+  if (action === "update") {
+    btn.setAttribute("data-id", `${project.id}`);
+  }
+  btn.addEventListener("click", e => {
+    e.stopPropagation();
+    // call here function appropriate for type of action
+    action === "update" ? updateCallback(e.target, project) : deleteCallback(project);
+  });
+  return btn;
+}
+
+const updateCallback = (target, project) => {
+  let action = "update";
+  showProjectForm(target, action, target.getAttribute("data-id"));
+  document.getElementById("projectName").value = project.name;
+}
+
+const deleteCallback = project => {
+  projectsController.delete(project.name);
+  removeProjFromList(project);
 }
 
 export {
