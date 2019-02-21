@@ -27,6 +27,7 @@ const appendNewProject = project => {
 }
 
 export const generateBtn = (action, project) => {
+  // Assigning 
   let btnType = action === "update" ? "btn-info" : "btn-danger";
   let btnId = action === "update" ? `update-proj-${project.id}` : `delete-proj-${project.id}`;
   let btn = document.createElement("button");
@@ -36,12 +37,17 @@ export const generateBtn = (action, project) => {
   if (action === "update") {
     btn.setAttribute("data-id", `${project.id}`);
   }
+  addBtnEventListeners(btn, project, action);
+  return btn;
+}
+
+// Adding event listeners to btns
+const addBtnEventListeners = (btn, project, action) => {
   btn.addEventListener("click", e => {
     e.stopPropagation();
     // call here function appropriate for type of action
     action === "update" ? updateCallback(e.target, project) : deleteCallback(project);
   });
-  return btn;
 }
 
 const updateCallback = (target, project) => {
