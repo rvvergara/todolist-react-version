@@ -21,33 +21,11 @@ const showProjectList = () => {
 }
 
 const appendNewProject = project => {
-  // Upon appending a new project to ul remove emptyMessage
-  let emptyLi = document.getElementsByClassName("emptyMessage")[0];
-  if (emptyLi !== undefined) {
-    document.getElementsByTagName("ul")[0].removeChild(emptyLi)
-  };
-  // 
+
+  removeEmptyProjMessage();
   let li = document.createElement("li");
   let span = document.createElement("span");
   span.setAttribute("id", `projectSpan-${project.id}`);
-  // let deleteBtn = document.createElement("button");
-  // let updateBtn = document.createElement("button");
-  // deleteBtn.setAttribute("class", "btn btn-sm btn-danger ml-3");
-  // updateBtn.setAttribute("class", "btn btn-sm btn-info ml-3");
-  // deleteBtn.setAttribute("id", `delete-proj-${project.id}`);
-  // updateBtn.setAttribute("id", `update-proj-${project.id}`);
-  // updateBtn.setAttribute("data-id", `${project.id}`);
-  // deleteBtn.innerText = "Delete";
-  // updateBtn.innerText = "Update";
-  // deleteBtn.addEventListener("click", e => {
-  //   e.stopPropagation();
-  //   deleteCallback(project);
-
-  // });
-  // updateBtn.addEventListener("click", e => {
-  //   e.stopPropagation();
-  //   updateCallback(e.target, project);
-  // });
 
   let deleteBtn = generateBtn("delete", project);
   let updateBtn = generateBtn("update", project);
@@ -118,4 +96,12 @@ export const showProjectForm = (target, action, id) => {
 
 export const updateProjectDisplay = (id) => {
 
+};
+
+// Upon appending a new project to ul remove emptyMessage
+const removeEmptyProjMessage = () => {
+  let emptyLi = document.getElementsByClassName("emptyMessage")[0];
+  if (emptyLi !== undefined) {
+    document.getElementsByTagName("ul")[0].removeChild(emptyLi);
+  }
 };
