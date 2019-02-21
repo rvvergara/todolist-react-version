@@ -49,8 +49,8 @@ const appendNewProject = project => {
   //   updateCallback(e.target, project);
   // });
 
-  let deleteBtn = generateBtn("delete");
-  let updateBtn = generateBtn("update");
+  let deleteBtn = generateBtn("delete", project);
+  let updateBtn = generateBtn("update", project);
   li.setAttribute("class", "list-group-item");
   li.setAttribute("id", `projectLi-${project.id}`)
   span.innerText = project.name;
@@ -67,7 +67,7 @@ export const generateBtn = (action, project) => {
   let btn = document.createElement("button");
   btn.setAttribute("class", `btn btn-sm ml-3 ${btnType}`);
   btn.setAttribute("id", btnId);
-  btn.innerText = action.toUppercase();
+  btn.innerText = action;
   if (action === "update") {
     btn.setAttribute("data-id", `${project.id}`);
   }
