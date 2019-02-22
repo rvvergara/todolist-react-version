@@ -47,12 +47,34 @@ const generateProjectLi = project => {
   li.setAttribute("id", `projectLi-${project.id}`)
   span.innerText = project.name;
   li.appendChild(span);
-  li.addEventListener('click', () => showTodoBody(project.name));
+  li.addEventListener('click', () => {
+    let btn = genrateAddTodoBtn(project);
+    if (document.getElementById(`addTodoBtn-${project.id}`) === null) {
+      document.getElementById("todosDiv").appendChild(btn);
+    }
+    showTodoBody(project.name);
+  });
   li.appendChild(deleteBtn);
   li.appendChild(updateBtn);
   document.getElementsByTagName("ul")[0].appendChild(li);
 };
 
+export const genrateAddTodoBtn = project => {
+  let btn = document.createElement("button");
+  btn.setAttribute("class", "btn btn-sm btn-block btn-primary");
+  btn.setAttribute("id", `addTodoBtn-${project.id}`);
+  btn.setAttribute("data-id", project.id);
+  btn.innerText = "Add New Todo";
+  btn.addEventListener("click", e => {
+    e.stopPropagation();
+    let dataId = e.target.getAttribute("data-id");
+    console.log(dataId);
+    e.target.setAttribute("class", "d-none");
+    document.getElementById("todosSection").setAttribute("class", "mt-3");
+    document.getElementById("todosForm").setAttribute("data-id", project.id);
+  });
+  return btn;
+};
 export const generateBtn = (action, project) => {
   let btn = createBtnElement(action, project);
   addBtnEventListeners(btn, project, action);

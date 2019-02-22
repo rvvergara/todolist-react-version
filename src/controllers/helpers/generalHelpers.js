@@ -4,6 +4,10 @@ import {
 } from './showTodoBody';
 
 import todosController from "../todosController";
+
+import {
+  genrateAddTodoBtn
+} from './projectListHelpers';
 // Create projects array
 
 export const createProjectsArray = () => {
@@ -18,12 +22,24 @@ export const createDefaultProject = () => {
     let defaultProject = projectsController.create("Default Project");
   }
 
-  if (localStorage["Default Project"] !== undefined) showTodoBody(JSON.parse(localStorage["Default Project"]).name);
+  if (localStorage["Default Project"] !== undefined) {
+    let defaultProject = JSON.parse(localStorage["Default Project"]);
+    let btn = genrateAddTodoBtn(defaultProject);
+    if (document.getElementById(`addTodoBtn-${defaultProject.id}`) === null) {
+      document.getElementById("todosDiv").appendChild(btn);
+    }
+    showTodoBody(defaultProject.name);
+  };
 
   // For testing
-  let defaultProject = localStorage["Default Project"]
-  if (defaultProject !== undefined && JSON.parse(defaultProject).todos.length === 0) {
+  let defaultProject = JSON.parse(localStorage["Default Project"]);
+  if (defaultProject !== undefined && defaultProject.todos.length === 0) {
     todosController.create("First task", "Basic stuff", new Date().toDateString(), "High", "No notes", "Default Project");
+
+    let btn = genrateAddTodoBtn(defaultProject);
+    if (document.getElementById(`addTodoBtn-${defaultProject.id}`) === null) {
+      document.getElementById("todosDiv").appendChild(btn);
+    }
 
     showTodoBody("Default Project");
   };
