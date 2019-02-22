@@ -36,8 +36,13 @@ export const createDefaultProject = () => {
 
 
 export const generateAddTodoBtn = project => {
+  // If there's an existing addTodoBtn remove it first
   let btn = createAddTodoBtn(project);
   appendAddTodoBtn(btn, project);
+  // Also set to invisible any addTodoForm
+  if (document.getElementById("todosSection").getAttribute("class") !== "d-none") {
+    document.getElementById("todosSection").setAttribute("class", "d-none");
+  }
 };
 
 const createAddTodoBtn = project => {
@@ -56,7 +61,7 @@ const createAddTodoBtn = project => {
 const addTodoClickCallback = (target, project) => {
   let dataId = target.getAttribute("data-id");
   console.log(dataId);
-  target.setAttribute("class", "d-none");
+  document.getElementById("todosDiv").removeChild(target);
   document.getElementById("todosSection").setAttribute("class", "mt-3");
   document.getElementById("todosForm").setAttribute("data-id", project.id);
 }
