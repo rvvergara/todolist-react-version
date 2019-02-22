@@ -52,8 +52,5 @@ document.getElementById("todosForm").addEventListener("submit", e => {
   e.target.reset();
   // e.target.setAttribute("class", "d-none");
   document.getElementById("todosSection").setAttribute("class", "d-none");
-  document.getElementById("todosDiv").removeChild(document.getElementById(`addTodoBtn-${project.id}`));
-  if (document.getElementById(`addTodoBtn-${project.id}`) === null) {
-    generateAddTodoBtn(project);
-  }
+  generateAddTodoBtn(project);
 });
