@@ -1,3 +1,5 @@
+import todosController from "../todosController";
+
 export const showTodoBody = (name) => {
   // Create the parent div 
   let project = JSON.parse(localStorage.getItem(name));
@@ -50,5 +52,17 @@ const createTodoDeleteBtn = () => {
   let todoDeleteBtn = document.createElement("button");
   todoDeleteBtn.setAttribute("class", "btn btn-sm btn-danger mt-1 deleteTodo");
   todoDeleteBtn.innerText = "Delete";
+  addDeleteListenerToBtn(todoDeleteBtn);
   return todoDeleteBtn;
+}
+
+const addDeleteListenerToBtn = btn => {
+  btn.addEventListener("click", e => {
+    e.stopPropagation();
+    let dataID = Number(document.getElementsByClassName("addTodoBtn")[0].getAttribute("data-id"));
+    let project = JSON.parse(localStorage["projectsArray"]).find(x => x.id === dataID);
+    let todoId = e.target.parentNode.parentNode.getAttribute("id");
+    todosController.delete(project.name, todoId);
+    e.target.parentNode.parentNode.parentNode.removeChild(e.target.parentNode.parentNode);
+  });
 }
