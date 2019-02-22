@@ -48,4 +48,7 @@ document.getElementById("todosForm").addEventListener("submit", e => {
   let notes = inputs[3].value;
   todosController.create(title, description, dueDate, priority, notes, project.name);
   console.log("Submitted Todo");
+  e.target.reset();
+  e.target.setAttribute("class", "d-none");
+  document.getElementById(`addTodoBtn-${project.id}`).setAttribute("class", "btn btn-sm btn-block btn-primary addTodoBtn");
 });
