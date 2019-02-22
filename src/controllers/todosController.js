@@ -13,15 +13,14 @@ const todoController = (
         return todo;
       },
       update(project, id) {
-        let todo = project.find(x => x.id == id);
-        let index = project.findIndex(x => x.id == id);
+        let index = project.todos.findIndex(x => x.id == id);
         let inputs = document.getElementsByClassName("todo-form");
         let title = inputs[0].value;
         let description = inputs[1].value;
         let dueDate = new Date(inputs[2].value).toDateString();
         let priority = document.getElementsByTagName("select")[0].value;
         let notes = inputs[3].value;
-        todo = {
+        let todoUpdated = {
           title,
           description,
           dueDate,
@@ -30,7 +29,7 @@ const todoController = (
           project.name,
           id
         };
-        project.todos.splice(index, 1, todo);
+        project.todos.splice(index, 1, todoUpdated);
         localStorage.setItem(project.name, JSON.stringify(project));
       },
       delete(project, id) {
