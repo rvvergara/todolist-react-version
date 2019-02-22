@@ -48,14 +48,7 @@ const generateProjectLi = project => {
   span.innerText = project.name;
   li.appendChild(span);
   li.addEventListener('click', () => {
-    let btn = genrateAddTodoBtn(project);
-    if (document.getElementsByClassName("addTodoBtn")[0] !== undefined) {
-      document.getElementById("todosDiv").removeChild(document.getElementsByClassName("addTodoBtn")[0]);
-    }
-
-    if (document.getElementById(`addTodoBtn-${project.id}`) === null) {
-      document.getElementById("todosDiv").appendChild(btn);
-    }
+    genrateAddTodoBtn(project);
     showTodoBody(project.name);
   });
   li.appendChild(deleteBtn);
@@ -77,7 +70,14 @@ export const genrateAddTodoBtn = project => {
     document.getElementById("todosSection").setAttribute("class", "mt-3");
     document.getElementById("todosForm").setAttribute("data-id", project.id);
   });
-  return btn;
+
+  if (document.getElementsByClassName("addTodoBtn")[0] !== undefined) {
+    document.getElementById("todosDiv").removeChild(document.getElementsByClassName("addTodoBtn")[0]);
+  }
+
+  if (document.getElementById(`addTodoBtn-${project.id}`) === null) {
+    document.getElementById("todosDiv").appendChild(btn);
+  }
 };
 export const generateBtn = (action, project) => {
   let btn = createBtnElement(action, project);

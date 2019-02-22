@@ -1,6 +1,7 @@
 import {
   showProjectList,
-  showProjectForm
+  showProjectForm,
+  genrateAddTodoBtn
 } from "./controllers/helpers/projectListHelpers";
 
 import {
@@ -50,5 +51,5 @@ document.getElementById("todosForm").addEventListener("submit", e => {
   console.log("Submitted Todo");
   e.target.reset();
   e.target.setAttribute("class", "d-none");
-  document.getElementById(`addTodoBtn-${project.id}`).setAttribute("class", "btn btn-sm btn-block btn-primary addTodoBtn");
+  genrateAddTodoBtn(project);
 });

@@ -24,13 +24,8 @@ export const createDefaultProject = () => {
 
   if (localStorage["Default Project"] !== undefined) {
     let defaultProject = JSON.parse(localStorage["Default Project"]);
-    let btn = genrateAddTodoBtn(defaultProject);
-    if (document.getElementsByClassName("addTodoBtn")[0] !== undefined) {
-      document.getElementById("todosDiv").removeChild(document.getElementsByClassName("addTodoBtn")[0]);
-    }
-    if (document.getElementById(`addTodoBtn-${defaultProject.id}`) === null) {
-      document.getElementById("todosDiv").appendChild(btn);
-    }
+    genrateAddTodoBtn(defaultProject);
+
     showTodoBody(defaultProject.name);
   };
 
@@ -39,16 +34,7 @@ export const createDefaultProject = () => {
   if (defaultProject !== undefined && defaultProject.todos.length === 0) {
     todosController.create("First task", "Basic stuff", new Date().toDateString(), "High", "No notes", "Default Project");
 
-    let btn = genrateAddTodoBtn(defaultProject);
-    if (document.getElementsByClassName("addTodoBtn")[0] !== undefined) {
-      document.getElementById("todosDiv").removeChild(document.getElementsByClassName("addTodoBtn")[0]);
-    }
-
-    if (document.getElementById(`addTodoBtn-${defaultProject.id}`) === null) {
-      document.getElementById("todosDiv").appendChild(btn);
-    }
-
+    genrateAddTodoBtn(defaultProject);
     showTodoBody("Default Project");
   };
-
 };
