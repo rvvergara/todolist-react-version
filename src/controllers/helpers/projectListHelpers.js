@@ -71,7 +71,7 @@ export const genrateAddTodoBtn = project => {
     document.getElementById("todosForm").setAttribute("data-id", project.id);
   });
 
-  if (document.getElementsByClassName("addTodoBtn")[0] !== undefined) {
+  if (document.getElementsByClassName("addTodoBtn")[0]) {
     document.getElementById("todosDiv").removeChild(document.getElementsByClassName("addTodoBtn")[0]);
   }
 

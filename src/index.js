@@ -51,5 +51,8 @@ document.getElementById("todosForm").addEventListener("submit", e => {
   console.log("Submitted Todo");
   e.target.reset();
   e.target.setAttribute("class", "d-none");
-  genrateAddTodoBtn(project);
+  document.getElementById("todosDiv").removeChild(document.getElementById(`addTodoBtn-${project.id}`));
+  if (document.getElementById(`addTodoBtn-${project.id}`) === null) {
+    genrateAddTodoBtn(project);
+  }
 });
