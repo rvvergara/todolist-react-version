@@ -42,3 +42,15 @@ document.getElementById("todosForm").addEventListener("submit", e => {
   e.preventDefault();
   submitTodoCallBack(e.target);
 });
+
+// Delete button for todo
+[...document.getElementsByClassName("deleteTodo")].forEach(btn => {
+  btn.addEventListener("click", e => {
+    e.stopPropagation();
+    let dataID = Number(document.getElementsByClassName("addTodoBtn")[0].getAttribute("data-id"));
+    let project = JSON.parse(localStorage["projectsArray"]).find(x => x.id === dataID);
+    let todoId = e.target.parentNode.parentNode.getAttribute("id");
+    console.log(todoId);
+    todosController.delete(project.name, todoId);
+  });
+})

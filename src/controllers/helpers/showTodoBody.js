@@ -26,14 +26,29 @@ const createEmptyTodoMsg = name => {
 
 const createTodoRow = (todoBody, todo) => {
   let tr = document.createElement("tr");
-  let trContent = `
-        <td>${todo.title}</td>
-        <td>${todo.description}</td>
-        <td>${todo.dueDate}</td>
-        <td>${todo.priority}</td>
-        <td>${todo.notes}</td>
-        <td><button class="btn-sm btn btn-primary">Delete</button></td>
-      `;
-  tr.innerHTML = trContent;
+  let todoDeleteBtn = createTodoDeleteBtn();
+  let btnTd = document.createElement("td");
+  btnTd.appendChild(todoDeleteBtn);
+  tr.setAttribute("id", todo.id);
+  createTodoTd(tr, todo.title);
+  createTodoTd(tr, todo.description);
+  createTodoTd(tr, todo.dueDate);
+  createTodoTd(tr, todo.priority);
+  createTodoTd(tr, todo.notes);
+  tr.appendChild(btnTd);
+
   todoBody.appendChild(tr);
 };
+
+const createTodoTd = (tr, todoProp) => {
+  let td = document.createElement("td");
+  td.innerText = todoProp;
+  tr.appendChild(td);
+}
+
+const createTodoDeleteBtn = () => {
+  let todoDeleteBtn = document.createElement("button");
+  todoDeleteBtn.setAttribute("class", "btn btn-sm btn-danger mt-1 deleteTodo");
+  todoDeleteBtn.innerText = "Delete";
+  return todoDeleteBtn;
+}

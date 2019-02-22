@@ -6,5 +6,6 @@ export default class Todo {
     this.priority = priority;
     this.notes = notes;
     this.project = project;
+    this.id = Math.round(Math.random() * 999999999999999999999, 0);
   }
 }
