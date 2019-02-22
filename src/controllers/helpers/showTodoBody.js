@@ -77,7 +77,8 @@ const addUpdateListenerToBtn = btn => {
     tr.parentNode.removeChild(tr);
     let dataID = Number(document.getElementsByClassName("addTodoBtn")[0].getAttribute("data-id"));
     let project = JSON.parse(localStorage["projectsArray"]).find(x => x.id === dataID);
-    showTodoForm(project);
+    let action = "updateTodo"
+    showTodoForm(project, action);
   });
 };
 

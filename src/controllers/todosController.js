@@ -21,13 +21,13 @@ const todoController = (
         let priority = document.getElementsByTagName("select")[0].value;
         let notes = inputs[3].value;
         let todoUpdated = {
-          title,
-          description,
-          dueDate,
-          priority,
-          notes,
-          project.name,
-          id
+          title: title,
+          description: description,
+          dueDate: dueDate,
+          priority: priority,
+          notes: notes,
+          project: project.name,
+          id: id
         };
         project.todos.splice(index, 1, todoUpdated);
         localStorage.setItem(project.name, JSON.stringify(project));

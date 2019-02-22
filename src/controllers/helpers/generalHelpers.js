@@ -46,27 +46,27 @@ export const generateAddTodoBtn = project => {
 
 const createAddTodoBtn = project => {
   let btn = document.createElement("button");
+  let action = "newTodo";
   btn.setAttribute("class", "btn btn-sm btn-block btn-primary addTodoBtn");
   btn.setAttribute("id", `addTodoBtn-${project.id}`);
   btn.setAttribute("data-id", project.id);
   btn.innerText = `Add Todo for ${project.name}`;
   btn.addEventListener("click", e => {
     e.stopPropagation();
-    addTodoClickCallback(e.target, project);
+    addTodoClickCallback(e.target, project, action);
   });
   return btn;
 }
 
-export const addTodoClickCallback = (target, project) => {
+export const addTodoClickCallback = (target, project, action) => {
   document.getElementById("todosDiv").removeChild(target);
-  // document.getElementById("todosSection").setAttribute("class", "mt-3");
-  // document.getElementById("todosForm").setAttribute("data-id", project.id);
-  showTodoForm(project);
+  showTodoForm(project, action);
 };
 
-export const showTodoForm = project => {
+export const showTodoForm = (project, action) => {
   document.getElementById("todosSection").setAttribute("class", "mt-3");
   document.getElementById("todosForm").setAttribute("data-id", project.id);
+  document.getElementById("todosForm").setAttribute("data-action", action);
 }
 
 const appendAddTodoBtn = (btn, project) => {

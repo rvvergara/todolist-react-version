@@ -42,3 +42,5 @@ document.getElementById("todosForm").addEventListener("submit", e => {
   e.preventDefault();
   submitTodoCallBack(e.target);
 });
+
+// Editing a todo
