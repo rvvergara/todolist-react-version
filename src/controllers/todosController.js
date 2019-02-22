@@ -12,7 +12,9 @@ const todoController = (
         localStorage.setItem(project, JSON.stringify(parentProject));
         return todo;
       },
-      update() {},
+      update() {
+
+      },
       delete(project, id) {
         // Extract parent project
         let parentProject = JSON.parse(localStorage.getItem(project));

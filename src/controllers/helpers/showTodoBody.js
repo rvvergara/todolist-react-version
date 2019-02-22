@@ -30,6 +30,8 @@ const createTodoRow = (todoBody, todo) => {
   let tr = document.createElement("tr");
   let todoDeleteBtn = createTodoDeleteBtn();
   let btnTd = document.createElement("td");
+  let todoUpdateBtn = createTodoUpdateBtn();
+  btnTd.appendChild(todoUpdateBtn);
   btnTd.appendChild(todoDeleteBtn);
   tr.setAttribute("id", todo.id);
   createTodoTd(tr, todo.title);
@@ -48,9 +50,16 @@ const createTodoTd = (tr, todoProp) => {
   tr.appendChild(td);
 }
 
+const createTodoUpdateBtn = () => {
+  let todoUpdateBtn = document.createElement("button");
+  todoUpdateBtn.setAttribute("class", "btn btn-sm btn-warning mx-1 updateTodo");
+  todoUpdateBtn.innerText = "Update";
+  return todoUpdateBtn;
+}
+
 const createTodoDeleteBtn = () => {
   let todoDeleteBtn = document.createElement("button");
-  todoDeleteBtn.setAttribute("class", "btn btn-sm btn-danger mt-1 deleteTodo");
+  todoDeleteBtn.setAttribute("class", "btn btn-sm btn-danger mx-1 deleteTodo");
   todoDeleteBtn.innerText = "Delete";
   addDeleteListenerToBtn(todoDeleteBtn);
   return todoDeleteBtn;
