@@ -49,6 +49,10 @@ const generateProjectLi = project => {
   li.appendChild(span);
   li.addEventListener('click', () => {
     let btn = genrateAddTodoBtn(project);
+    if (document.getElementsByClassName("addTodoBtn")[0] !== undefined) {
+      document.getElementById("todosDiv").removeChild(document.getElementsByClassName("addTodoBtn")[0]);
+    }
+
     if (document.getElementById(`addTodoBtn-${project.id}`) === null) {
       document.getElementById("todosDiv").appendChild(btn);
     }
@@ -61,10 +65,10 @@ const generateProjectLi = project => {
 
 export const genrateAddTodoBtn = project => {
   let btn = document.createElement("button");
-  btn.setAttribute("class", "btn btn-sm btn-block btn-primary");
+  btn.setAttribute("class", "btn btn-sm btn-block btn-primary addTodoBtn");
   btn.setAttribute("id", `addTodoBtn-${project.id}`);
   btn.setAttribute("data-id", project.id);
-  btn.innerText = "Add New Todo";
+  btn.innerText = `Add Todo for ${project.name}`;
   btn.addEventListener("click", e => {
     e.stopPropagation();
     let dataId = e.target.getAttribute("data-id");
