@@ -59,8 +59,6 @@ const createAddTodoBtn = project => {
 }
 
 const addTodoClickCallback = (target, project) => {
-  let dataId = target.getAttribute("data-id");
-  console.log(dataId);
   document.getElementById("todosDiv").removeChild(target);
   document.getElementById("todosSection").setAttribute("class", "mt-3");
   document.getElementById("todosForm").setAttribute("data-id", project.id);
