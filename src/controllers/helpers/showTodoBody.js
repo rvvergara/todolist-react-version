@@ -17,19 +17,8 @@ export const showTodoBody = (name) => {
     // Iterate thru each todo and create tr for them
     project.todos.forEach(todo => {
       // Create Add Todo Btn
-      let btn = document.createElement("button");
-      btn.setAttribute("class", "btn btn-sm btn-block btn-primary");
-      btn.setAttribute("id", `addTodoBtn-${project.id}`);
-      btn.setAttribute("data-id", project.id);
-      btn.innerText = "Add New Todo";
-      btn.addEventListener("click", e => {
-        e.stopPropagation();
-        let dataId = e.target.getAttribute("data-id");
-        console.log(dataId);
-        e.target.setAttribute("class", "d-none");
-        document.getElementById("todosSection").setAttribute("class", "mt-3");
-        document.getElementById("todosForm").setAttribute("data-id", project.id);
-      })
+      let btn = genrateAddTodoBtn(project);
+      // 
       // Create tr
       let tr = document.createElement("tr");
       let trContent = `
@@ -42,7 +31,26 @@ export const showTodoBody = (name) => {
       `;
       tr.innerHTML = trContent;
       todoBody.appendChild(tr);
-      document.getElementById("todosDiv").appendChild(btn);
+      if (document.getElementById(`addTodoBtn-${project.id}`) === null) {
+        document.getElementById("todosDiv").appendChild(btn);
+      }
     });
   }
+};
+
+const genrateAddTodoBtn = project => {
+  let btn = document.createElement("button");
+  btn.setAttribute("class", "btn btn-sm btn-block btn-primary");
+  btn.setAttribute("id", `addTodoBtn-${project.id}`);
+  btn.setAttribute("data-id", project.id);
+  btn.innerText = "Add New Todo";
+  btn.addEventListener("click", e => {
+    e.stopPropagation();
+    let dataId = e.target.getAttribute("data-id");
+    console.log(dataId);
+    e.target.setAttribute("class", "d-none");
+    document.getElementById("todosSection").setAttribute("class", "mt-3");
+    document.getElementById("todosForm").setAttribute("data-id", project.id);
+  });
+  return btn;
 };
