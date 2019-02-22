@@ -12,8 +12,26 @@ const todoController = (
         localStorage.setItem(project, JSON.stringify(parentProject));
         return todo;
       },
-      update() {
-
+      update(project, id) {
+        let todo = project.find(x => x.id == id);
+        let index = project.findIndex(x => x.id == id);
+        let inputs = document.getElementsByClassName("todo-form");
+        let title = inputs[0].value;
+        let description = inputs[1].value;
+        let dueDate = new Date(inputs[2].value).toDateString();
+        let priority = document.getElementsByTagName("select")[0].value;
+        let notes = inputs[3].value;
+        todo = {
+          title,
+          description,
+          dueDate,
+          priority,
+          notes,
+          project.name,
+          id
+        };
+        project.todos.splice(index, 1, todo);
+        localStorage.setItem(project.name, JSON.stringify(project));
       },
       delete(project, id) {
         // Extract parent project

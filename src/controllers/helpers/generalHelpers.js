@@ -57,8 +57,14 @@ const createAddTodoBtn = project => {
   return btn;
 }
 
-const addTodoClickCallback = (target, project) => {
+export const addTodoClickCallback = (target, project) => {
   document.getElementById("todosDiv").removeChild(target);
+  // document.getElementById("todosSection").setAttribute("class", "mt-3");
+  // document.getElementById("todosForm").setAttribute("data-id", project.id);
+  showTodoForm(project);
+};
+
+export const showTodoForm = project => {
   document.getElementById("todosSection").setAttribute("class", "mt-3");
   document.getElementById("todosForm").setAttribute("data-id", project.id);
 }

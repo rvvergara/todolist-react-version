@@ -1,5 +1,9 @@
 import todosController from "../todosController";
 
+import {
+  showTodoForm
+} from './generalHelpers';
+
 export const showTodoBody = (name) => {
   // Create the parent div 
   let project = JSON.parse(localStorage.getItem(name));
@@ -33,7 +37,7 @@ const createTodoRow = (todoBody, todo) => {
   let todoUpdateBtn = createTodoUpdateBtn();
   btnTd.appendChild(todoUpdateBtn);
   btnTd.appendChild(todoDeleteBtn);
-  tr.setAttribute("id", todo.id);
+  // tr.setAttribute("id", todo.id);
   createTodoTd(tr, todo.title);
   createTodoTd(tr, todo.description);
   createTodoTd(tr, todo.dueDate);
@@ -54,6 +58,7 @@ const createTodoUpdateBtn = () => {
   let todoUpdateBtn = document.createElement("button");
   todoUpdateBtn.setAttribute("class", "btn btn-sm btn-warning mx-1 updateTodo");
   todoUpdateBtn.innerText = "Update";
+  addUpdateListenerToBtn(todoUpdateBtn);
   return todoUpdateBtn;
 }
 
@@ -64,6 +69,17 @@ const createTodoDeleteBtn = () => {
   addDeleteListenerToBtn(todoDeleteBtn);
   return todoDeleteBtn;
 }
+
+const addUpdateListenerToBtn = btn => {
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    let tr = e.target.parentNode.parentNode;
+    tr.parentNode.removeChild(tr);
+    let dataID = Number(document.getElementsByClassName("addTodoBtn")[0].getAttribute("data-id"));
+    let project = JSON.parse(localStorage["projectsArray"]).find(x => x.id === dataID);
+    showTodoForm(project);
+  });
+};
 
 const addDeleteListenerToBtn = btn => {
   btn.addEventListener("click", e => {
