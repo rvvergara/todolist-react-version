@@ -43,7 +43,7 @@ document.getElementById("todosForm").addEventListener("submit", e => {
   let projectsArray = JSON.parse(localStorage["projectsArray"]);
   let index = Number(e.target.getAttribute("data-id"));
   let project = projectsArray.find(x => x.id === index);
-  let todoData = getTodoDataFromForm(e.target, project.name);
+  let todoData = getTodoDataFromForm(project.name);
   todosController.create(...todoData);
   e.target.reset();
   document.getElementById("todosSection").setAttribute("class", "d-none");
@@ -52,7 +52,7 @@ document.getElementById("todosForm").addEventListener("submit", e => {
 });
 
 
-const getTodoDataFromForm = (target, name) => {
+const getTodoDataFromForm = (name) => {
   let inputs = document.getElementsByClassName("todo-form");
   let title = inputs[0].value;
   let description = inputs[1].value;
