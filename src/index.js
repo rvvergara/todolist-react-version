@@ -40,17 +40,20 @@ document.getElementById("addProjBtn").addEventListener("click", e => {
 // Adding a new todo into a project
 document.getElementById("todosForm").addEventListener("submit", e => {
   e.preventDefault();
+  submitTodoCallBack(e.target);
+});
+
+const submitTodoCallBack = target => {
   let projectsArray = JSON.parse(localStorage["projectsArray"]);
-  let index = Number(e.target.getAttribute("data-id"));
+  let index = Number(target.getAttribute("data-id"));
   let project = projectsArray.find(x => x.id === index);
   let todoData = getTodoDataFromForm(project.name);
   todosController.create(...todoData);
-  e.target.reset();
+  target.reset();
   document.getElementById("todosSection").setAttribute("class", "d-none");
   showTodoBody(project.name);
   generateAddTodoBtn(project);
-});
-
+}
 
 const getTodoDataFromForm = (name) => {
   let inputs = document.getElementsByClassName("todo-form");
