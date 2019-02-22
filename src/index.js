@@ -1,7 +1,6 @@
 import {
   showProjectList,
-  showProjectForm,
-  genrateAddTodoBtn
+  showProjectForm
 } from "./controllers/helpers/projectListHelpers";
 
 import {
@@ -10,7 +9,8 @@ import {
 
 import {
   createProjectsArray,
-  createDefaultProject
+  createDefaultProject,
+  generateAddTodoBtn
 } from './controllers/helpers/generalHelpers';
 
 import todosController from "./controllers/todosController"
@@ -54,6 +54,6 @@ document.getElementById("todosForm").addEventListener("submit", e => {
   document.getElementById("todosSection").setAttribute("class", "d-none");
   document.getElementById("todosDiv").removeChild(document.getElementById(`addTodoBtn-${project.id}`));
   if (document.getElementById(`addTodoBtn-${project.id}`) === null) {
-    genrateAddTodoBtn(project);
+    generateAddTodoBtn(project);
   }
 });

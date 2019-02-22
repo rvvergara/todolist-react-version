@@ -3,6 +3,10 @@ import {
 } from './showTodoBody';
 import projectsController from "../projectsController"
 
+import {
+  generateAddTodoBtn
+} from "./generalHelpers"
+
 export const showProjectList = () => {
   // show project list only if there are projects in the projectsArray
   let projectsArray = JSON.parse(localStorage.getItem("projectsArray"));
@@ -48,7 +52,7 @@ const generateProjectLi = project => {
   span.innerText = project.name;
   li.appendChild(span);
   li.addEventListener('click', () => {
-    genrateAddTodoBtn(project);
+    generateAddTodoBtn(project);
     showTodoBody(project.name);
   });
   li.appendChild(deleteBtn);
@@ -56,29 +60,6 @@ const generateProjectLi = project => {
   document.getElementsByTagName("ul")[0].appendChild(li);
 };
 
-export const genrateAddTodoBtn = project => {
-  let btn = document.createElement("button");
-  btn.setAttribute("class", "btn btn-sm btn-block btn-primary addTodoBtn");
-  btn.setAttribute("id", `addTodoBtn-${project.id}`);
-  btn.setAttribute("data-id", project.id);
-  btn.innerText = `Add Todo for ${project.name}`;
-  btn.addEventListener("click", e => {
-    e.stopPropagation();
-    let dataId = e.target.getAttribute("data-id");
-    console.log(dataId);
-    e.target.setAttribute("class", "d-none");
-    document.getElementById("todosSection").setAttribute("class", "mt-3");
-    document.getElementById("todosForm").setAttribute("data-id", project.id);
-  });
-
-  if (document.getElementsByClassName("addTodoBtn")[0]) {
-    document.getElementById("todosDiv").removeChild(document.getElementsByClassName("addTodoBtn")[0]);
-  }
-
-  if (document.getElementById(`addTodoBtn-${project.id}`) === null) {
-    document.getElementById("todosDiv").appendChild(btn);
-  }
-};
 export const generateBtn = (action, project) => {
   let btn = createBtnElement(action, project);
   addBtnEventListeners(btn, project, action);

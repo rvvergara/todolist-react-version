@@ -5,11 +5,6 @@ import {
 
 import todosController from "../todosController";
 
-import {
-  genrateAddTodoBtn
-} from './projectListHelpers';
-// Create projects array
-
 export const createProjectsArray = () => {
   if (localStorage.getItem("projectsArray") === null) {
     let projectsArray = [];
@@ -24,7 +19,7 @@ export const createDefaultProject = () => {
 
   if (localStorage["Default Project"] !== undefined) {
     let defaultProject = JSON.parse(localStorage["Default Project"]);
-    genrateAddTodoBtn(defaultProject);
+    generateAddTodoBtn(defaultProject);
 
     showTodoBody(defaultProject.name);
   };
@@ -34,7 +29,44 @@ export const createDefaultProject = () => {
   if (defaultProject !== undefined && defaultProject.todos.length === 0) {
     todosController.create("First task", "Basic stuff", new Date().toDateString(), "High", "No notes", "Default Project");
 
-    genrateAddTodoBtn(defaultProject);
+    generateAddTodoBtn(defaultProject);
     showTodoBody("Default Project");
   };
 };
+
+
+export const generateAddTodoBtn = project => {
+  let btn = createAddTodoBtn(project);
+  appendAddTodoBtn(btn, project);
+};
+
+const createAddTodoBtn = project => {
+  let btn = document.createElement("button");
+  btn.setAttribute("class", "btn btn-sm btn-block btn-primary addTodoBtn");
+  btn.setAttribute("id", `addTodoBtn-${project.id}`);
+  btn.setAttribute("data-id", project.id);
+  btn.innerText = `Add Todo for ${project.name}`;
+  btn.addEventListener("click", e => {
+    e.stopPropagation();
+    addTodoClickCallback(e.target, project);
+  });
+  return btn;
+}
+
+const addTodoClickCallback = (target, project) => {
+  let dataId = target.getAttribute("data-id");
+  console.log(dataId);
+  target.setAttribute("class", "d-none");
+  document.getElementById("todosSection").setAttribute("class", "mt-3");
+  document.getElementById("todosForm").setAttribute("data-id", project.id);
+}
+
+const appendAddTodoBtn = (btn, project) => {
+  if (document.getElementsByClassName("addTodoBtn")[0]) {
+    document.getElementById("todosDiv").removeChild(document.getElementsByClassName("addTodoBtn")[0]);
+  }
+
+  if (document.getElementById(`addTodoBtn-${project.id}`) === null) {
+    document.getElementById("todosDiv").appendChild(btn);
+  }
+}
