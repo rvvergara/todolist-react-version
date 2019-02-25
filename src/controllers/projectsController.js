@@ -7,30 +7,38 @@ const projectsController = (
       create(name) {
         if (name === "") name = "Project Name (Please customize name)";
         let project = new Project(name);
-        localStorage.setItem(name, JSON.stringify(project));
+        // localStorage.setItem(name, JSON.stringify(project));
+        saveToLocalStorage(name, project);
         projectsArray.push(project);
-        localStorage.setItem("projectsArray", JSON.stringify(projectsArray));
+        saveToLocalStorage("projectsArray", projectsArray);
         return project;
       },
       update(id) {
-        let project = projectsArray.find(x => x.id === id);
+        let oldProjectName = projectsArray.find(x => x.id === id).name;
+        let oldProject = JSON.parse(localStorage[oldProjectName]);
+        let project = JSON.parse(localStorage[oldProject.name]);
         let index = projectsArray.findIndex(x => x.name === project.name);
         project.name = document.getElementById("projectName").value;
+        project.todos = oldProject.todos.slice();
         projectsArray.splice(index, 1, project);
-        localStorage.setItem(project.name, JSON.stringify(project));
-        localStorage.setItem("projectsArray", JSON.stringify(projectsArray));
+        saveToLocalStorage(project.name, project);
+        saveToLocalStorage("projectsArray", projectsArray);
+        localStorage.removeItem(oldProject.name);
         return project;
       },
       delete(name) {
-        // let projectsArray = JSON.parse(localStorage.getItem("projectsArray"));
         let project = JSON.parse(localStorage.getItem(name));
         let index = projectsArray.findIndex(x => x.name === project.name);
         localStorage.removeItem(name);
         projectsArray.splice(index, 1);
-        localStorage.setItem("projectsArray", JSON.stringify(projectsArray));
+        saveToLocalStorage("projectsArray", projectsArray);
       }
     };
   }
 )();
+
+const saveToLocalStorage = (name, value) => {
+  localStorage.setItem(name, JSON.stringify(value));
+}
 
 export default projectsController;
