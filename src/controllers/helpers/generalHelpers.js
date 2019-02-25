@@ -23,15 +23,6 @@ export const createDefaultProject = () => {
 
     showTodoBody(defaultProject.name);
   };
-
-  // For testing
-  let defaultProject = JSON.parse(localStorage["Default Project"]);
-  if (defaultProject !== undefined && defaultProject.todos.length === 0) {
-    todosController.create("First task", "Basic stuff", new Date().toDateString(), "High", "No notes", "Default Project");
-
-    generateAddTodoBtn(defaultProject);
-    showTodoBody("Default Project");
-  };
 };
 
 export const generateAddTodoBtn = project => {

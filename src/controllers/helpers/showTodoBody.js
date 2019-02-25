@@ -10,7 +10,7 @@ export const showTodoBody = (name) => {
   let todoBody = document.getElementById("todoBody");
   todoBody.innerHTML = "";
   // Create the table if there is already a todo in the project
-  if (project.todos.length === 0) {
+  if (project === null || project.todos.length === 0) {
     createEmptyTodoMsg(name);
   } else {
     // Remove class d-none for table
