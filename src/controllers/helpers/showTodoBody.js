@@ -34,7 +34,7 @@ const createTodoRow = (todoBody, todo) => {
   let tr = document.createElement("tr");
   let todoDeleteBtn = createTodoDeleteBtn();
   let btnTd = document.createElement("td");
-  let todoUpdateBtn = createTodoUpdateBtn();
+  let todoUpdateBtn = createTodoUpdateBtn(todo.id);
   btnTd.appendChild(todoUpdateBtn);
   btnTd.appendChild(todoDeleteBtn);
   // tr.setAttribute("id", todo.id);
@@ -54,9 +54,10 @@ const createTodoTd = (tr, todoProp) => {
   tr.appendChild(td);
 }
 
-const createTodoUpdateBtn = () => {
+const createTodoUpdateBtn = (id) => {
   let todoUpdateBtn = document.createElement("button");
   todoUpdateBtn.setAttribute("class", "btn btn-sm btn-warning mx-1 updateTodo");
+  todoUpdateBtn.setAttribute("id", id);
   todoUpdateBtn.innerText = "Update";
   addUpdateListenerToBtn(todoUpdateBtn);
   return todoUpdateBtn;
@@ -76,9 +77,24 @@ const addUpdateListenerToBtn = btn => {
     let tr = e.target.parentNode.parentNode;
     tr.parentNode.removeChild(tr);
     let dataID = Number(document.getElementsByClassName("addTodoBtn")[0].getAttribute("data-id"));
-    let project = JSON.parse(localStorage["projectsArray"]).find(x => x.id === dataID);
+    let projectName = JSON.parse(localStorage["projectsArray"]).find(x => x.id === dataID).name;
+    let todoId = e.target.getAttribute("id");
+    let project = JSON.parse(localStorage[projectName]);
+    console.log(project.todos);
     let action = "updateTodo"
     showTodoForm(project, action);
+
+    // Pre-fill up form with current values
+    let todo = project.todos.find(x => x.id == todoId);
+    let todoIndex = project.todos.findIndex(x => x.id == todoId);
+    let inputs = document.getElementsByClassName("todo-form");
+    let currentDueDate = new Date(todo.dueDate);
+    console.log(`${currentDueDate.getFullYear()}-${currentDueDate.getMonth() + 1}-${currentDueDate.getDate()}`);
+    inputs[0].value = todo.title;
+    inputs[1].value = todo.description;
+    inputs[2].value = `${currentDueDate.getFullYear()}-0${currentDueDate.getMonth() + 1}-${currentDueDate.getDate()}`;
+    document.getElementsByTagName("select")[0].value = todo.priority;
+    inputs[3].value = todo.notes;
   });
 };
 
