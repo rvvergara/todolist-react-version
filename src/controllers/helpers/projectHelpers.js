@@ -106,7 +106,6 @@ export const showProjectForm = (target, action, id) => {
 };
 
 const deleteCallback = project => {
-  console.log(project);
   projectsController.delete(project.name);
   removeProjFromList(project);
 };
