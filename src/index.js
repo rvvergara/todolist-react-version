@@ -13,34 +13,26 @@ import {
   submitTodoCallBack,
 } from './controllers/helpers/generalHelpers';
 
-import todosController from "./controllers/todosController"
-
-import {
-  showTodoBody
-} from "./controllers/helpers/showTodoBody";
-
 createProjectsArray();
 createDefaultProject();
 showProjectList();
 
 // For refactor:
+// Adding event listener to Project Form
 document.getElementById("projectNameForm").addEventListener('submit', e => {
   e.preventDefault();
   submitProjectForm(e.target);
 });
 
-
-// Logic for Add New Project Button
+// Adding event listener to Add Project Btn
 document.getElementById("addProjBtn").addEventListener("click", e => {
   let action = "new";
   showProjectForm(e.target, action);
 });
 
 
-// Adding a new todo into a project
+// Event submit event listener for submitting todo form
 document.getElementById("todosForm").addEventListener("submit", e => {
   e.preventDefault();
   submitTodoCallBack(e.target);
 });
-
-// Editing a todo

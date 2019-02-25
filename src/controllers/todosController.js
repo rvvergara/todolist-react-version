@@ -16,14 +16,14 @@ const todoController = (
       },
       update(project, id, projectName) {
         let index = project.todos.findIndex(x => x.id == id);
-        let updatedTodoData = getTodoDataFromForm(projectName);
+        let [title, description, dueDate, priority, notes, project] = getTodoDataFromForm(projectName);
         let todoUpdated = {
-          title: updatedTodoData[0],
-          description: updatedTodoData[1],
-          dueDate: updatedTodoData[2],
-          priority: updatedTodoData[3],
-          notes: updatedTodoData[4],
-          project: updatedTodoData[5],
+          title,
+          description,
+          dueDate,
+          priority,
+          notes,
+          project,
           id: id
         };
         project.todos.splice(index, 1, todoUpdated);
