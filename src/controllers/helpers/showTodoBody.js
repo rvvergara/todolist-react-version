@@ -53,7 +53,7 @@ const createTodoRow = (todoBody, todo) => {
 const createTodoTd = (tr, todoProp) => {
   let td = document.createElement("td");
   if (typeof todoProp == "boolean") {
-    td.innerHTML = `<input type="checkbox" value=false> Done?`
+    td.innerHTML = `<input type="checkbox" class="todoStatus" value=false> Done?`
   } else {
     td.innerText = todoProp;
   }
