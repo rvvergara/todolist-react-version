@@ -44,6 +44,7 @@ const createTodoRow = (todoBody, todo) => {
   createTodoTd(tr, todo.dueDate);
   createTodoTd(tr, todo.priority);
   createTodoTd(tr, todo.notes);
+  createTodoTd(tr, todo.done);
   tr.appendChild(btnTd);
 
   todoBody.appendChild(tr);
@@ -51,7 +52,11 @@ const createTodoRow = (todoBody, todo) => {
 
 const createTodoTd = (tr, todoProp) => {
   let td = document.createElement("td");
-  td.innerText = todoProp;
+  if (typeof todoProp == "boolean") {
+    td.innerHTML = `<input type="checkbox" value=false> Done?`
+  } else {
+    td.innerText = todoProp;
+  }
   tr.appendChild(td);
 }
 
