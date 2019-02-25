@@ -33,12 +33,12 @@ const createEmptyTodoMsg = name => {
 const createTodoRow = (todoBody, todo, project) => {
   let tr = document.createElement("tr");
   tr.setAttribute("id", todo.id);
+  if (todo.done) tr.setAttribute("class", "strikeout");
   let todoDeleteBtn = createTodoDeleteBtn();
   let btnTd = document.createElement("td");
   let todoUpdateBtn = createTodoUpdateBtn(todo.id);
   btnTd.appendChild(todoUpdateBtn);
   btnTd.appendChild(todoDeleteBtn);
-  // tr.setAttribute("id", todo.id);
   createTodoTd(tr, todo.title);
   createTodoTd(tr, todo.description);
   createTodoTd(tr, todo.dueDate);
