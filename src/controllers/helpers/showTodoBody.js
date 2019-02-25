@@ -57,6 +57,7 @@ const createTodoTd = (tr, todoProp, todo, project) => {
   if (typeof todoProp === "boolean") {
     let inputDone = document.createElement("input");
     inputDone.setAttribute("type", "checkbox");
+    if (todo.done) inputDone.setAttribute("checked", true);
     inputDone.setAttribute("value", todoProp);
     inputDone.addEventListener("change", e => {
       e.stopPropagation();
