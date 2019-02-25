@@ -27,7 +27,7 @@ const projectsController = (
         return project;
       },
       delete(name) {
-        let project = JSON.parse(localStorage.getItem(name));
+        let project = JSON.parse(localStorage[name]);
         let index = projectsArray.findIndex(x => x.name === project.name);
         localStorage.removeItem(name);
         projectsArray.splice(index, 1);
@@ -39,6 +39,6 @@ const projectsController = (
 
 const saveToLocalStorage = (name, value) => {
   localStorage.setItem(name, JSON.stringify(value));
-}
+};
 
 export default projectsController;

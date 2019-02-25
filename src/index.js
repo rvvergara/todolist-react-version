@@ -1,7 +1,8 @@
 import {
   showProjectList,
   showProjectForm
-} from "./controllers/helpers/projectListHelpers";
+}
+from "./controllers/helpers/projectHelpers";
 
 import {
   submitProjectForm

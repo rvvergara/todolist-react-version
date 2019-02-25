@@ -1,7 +1,7 @@
 import projectsController from "../projectsController";
 import {
   appendNewProject
-} from "./projectListHelpers";
+} from "./projectHelpers";
 
 export const submitProjectForm = target => {
   let name = document.getElementById("projectName").value;

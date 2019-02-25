@@ -1,7 +1,7 @@
 import {
   showTodoBody
 } from './showTodoBody';
-import projectsController from "../projectsController"
+import projectsController from "../projectsController";
 
 import {
   generateAddTodoBtn
