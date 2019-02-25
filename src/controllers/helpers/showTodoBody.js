@@ -81,16 +81,14 @@ const addUpdateListenerToBtn = btn => {
     let projectName = JSON.parse(localStorage["projectsArray"]).find(x => x.id === dataID).name;
     let todoId = e.target.getAttribute("id");
     let project = JSON.parse(localStorage[projectName]);
-    console.log(project.todos);
-    let action = "updateTodo"
-    showTodoForm(project, action);
+    let action = "updateTodo";
+    showTodoForm(project, action, todoId);
 
     // Pre-fill up form with current values
     let todo = project.todos.find(x => x.id == todoId);
     let todoIndex = project.todos.findIndex(x => x.id == todoId);
     let inputs = document.getElementsByClassName("todo-form");
     let currentDueDate = new Date(todo.dueDate);
-    console.log(`${currentDueDate.getFullYear()}-${currentDueDate.getMonth() + 1}-${currentDueDate.getDate()}`);
     inputs[0].value = todo.title;
     inputs[1].value = todo.description;
     inputs[2].value = `${currentDueDate.getFullYear()}-0${currentDueDate.getMonth() + 1}-${currentDueDate.getDate()}`;

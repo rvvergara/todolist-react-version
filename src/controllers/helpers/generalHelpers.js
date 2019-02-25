@@ -63,9 +63,13 @@ export const addTodoClickCallback = (target, project, action) => {
   showTodoForm(project, action);
 };
 
-export const showTodoForm = (project, action) => {
+export const showTodoForm = (project, action, todoId) => {
+  let todoForm = document.getElementById("todosForm");
+  if (todoId !== undefined) {
+    todoForm.setAttribute("data-update", todoId);
+  }
   document.getElementById("todosSection").setAttribute("class", "mt-3");
-  document.getElementById("todosForm").setAttribute("data-id", project.id);
+  todoForm.setAttribute("data-id", project.id);
   document.getElementById("todosForm").setAttribute("data-action", action);
 }
 
@@ -84,14 +88,28 @@ export const submitTodoCallBack = target => {
   let index = Number(target.getAttribute("data-id"));
   let project = projectsArray.find(x => x.id === index);
   let todoData = getTodoDataFromForm(project.name);
-  todosController.create(...todoData);
+  let dataAction = target.getAttribute("data-action");
+  if (dataAction === "newTodo") {
+    todosController.create(...todoData);
+  } else {
+    updateTodo(target);
+  }
+
   target.reset();
   document.getElementById("todosSection").setAttribute("class", "d-none");
   showTodoBody(project.name);
   generateAddTodoBtn(project);
 }
 
-const getTodoDataFromForm = (name) => {
+const updateTodo = target => {
+  let todoId = Number(target.getAttribute('data-update'));
+  let dataID = Number(document.getElementsByClassName("addTodoBtn")[0].getAttribute("data-id"));
+  let projectName = JSON.parse(localStorage["projectsArray"]).find(x => x.id === dataID).name;
+  let project = JSON.parse(localStorage[projectName]);
+  todosController.update(project, todoId, projectName);
+}
+
+export const getTodoDataFromForm = (name) => {
   let inputs = document.getElementsByClassName("todo-form");
   let title = inputs[0].value;
   let description = inputs[1].value;

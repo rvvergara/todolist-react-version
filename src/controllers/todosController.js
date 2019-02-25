@@ -1,5 +1,7 @@
-import Todo from "../models/todo"
-
+import Todo from "../models/todo";
+import {
+  getTodoDataFromForm
+} from "./helpers/generalHelpers";
 const todoController = (
   () => {
     return {
@@ -12,21 +14,16 @@ const todoController = (
         localStorage.setItem(project, JSON.stringify(parentProject));
         return todo;
       },
-      update(project, id) {
+      update(project, id, projectName) {
         let index = project.todos.findIndex(x => x.id == id);
-        let inputs = document.getElementsByClassName("todo-form");
-        let title = inputs[0].value;
-        let description = inputs[1].value;
-        let dueDate = new Date(inputs[2].value).toDateString();
-        let priority = document.getElementsByTagName("select")[0].value;
-        let notes = inputs[3].value;
+        let updatedTodoData = getTodoDataFromForm(projectName);
         let todoUpdated = {
-          title: title,
-          description: description,
-          dueDate: dueDate,
-          priority: priority,
-          notes: notes,
-          project: project.name,
+          title: updatedTodoData[0],
+          description: updatedTodoData[1],
+          dueDate: updatedTodoData[2],
+          priority: updatedTodoData[3],
+          notes: updatedTodoData[4],
+          project: updatedTodoData[5],
           id: id
         };
         project.todos.splice(index, 1, todoUpdated);
@@ -37,7 +34,6 @@ const todoController = (
         let parentProject = JSON.parse(localStorage.getItem(project));
         // Find todo from name
         let todoIndex = parentProject.todos.findIndex(x => x.id == id);
-        console.log(todoIndex);
         // Splice project
         parentProject.todos.splice(todoIndex, 1);
         localStorage.setItem(project, JSON.stringify(parentProject));
