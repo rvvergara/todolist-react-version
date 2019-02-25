@@ -5,25 +5,7 @@ import {
 
 import todosController from "../todosController";
 
-export const createProjectsArray = () => {
-  if (localStorage.getItem("projectsArray") === null) {
-    let projectsArray = [];
-    localStorage.setItem("projectsArray", JSON.stringify(projectsArray));
-  }
-};
 
-export const createDefaultProject = () => {
-  if (localStorage["projectCount"] === "0") {
-    let defaultProject = projectsController.create("Default Project");
-  }
-
-  if (localStorage["Default Project"] !== undefined) {
-    let defaultProject = JSON.parse(localStorage["Default Project"]);
-    generateAddTodoBtn(defaultProject);
-
-    showTodoBody(defaultProject.name);
-  };
-};
 
 export const generateAddTodoBtn = project => {
   // If there's an existing addTodoBtn remove it first

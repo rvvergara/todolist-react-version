@@ -81,8 +81,11 @@ const createBtnElement = (action, project) => {
 
 // Adding event listeners to btns
 const addBtnEventListeners = (btn, project, action) => {
+
   btn.addEventListener("click", e => {
     e.stopPropagation();
+    let projectId = project.id;
+    project = JSON.parse(localStorage.projectsArray).find(x => x.id === projectId);
     // call here function appropriate for type of action
     action === "update" ? updateCallback(e.target, project) : deleteCallback(project);
   });
@@ -103,6 +106,7 @@ export const showProjectForm = (target, action, id) => {
 };
 
 const deleteCallback = project => {
+  console.log(project);
   projectsController.delete(project.name);
   removeProjFromList(project);
 };
@@ -119,4 +123,26 @@ const removeProjFromList = project => {
     li.innerText = "No projects yet, create one";
     document.getElementsByTagName("ul")[0].appendChild(li);
   }
+};
+
+// Generel helpers || Create default projects
+
+export const createProjectsArray = () => {
+  if (localStorage.getItem("projectsArray") === null) {
+    let projectsArray = [];
+    localStorage.setItem("projectsArray", JSON.stringify(projectsArray));
+  }
+};
+
+export const createDefaultProject = () => {
+  if (localStorage["projectCount"] === "0") {
+    let defaultProject = projectsController.create("Default Project");
+  }
+
+  if (localStorage["Default Project"] !== undefined) {
+    let defaultProject = JSON.parse(localStorage["Default Project"]);
+    generateAddTodoBtn(defaultProject);
+
+    showTodoBody(defaultProject.name);
+  };
 };

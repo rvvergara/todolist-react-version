@@ -1,6 +1,8 @@
 import {
   showProjectList,
-  showProjectForm
+  showProjectForm,
+  createProjectsArray,
+  createDefaultProject,
 }
 from "./controllers/helpers/projectHelpers";
 
@@ -9,8 +11,7 @@ import {
 } from "./controllers/helpers/formHelpers";
 
 import {
-  createProjectsArray,
-  createDefaultProject,
+
   submitTodoCallBack,
 } from './controllers/helpers/generalHelpers';
 
