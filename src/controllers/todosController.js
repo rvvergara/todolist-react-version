@@ -23,7 +23,7 @@ const todoController = (
           dueDate,
           priority,
           notes,
-          project,
+          project: name,
           id: id
         };
         project.todos.splice(index, 1, todoUpdated);
