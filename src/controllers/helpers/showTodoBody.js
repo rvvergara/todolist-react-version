@@ -61,8 +61,12 @@ const createTodoTd = (tr, todoProp, todo, project) => {
     inputDone.setAttribute("value", todoProp);
     inputDone.addEventListener("change", e => {
       e.stopPropagation();
-      e.target.parentNode.parentNode.setAttribute("class", "strikeout");
       todo.done = !todo.done;
+      if (todo.done) {
+        e.target.parentNode.parentNode.setAttribute("class", "strikeout");
+      } else {
+        e.target.parentNode.parentNode.removeAttribute("class");
+      }
 
       let todoStatus = todo.done;
       e.target.setAttribute("value", todoStatus);
