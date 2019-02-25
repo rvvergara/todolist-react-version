@@ -32,6 +32,7 @@ const createEmptyTodoMsg = name => {
 
 const createTodoRow = (todoBody, todo) => {
   let tr = document.createElement("tr");
+  tr.setAttribute("id", todo.id);
   let todoDeleteBtn = createTodoDeleteBtn();
   let btnTd = document.createElement("td");
   let todoUpdateBtn = createTodoUpdateBtn(todo.id);

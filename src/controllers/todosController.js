@@ -37,6 +37,7 @@ const todoController = (
         let parentProject = JSON.parse(localStorage.getItem(project));
         // Find todo from name
         let todoIndex = parentProject.todos.findIndex(x => x.id == id);
+        console.log(todoIndex);
         // Splice project
         parentProject.todos.splice(todoIndex, 1);
         localStorage.setItem(project, JSON.stringify(parentProject));
