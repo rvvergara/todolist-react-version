@@ -107,6 +107,7 @@ export const getTodoDataFromForm = (name) => {
   let dueDate = new Date(inputs[2].value).toDateString();
   let priority = document.getElementsByTagName("select")[0].value;
   let notes = inputs[3].value;
+  // let done = 
   return [
     title,
     description,

@@ -17,7 +17,7 @@ export const showTodoBody = (name) => {
     document.getElementsByTagName("table")[0].setAttribute("class", "table table-striped");
     // Iterate thru each todo and create tr for them
     project.todos.forEach(todo => {
-      createTodoRow(todoBody, todo);
+      createTodoRow(todoBody, todo, project);
     });
   }
 };
@@ -30,7 +30,7 @@ const createEmptyTodoMsg = name => {
   document.getElementById("todoBody").appendChild(emptyTodoMessage);
 };
 
-const createTodoRow = (todoBody, todo) => {
+const createTodoRow = (todoBody, todo, project) => {
   let tr = document.createElement("tr");
   tr.setAttribute("id", todo.id);
   let todoDeleteBtn = createTodoDeleteBtn();
@@ -44,16 +44,33 @@ const createTodoRow = (todoBody, todo) => {
   createTodoTd(tr, todo.dueDate);
   createTodoTd(tr, todo.priority);
   createTodoTd(tr, todo.notes);
-  createTodoTd(tr, todo.done);
+  createTodoTd(tr, todo.done, todo, project);
   tr.appendChild(btnTd);
 
   todoBody.appendChild(tr);
 };
 
-const createTodoTd = (tr, todoProp) => {
+const createTodoTd = (tr, todoProp, todo, project) => {
+
+
   let td = document.createElement("td");
-  if (typeof todoProp == "boolean") {
-    td.innerHTML = `<input type="checkbox" class="todoStatus" value=false> Done?`
+  if (typeof todoProp === "boolean") {
+    let inputDone = document.createElement("input");
+    inputDone.setAttribute("type", "checkbox");
+    inputDone.setAttribute("value", todoProp);
+    inputDone.addEventListener("change", e => {
+      e.stopPropagation();
+      e.target.parentNode.parentNode.setAttribute("class", "strikeout");
+      todo.done = !todo.done;
+
+      let todoStatus = todo.done;
+      e.target.setAttribute("value", todoStatus);
+      let index = project.todos.findIndex(x => x.id === todo.id);
+      project.todos.splice(index, 1, todo);
+      localStorage.setItem(project.name, JSON.stringify(project));
+
+    });
+    td.appendChild(inputDone);
   } else {
     td.innerText = todoProp;
   }
