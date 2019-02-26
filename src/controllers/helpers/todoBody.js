@@ -67,7 +67,7 @@ const createTodoTd = (tr, todoProp, todo, project) => {
       } else {
         e.target.parentNode.parentNode.removeAttribute("class");
       }
-
+      [...(e.target.parentNode.parentNode.childNodes[6].childNodes)].forEach(node => node.toggleAttribute("disabled"));
       let todoStatus = todo.done;
       e.target.setAttribute("value", todoStatus);
       let index = project.todos.findIndex(x => x.id === todo.id);
