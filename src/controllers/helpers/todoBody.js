@@ -39,12 +39,14 @@ const createTodoRow = (todoBody, todo, project) => {
   let todoUpdateBtn = createTodoUpdateBtn(todo.id);
   btnTd.appendChild(todoUpdateBtn);
   btnTd.appendChild(todoDeleteBtn);
-  createTodoTd(tr, todo.title);
-  createTodoTd(tr, todo.description);
-  createTodoTd(tr, todo.dueDate);
-  createTodoTd(tr, todo.priority);
-  createTodoTd(tr, todo.notes);
-  createTodoTd(tr, todo.done, todo, project);
+  ["title", "description", "dueDate", "priority", "notes", "done"].forEach(prop => {
+    if (prop === "done") {
+      createTodoTd(tr, todo[prop], todo, project);
+    } else {
+      createTodoTd(tr, todo[prop]);
+    }
+  });
+
   tr.appendChild(btnTd);
 
   todoBody.appendChild(tr);
