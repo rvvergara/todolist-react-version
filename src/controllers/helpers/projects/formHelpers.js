@@ -1,4 +1,4 @@
-import projectsController from "../projectsController";
+import projectsController from "../../projectsController";
 import {
   appendNewProject
 } from "./projectHelpers";

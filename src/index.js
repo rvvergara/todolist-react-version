@@ -4,15 +4,15 @@ import {
   createProjectsArray,
   createDefaultProject,
 }
-from "./controllers/helpers/projectHelpers";
+from "./controllers/helpers/projects/projectHelpers";
 
 import {
   submitProjectForm
-} from "./controllers/helpers/formHelpers";
+} from "./controllers/helpers/projects/formHelpers";
 
 import {
   submitTodoCallBack,
-} from './controllers/helpers/todoHelpers';
+} from './controllers/helpers/todos/todoHelpers';
 
 createProjectsArray();
 createDefaultProject();

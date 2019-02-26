@@ -1,11 +1,11 @@
 import {
   showTodoBody
-} from './todoBody';
-import projectsController from "../projectsController";
+} from '../todos/todoBody';
+import projectsController from "../../projectsController";
 
 import {
   generateAddTodoBtn
-} from "./todoHelpers";
+} from "../todos/todoHelpers";
 
 export const showProjectList = () => {
   // show project list only if there are projects in the projectsArray
