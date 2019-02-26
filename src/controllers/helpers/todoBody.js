@@ -97,7 +97,10 @@ const createTodoUpdateBtn = (id) => {
   todoUpdateBtn.setAttribute("class", "btn btn-sm btn-warning mx-1 updateTodo");
   todoUpdateBtn.setAttribute("id", id);
   todoUpdateBtn.innerText = "Update";
-  addUpdateListenerToBtn(todoUpdateBtn);
+  todoUpdateBtn.addEventListener("click", e => {
+    e.stopPropagation();
+    updateBtnCallback(e.target);
+  });
   return todoUpdateBtn;
 };
 
@@ -107,13 +110,6 @@ const createTodoDeleteBtn = () => {
   todoDeleteBtn.innerText = "Delete";
   addDeleteListenerToBtn(todoDeleteBtn);
   return todoDeleteBtn;
-};
-
-const addUpdateListenerToBtn = btn => {
-  btn.addEventListener('click', e => {
-    e.stopPropagation();
-    updateBtnCallback(e.target);
-  });
 };
 
 const updateBtnCallback = (target) => {
