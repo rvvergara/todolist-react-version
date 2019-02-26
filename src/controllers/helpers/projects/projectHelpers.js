@@ -1,5 +1,6 @@
 import {
-  showTodoBody
+  showTodoBody,
+  extractProject
 } from '../todos/todoBody';
 import projectsController from "../../projectsController";
 
@@ -57,6 +58,8 @@ const generateProjectLi = project => {
 
   // Add click event listener to each li
   li.addEventListener('click', () => {
+    // Override the existing project with updated project
+    project = JSON.parse(localStorage.projectsArray).find(x => x.id === project.id);
     generateAddTodoBtn(project);
     showTodoBody(project.name);
   });
