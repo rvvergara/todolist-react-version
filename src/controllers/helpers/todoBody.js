@@ -23,6 +23,16 @@ export const showTodoBody = (name) => {
   }
 };
 
+// Get project name from  localstorage projectsArray
+const extractProjectName = dataID => {
+  return JSON.parse(localStorage["projectsArray"]).find(x => x.id === dataID).name;
+};
+
+// Get project from localstorage
+const extractProject = name => {
+  return JSON.parse(localStorage[name]);
+};
+
 // Empty message to show if there is no todo yet in a project
 const createEmptyTodoMsg = name => {
   let emptyTodoMessage = document.createElement("p");
@@ -32,7 +42,7 @@ const createEmptyTodoMsg = name => {
   document.getElementById("todoBody").appendChild(emptyTodoMessage);
 };
 
-// 
+// Create todo's row and append in todoBody
 const createTodoRow = (todoBody, todo, project) => {
   let tr = document.createElement("tr"),
     // Create td to place buttons
@@ -64,47 +74,7 @@ const createTodoRow = (todoBody, todo, project) => {
   todoBody.appendChild(tr);
 };
 
-const createTodoTd = (tr, todoProp, todo, project) => {
-  let td = document.createElement("td");
-  if (typeof todoProp === "boolean") {
-    td.appendChild(generateDoneCheckbox(todoProp, todo, project));
-  } else {
-    td.innerText = todoProp;
-  }
-  tr.appendChild(td);
-};
-
-const generateDoneCheckbox = (todoProp, todo, project) => {
-  let inputDone = document.createElement("input");
-  inputDone.setAttribute("type", "checkbox");
-  if (todo.done) inputDone.setAttribute("checked", true);
-  inputDone.setAttribute("value", todoProp);
-  inputDone.addEventListener("change", e => {
-    e.stopPropagation();
-    doneCheckBoxCallBack(e.target, todo, project);
-  });
-  return inputDone;
-}
-
-const doneCheckBoxCallBack = (target, todo, project) => {
-  todo.done = !todo.done;
-  todoDoneToggle(target, todo.done);
-  [...(target.parentNode.parentNode.childNodes[6].childNodes)].forEach(node => node.toggleAttribute("disabled"));
-  let todoStatus = todo.done;
-  target.setAttribute("value", todoStatus);
-  let index = project.todos.findIndex(x => x.id === todo.id);
-  project.todos.splice(index, 1, todo);
-  localStorage.setItem(project.name, JSON.stringify(project));
-};
-
-const todoDoneToggle = (target, todoDone) => {
-  if (todoDone) {
-    target.parentNode.parentNode.setAttribute("class", "strikeout");
-  } else {
-    target.parentNode.parentNode.removeAttribute("class");
-  }
-};
-
+//  Create button for todo update
 const createTodoUpdateBtn = (id) => {
   let todoUpdateBtn = document.createElement("button");
   todoUpdateBtn.setAttribute("class", "btn btn-sm btn-warning mx-1 updateTodo");
@@ -115,18 +85,6 @@ const createTodoUpdateBtn = (id) => {
     updateBtnCallback(e.target);
   });
   return todoUpdateBtn;
-};
-
-const createTodoDeleteBtn = () => {
-  let todoDeleteBtn = document.createElement("button");
-  todoDeleteBtn.setAttribute("class", "btn btn-sm btn-danger mx-1 deleteTodo");
-  todoDeleteBtn.innerText = "Delete";
-  // addDeleteListenerToBtn(todoDeleteBtn);
-  todoDeleteBtn.addEventListener("click", e => {
-    e.stopPropagation();
-    deleteBtnCallback(e.target);
-  });
-  return todoDeleteBtn;
 };
 
 const updateBtnCallback = (target) => {
@@ -157,7 +115,20 @@ const prefillTodoForm = (project, todoId) => {
   inputs[2].value = `${currentDueDate.getFullYear()}-0${currentDueDate.getMonth() + 1}-${currentDueDate.getDate()}`;
   document.getElementsByTagName("select")[0].value = todo.priority;
   inputs[3].value = todo.notes;
-}
+};
+
+//  Create button for todo delete
+const createTodoDeleteBtn = () => {
+  let todoDeleteBtn = document.createElement("button");
+  todoDeleteBtn.setAttribute("class", "btn btn-sm btn-danger mx-1 deleteTodo");
+  todoDeleteBtn.innerText = "Delete";
+  // addDeleteListenerToBtn(todoDeleteBtn);
+  todoDeleteBtn.addEventListener("click", e => {
+    e.stopPropagation();
+    deleteBtnCallback(e.target);
+  });
+  return todoDeleteBtn;
+};
 
 const deleteBtnCallback = target => {
   let dataID = Number(document.getElementsByClassName("addTodoBtn")[0].getAttribute("data-id")),
@@ -165,13 +136,49 @@ const deleteBtnCallback = target => {
     todoId = target.parentNode.parentNode.getAttribute("id");
   todosController.delete(projectName, todoId);
   target.parentNode.parentNode.parentNode.removeChild(target.parentNode.parentNode);
-}
-
-
-const extractProjectName = dataID => {
-  return JSON.parse(localStorage["projectsArray"]).find(x => x.id === dataID).name;
 };
 
-const extractProject = name => {
-  return JSON.parse(localStorage[name]);
+// Todo cell creation according to respective todo
+const createTodoTd = (tr, todoProp, todo, project) => {
+  let td = document.createElement("td");
+  if (typeof todoProp === "boolean") {
+    td.appendChild(generateDoneCheckbox(todoProp, todo, project));
+  } else {
+    td.innerText = todoProp;
+  }
+  tr.appendChild(td);
+};
+
+// Create done checkbox
+const generateDoneCheckbox = (todoProp, todo, project) => {
+  let inputDone = document.createElement("input");
+  inputDone.setAttribute("type", "checkbox");
+  if (todo.done) inputDone.setAttribute("checked", true);
+  inputDone.setAttribute("value", todoProp);
+  inputDone.addEventListener("change", e => {
+    e.stopPropagation();
+    doneCheckBoxCallBack(e.target, todo, project);
+  });
+  return inputDone;
+}
+
+// Update localstorage and UI after complete a todo
+const doneCheckBoxCallBack = (target, todo, project) => {
+  todo.done = !todo.done;
+  todoDoneToggle(target, todo.done);
+  [...(target.parentNode.parentNode.childNodes[6].childNodes)].forEach(node => node.toggleAttribute("disabled"));
+  let todoStatus = todo.done;
+  target.setAttribute("value", todoStatus);
+  let index = project.todos.findIndex(x => x.id === todo.id);
+  project.todos.splice(index, 1, todo);
+  localStorage.setItem(project.name, JSON.stringify(project));
+};
+
+// checkbox change effect toggler
+const todoDoneToggle = (target, todoDone) => {
+  if (todoDone) {
+    target.parentNode.parentNode.setAttribute("class", "strikeout");
+  } else {
+    target.parentNode.parentNode.removeAttribute("class");
+  }
 };
