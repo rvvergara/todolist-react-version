@@ -5,15 +5,16 @@ import {
 } from './generalHelpers';
 
 export const showTodoBody = (name) => {
-  // Create the parent div 
+  // Extract project from localstorage 
   let project = extractProject(name);
+  // Select tablebody where we append the respective todos
   let todoBody = document.getElementById("todoBody");
   todoBody.innerHTML = "";
-  // Create the table if there is already a todo in the project
+  // If there is no project yet or no todo yet for a project, just show a message
   if (project === null || project.todos.length === 0) {
     createEmptyTodoMsg(name);
   } else {
-    // Remove class d-none for table
+    //Else make the table appear and create the necessary rows
     document.getElementsByTagName("table")[0].setAttribute("class", "table table-striped");
     // Iterate thru each todo and create tr for them
     project.todos.forEach(todo => {
@@ -22,6 +23,7 @@ export const showTodoBody = (name) => {
   }
 };
 
+// Empty message to show if there is no todo yet in a project
 const createEmptyTodoMsg = name => {
   let emptyTodoMessage = document.createElement("p");
   emptyTodoMessage.setAttribute("class", "emptyTodoMessage")
@@ -30,16 +32,25 @@ const createEmptyTodoMsg = name => {
   document.getElementById("todoBody").appendChild(emptyTodoMessage);
 };
 
+// 
 const createTodoRow = (todoBody, todo, project) => {
   let tr = document.createElement("tr"),
-    todoDeleteBtn = createTodoDeleteBtn(),
+    // Create td to place buttons
     btnTd = document.createElement("td"),
+    // Create the update and delete btns
+    todoDeleteBtn = createTodoDeleteBtn(),
     todoUpdateBtn = createTodoUpdateBtn(todo.id);
 
-  tr.setAttribute("id", todo.id);
-  if (todo.done) tr.setAttribute("class", "strikeout");
+  // Append the buttons to the td
   btnTd.appendChild(todoUpdateBtn);
   btnTd.appendChild(todoDeleteBtn);
+  // Give tr an id equal to todo id
+  tr.setAttribute("id", todo.id);
+  // If todo is done then put a strike-through in the display of tr
+  if (todo.done) {
+    tr.setAttribute("class", "strikeout")
+  };
+  // Creating and appending td's for each respective todo properties
   ["title", "description", "dueDate", "priority", "notes", "done"].forEach(prop => {
     if (prop === "done") {
       createTodoTd(tr, todo[prop], todo, project);
@@ -47,9 +58,9 @@ const createTodoRow = (todoBody, todo, project) => {
       createTodoTd(tr, todo[prop]);
     }
   });
-
+  // Append btns' td after the rest have been appended
   tr.appendChild(btnTd);
-
+  // Append tr to todoBody (tbody)
   todoBody.appendChild(tr);
 };
 
@@ -110,7 +121,11 @@ const createTodoDeleteBtn = () => {
   let todoDeleteBtn = document.createElement("button");
   todoDeleteBtn.setAttribute("class", "btn btn-sm btn-danger mx-1 deleteTodo");
   todoDeleteBtn.innerText = "Delete";
-  addDeleteListenerToBtn(todoDeleteBtn);
+  // addDeleteListenerToBtn(todoDeleteBtn);
+  todoDeleteBtn.addEventListener("click", e => {
+    e.stopPropagation();
+    deleteBtnCallback(e.target);
+  });
   return todoDeleteBtn;
 };
 
@@ -144,16 +159,14 @@ const prefillTodoForm = (project, todoId) => {
   inputs[3].value = todo.notes;
 }
 
-const addDeleteListenerToBtn = btn => {
-  btn.addEventListener("click", e => {
-    e.stopPropagation();
-    let dataID = Number(document.getElementsByClassName("addTodoBtn")[0].getAttribute("data-id"));
-    let projectName = extractProjectName(dataID);
-    let todoId = e.target.parentNode.parentNode.getAttribute("id");
-    todosController.delete(projectName, todoId);
-    e.target.parentNode.parentNode.parentNode.removeChild(e.target.parentNode.parentNode);
-  });
-};
+const deleteBtnCallback = target => {
+  let dataID = Number(document.getElementsByClassName("addTodoBtn")[0].getAttribute("data-id")),
+    projectName = extractProjectName(dataID),
+    todoId = target.parentNode.parentNode.getAttribute("id");
+  todosController.delete(projectName, todoId);
+  target.parentNode.parentNode.parentNode.removeChild(target.parentNode.parentNode);
+}
+
 
 const extractProjectName = dataID => {
   return JSON.parse(localStorage["projectsArray"]).find(x => x.id === dataID).name;
