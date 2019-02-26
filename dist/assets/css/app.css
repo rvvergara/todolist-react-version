@@ -2,6 +2,11 @@ td {
   position: relative;
 }
 
+tr.strikeout {
+  opacity: 0.3;
+  transition: 2s opacity;
+}
+
 tr.strikeout td:before {
   content: " ";
   position: absolute;
