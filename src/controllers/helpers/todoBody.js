@@ -56,22 +56,24 @@ const createTodoRow = (todoBody, todo, project) => {
 const createTodoTd = (tr, todoProp, todo, project) => {
   let td = document.createElement("td");
   if (typeof todoProp === "boolean") {
-    let inputDone = document.createElement("input");
-    inputDone.setAttribute("type", "checkbox");
-    if (todo.done) inputDone.setAttribute("checked", true);
-    inputDone.setAttribute("value", todoProp);
-    inputDone.addEventListener("change", e => {
-      e.stopPropagation();
-      doneCheckBoxCallBack(e.target, todo, project);
-    });
-
-    td.appendChild(inputDone);
-
+    td.appendChild(generateDoneCheckbox(todoProp, todo, project));
   } else {
     td.innerText = todoProp;
   }
   tr.appendChild(td);
 };
+
+const generateDoneCheckbox = (todoProp, todo, project) => {
+  let inputDone = document.createElement("input");
+  inputDone.setAttribute("type", "checkbox");
+  if (todo.done) inputDone.setAttribute("checked", true);
+  inputDone.setAttribute("value", todoProp);
+  inputDone.addEventListener("change", e => {
+    e.stopPropagation();
+    doneCheckBoxCallBack(e.target, todo, project);
+  });
+  return inputDone;
+}
 
 const doneCheckBoxCallBack = (target, todo, project) => {
   todo.done = !todo.done;
@@ -120,8 +122,12 @@ const updateBtnCallback = (target) => {
     project = extractProject(projectName),
     action = "updateTodo";
 
+  // First remove todo tr
   tr.parentNode.removeChild(tr);
+
+  // Show todo form 
   showTodoForm(project, action, todoId);
+
   // Pre-fill up form with current values
   prefillTodoForm(project, todoId);
 };
