@@ -1,4 +1,3 @@
-import projectsController from '../projectsController';
 import {
   showTodoBody
 } from './todoBody';

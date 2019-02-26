@@ -51,8 +51,6 @@ const createTodoRow = (todoBody, todo, project) => {
 };
 
 const createTodoTd = (tr, todoProp, todo, project) => {
-
-
   let td = document.createElement("td");
   if (typeof todoProp === "boolean") {
     let inputDone = document.createElement("input");
@@ -62,25 +60,30 @@ const createTodoTd = (tr, todoProp, todo, project) => {
     inputDone.addEventListener("change", e => {
       e.stopPropagation();
       todo.done = !todo.done;
-      if (todo.done) {
-        e.target.parentNode.parentNode.setAttribute("class", "strikeout");
-      } else {
-        e.target.parentNode.parentNode.removeAttribute("class");
-      }
+      todoDoneToggle(e.target, todo.done);
       [...(e.target.parentNode.parentNode.childNodes[6].childNodes)].forEach(node => node.toggleAttribute("disabled"));
       let todoStatus = todo.done;
       e.target.setAttribute("value", todoStatus);
       let index = project.todos.findIndex(x => x.id === todo.id);
       project.todos.splice(index, 1, todo);
       localStorage.setItem(project.name, JSON.stringify(project));
-
     });
+
     td.appendChild(inputDone);
+
   } else {
     td.innerText = todoProp;
   }
   tr.appendChild(td);
-}
+};
+
+const todoDoneToggle = (target, todoDone) => {
+  if (todoDone) {
+    target.parentNode.parentNode.setAttribute("class", "strikeout");
+  } else {
+    target.parentNode.parentNode.removeAttribute("class");
+  }
+};
 
 const createTodoUpdateBtn = (id) => {
   let todoUpdateBtn = document.createElement("button");
@@ -89,7 +92,7 @@ const createTodoUpdateBtn = (id) => {
   todoUpdateBtn.innerText = "Update";
   addUpdateListenerToBtn(todoUpdateBtn);
   return todoUpdateBtn;
-}
+};
 
 const createTodoDeleteBtn = () => {
   let todoDeleteBtn = document.createElement("button");
@@ -97,7 +100,7 @@ const createTodoDeleteBtn = () => {
   todoDeleteBtn.innerText = "Delete";
   addDeleteListenerToBtn(todoDeleteBtn);
   return todoDeleteBtn;
-}
+};
 
 const addUpdateListenerToBtn = btn => {
   btn.addEventListener('click', e => {
