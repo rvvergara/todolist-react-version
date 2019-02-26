@@ -31,12 +31,13 @@ const createEmptyTodoMsg = name => {
 };
 
 const createTodoRow = (todoBody, todo, project) => {
-  let tr = document.createElement("tr");
+  let tr = document.createElement("tr"),
+    todoDeleteBtn = createTodoDeleteBtn(),
+    btnTd = document.createElement("td"),
+    todoUpdateBtn = createTodoUpdateBtn(todo.id);
+
   tr.setAttribute("id", todo.id);
   if (todo.done) tr.setAttribute("class", "strikeout");
-  let todoDeleteBtn = createTodoDeleteBtn();
-  let btnTd = document.createElement("td");
-  let todoUpdateBtn = createTodoUpdateBtn(todo.id);
   btnTd.appendChild(todoUpdateBtn);
   btnTd.appendChild(todoDeleteBtn);
   ["title", "description", "dueDate", "priority", "notes", "done"].forEach(prop => {
@@ -61,14 +62,15 @@ const createTodoTd = (tr, todoProp, todo, project) => {
     inputDone.setAttribute("value", todoProp);
     inputDone.addEventListener("change", e => {
       e.stopPropagation();
-      todo.done = !todo.done;
-      todoDoneToggle(e.target, todo.done);
-      [...(e.target.parentNode.parentNode.childNodes[6].childNodes)].forEach(node => node.toggleAttribute("disabled"));
-      let todoStatus = todo.done;
-      e.target.setAttribute("value", todoStatus);
-      let index = project.todos.findIndex(x => x.id === todo.id);
-      project.todos.splice(index, 1, todo);
-      localStorage.setItem(project.name, JSON.stringify(project));
+      doneCheckBoxCallBack(e.target, todo, project);
+      // todo.done = !todo.done;
+      // todoDoneToggle(e.target, todo.done);
+      // [...(e.target.parentNode.parentNode.childNodes[6].childNodes)].forEach(node => node.toggleAttribute("disabled"));
+      // let todoStatus = todo.done;
+      // e.target.setAttribute("value", todoStatus);
+      // let index = project.todos.findIndex(x => x.id === todo.id);
+      // project.todos.splice(index, 1, todo);
+      // localStorage.setItem(project.name, JSON.stringify(project));
     });
 
     td.appendChild(inputDone);
@@ -77,6 +79,17 @@ const createTodoTd = (tr, todoProp, todo, project) => {
     td.innerText = todoProp;
   }
   tr.appendChild(td);
+};
+
+const doneCheckBoxCallBack = (target, todo, project) => {
+  todo.done = !todo.done;
+  todoDoneToggle(target, todo.done);
+  [...(target.parentNode.parentNode.childNodes[6].childNodes)].forEach(node => node.toggleAttribute("disabled"));
+  let todoStatus = todo.done;
+  target.setAttribute("value", todoStatus);
+  let index = project.todos.findIndex(x => x.id === todo.id);
+  project.todos.splice(index, 1, todo);
+  localStorage.setItem(project.name, JSON.stringify(project));
 };
 
 const todoDoneToggle = (target, todoDone) => {
