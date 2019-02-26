@@ -15,8 +15,8 @@ const todoController = (
         return todo;
       },
       update(project, id, projectName) {
-        let done = project.todos[0].done;
         let index = project.todos.findIndex(x => x.id == id);
+        let done = project.todos[index].done;
         let [title, description, dueDate, priority, notes, name] = getTodoDataFromForm(projectName);
         let todoUpdated = {
           title,
