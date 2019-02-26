@@ -6,7 +6,7 @@ import {
 
 export const showTodoBody = (name) => {
   // Create the parent div 
-  let project = JSON.parse(localStorage.getItem(name));
+  let project = extractProject(name);
   let todoBody = document.getElementById("todoBody");
   todoBody.innerHTML = "";
   // Create the table if there is already a todo in the project
@@ -105,15 +105,14 @@ const addUpdateListenerToBtn = btn => {
     let tr = e.target.parentNode.parentNode;
     tr.parentNode.removeChild(tr);
     let dataID = Number(document.getElementsByClassName("addTodoBtn")[0].getAttribute("data-id"));
-    let projectName = JSON.parse(localStorage["projectsArray"]).find(x => x.id === dataID).name;
+    let projectName = extractProjectName(dataID);
     let todoId = e.target.getAttribute("id");
-    let project = JSON.parse(localStorage[projectName]);
+    let project = extractProject(projectName);
     let action = "updateTodo";
     showTodoForm(project, action, todoId);
 
     // Pre-fill up form with current values
     let todo = project.todos.find(x => x.id == todoId);
-    let todoIndex = project.todos.findIndex(x => x.id == todoId);
     let inputs = document.getElementsByClassName("todo-form");
     let currentDueDate = new Date(todo.dueDate);
     inputs[0].value = todo.title;
@@ -128,9 +127,17 @@ const addDeleteListenerToBtn = btn => {
   btn.addEventListener("click", e => {
     e.stopPropagation();
     let dataID = Number(document.getElementsByClassName("addTodoBtn")[0].getAttribute("data-id"));
-    let project = JSON.parse(localStorage["projectsArray"]).find(x => x.id === dataID);
+    let projectName = extractProjectName(dataID);
     let todoId = e.target.parentNode.parentNode.getAttribute("id");
-    todosController.delete(project.name, todoId);
+    todosController.delete(projectName, todoId);
     e.target.parentNode.parentNode.parentNode.removeChild(e.target.parentNode.parentNode);
   });
-}
+};
+
+const extractProjectName = dataID => {
+  return JSON.parse(localStorage["projectsArray"]).find(x => x.id === dataID).name;
+};
+
+const extractProject = name => {
+  return JSON.parse(localStorage[name]);
+};
