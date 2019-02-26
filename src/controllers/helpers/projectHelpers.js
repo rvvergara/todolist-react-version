@@ -41,22 +41,20 @@ const removeEmptyProjMessage = () => {
 //  Generate projec's li
 
 const generateProjectLi = project => {
-  let li = document.createElement("li");
-  let span = document.createElement("span");
-  span.setAttribute("id", `projectSpan-${project.id}`);
+  let li = document.createElement("li"),
+    span = document.createElement("span"),
+    deleteBtn = generateBtn("delete", project),
+    updateBtn = generateBtn("update", project);
 
-  let deleteBtn = generateBtn("delete", project);
-  let updateBtn = generateBtn("update", project);
-  li.setAttribute("class", "list-group-item");
-  li.setAttribute("id", `projectLi-${project.id}`)
+  span.setAttribute("id", `projectSpan-${project.id}`);
   span.innerText = project.name;
-  li.appendChild(span);
+  li.setAttribute("class", "list-group-item");
+  li.setAttribute("id", `projectLi-${project.id}`);
   li.addEventListener('click', () => {
     generateAddTodoBtn(project);
     showTodoBody(project.name);
   });
-  li.appendChild(deleteBtn);
-  li.appendChild(updateBtn);
+  [span, deleteBtn, updateBtn].forEach(element => li.appendChild(element));
   document.getElementsByTagName("ul")[0].appendChild(li);
 };
 
@@ -84,8 +82,8 @@ const addBtnEventListeners = (btn, project, action) => {
 
   btn.addEventListener("click", e => {
     e.stopPropagation();
-    let projectId = project.id;
-    project = JSON.parse(localStorage.projectsArray).find(x => x.id === projectId);
+    // Override the existing project with updated project
+    project = JSON.parse(localStorage.projectsArray).find(x => x.id === project.id);
     // call here function appropriate for type of action
     action === "update" ? updateCallback(e.target, project) : deleteCallback(project);
   });
@@ -99,9 +97,10 @@ const updateCallback = (target, project) => {
 
 // Logic for showing the project form
 export const showProjectForm = (target, action, id) => {
-  document.getElementById("projectNameForm").removeAttribute("class");
-  document.getElementById("projectNameForm").setAttribute("data-action", action);
-  document.getElementById("projectNameForm").setAttribute("data-id", id);
+  let projectNameForm = document.getElementById("projectNameForm");
+  projectNameForm.removeAttribute("class");
+  projectNameForm.setAttribute("data-action", action);
+  projectNameForm.setAttribute("data-id", id);
   target.setAttribute("class", "d-none");
 };
 
@@ -124,7 +123,7 @@ const removeProjFromList = project => {
   }
 };
 
-// Generel helpers || Create default projects
+// Create default projects
 
 export const createProjectsArray = () => {
   if (localStorage.getItem("projectsArray") === null) {
