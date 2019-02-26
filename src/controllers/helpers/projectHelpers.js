@@ -24,13 +24,15 @@ export const showProjectList = () => {
   }
 }
 
+// Function to append created project into the DOM
 export const appendNewProject = project => {
-
+  // Remove any empty project messages
   removeEmptyProjMessage();
+  // Generate project li
   generateProjectLi(project);
 };
 
-// Upon appending a new project to ul remove emptyMessage
+// Function to remove any empty project message
 const removeEmptyProjMessage = () => {
   let emptyLi = document.getElementsByClassName("emptyMessage")[0];
   if (emptyLi !== undefined) {
@@ -38,8 +40,7 @@ const removeEmptyProjMessage = () => {
   }
 };
 
-//  Generate projec's li
-
+//  Generate project li's
 const generateProjectLi = project => {
   let li = document.createElement("li"),
     span = document.createElement("span"),
