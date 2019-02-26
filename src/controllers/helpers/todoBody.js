@@ -122,8 +122,11 @@ const updateBtnCallback = (target) => {
 
   tr.parentNode.removeChild(tr);
   showTodoForm(project, action, todoId);
-
   // Pre-fill up form with current values
+  prefillTodoForm(project, todoId);
+};
+
+const prefillTodoForm = (project, todoId) => {
   let todo = project.todos.find(x => x.id == todoId),
     inputs = document.getElementsByClassName("todo-form"),
     currentDueDate = new Date(todo.dueDate);
@@ -133,7 +136,7 @@ const updateBtnCallback = (target) => {
   inputs[2].value = `${currentDueDate.getFullYear()}-0${currentDueDate.getMonth() + 1}-${currentDueDate.getDate()}`;
   document.getElementsByTagName("select")[0].value = todo.priority;
   inputs[3].value = todo.notes;
-};
+}
 
 const addDeleteListenerToBtn = btn => {
   btn.addEventListener("click", e => {
