@@ -1,7 +1,7 @@
 import projectsController from '../projectsController';
 import {
   showTodoBody
-} from './showTodoBody';
+} from './todoBody';
 
 import todosController from "../todosController";
 
