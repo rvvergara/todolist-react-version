@@ -11,9 +11,8 @@ import {
 } from "./controllers/helpers/formHelpers";
 
 import {
-
   submitTodoCallBack,
-} from './controllers/helpers/generalHelpers';
+} from './controllers/helpers/todoHelpers';
 
 createProjectsArray();
 createDefaultProject();

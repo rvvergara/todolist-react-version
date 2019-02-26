@@ -5,7 +5,7 @@ import projectsController from "../projectsController";
 
 import {
   generateAddTodoBtn
-} from "./generalHelpers"
+} from "./todoHelpers";
 
 export const showProjectList = () => {
   // show project list only if there are projects in the projectsArray

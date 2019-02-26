@@ -1,7 +1,7 @@
 import Todo from "../models/todo";
 import {
   getTodoDataFromForm
-} from "./helpers/generalHelpers";
+} from "./helpers/todoHelpers";
 const todoController = (
   () => {
     return {

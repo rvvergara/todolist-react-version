@@ -28,4 +28,4 @@ const updateProject = target => {
   let updatedProject = projectsController.update(Number(target.getAttribute("data-id")));
   document.getElementById(`update-proj-${target.getAttribute("data-id")}`).setAttribute("class", "btn btn-sm btn-info ml-3");
   document.getElementById(`projectSpan-${target.getAttribute("data-id")}`).innerText = updatedProject.name;
-}
+};

@@ -2,7 +2,7 @@ import todosController from "../todosController";
 
 import {
   showTodoForm
-} from './generalHelpers';
+} from './todoHelpers';
 
 export const showTodoBody = (name) => {
   // Extract project from localstorage 
@@ -24,12 +24,12 @@ export const showTodoBody = (name) => {
 };
 
 // Get project name from  localstorage projectsArray
-const extractProjectName = dataID => {
+export const extractProjectName = dataID => {
   return JSON.parse(localStorage["projectsArray"]).find(x => x.id === dataID).name;
 };
 
 // Get project from localstorage
-const extractProject = name => {
+export const extractProject = name => {
   return JSON.parse(localStorage[name]);
 };
 
