@@ -112,25 +112,31 @@ const createTodoDeleteBtn = () => {
 const addUpdateListenerToBtn = btn => {
   btn.addEventListener('click', e => {
     e.stopPropagation();
-    let tr = e.target.parentNode.parentNode;
-    tr.parentNode.removeChild(tr);
-    let dataID = Number(document.getElementsByClassName("addTodoBtn")[0].getAttribute("data-id"));
-    let projectName = extractProjectName(dataID);
-    let todoId = e.target.getAttribute("id");
-    let project = extractProject(projectName);
-    let action = "updateTodo";
-    showTodoForm(project, action, todoId);
-
-    // Pre-fill up form with current values
-    let todo = project.todos.find(x => x.id == todoId);
-    let inputs = document.getElementsByClassName("todo-form");
-    let currentDueDate = new Date(todo.dueDate);
-    inputs[0].value = todo.title;
-    inputs[1].value = todo.description;
-    inputs[2].value = `${currentDueDate.getFullYear()}-0${currentDueDate.getMonth() + 1}-${currentDueDate.getDate()}`;
-    document.getElementsByTagName("select")[0].value = todo.priority;
-    inputs[3].value = todo.notes;
+    updateBtnCallback(e.target);
   });
+};
+
+const updateBtnCallback = (target) => {
+  let tr = target.parentNode.parentNode,
+    dataID = Number(document.getElementsByClassName("addTodoBtn")[0].getAttribute("data-id")),
+    projectName = extractProjectName(dataID),
+    todoId = target.getAttribute("id"),
+    project = extractProject(projectName),
+    action = "updateTodo";
+
+  tr.parentNode.removeChild(tr);
+  showTodoForm(project, action, todoId);
+
+  // Pre-fill up form with current values
+  let todo = project.todos.find(x => x.id == todoId),
+    inputs = document.getElementsByClassName("todo-form"),
+    currentDueDate = new Date(todo.dueDate);
+
+  inputs[0].value = todo.title;
+  inputs[1].value = todo.description;
+  inputs[2].value = `${currentDueDate.getFullYear()}-0${currentDueDate.getMonth() + 1}-${currentDueDate.getDate()}`;
+  document.getElementsByTagName("select")[0].value = todo.priority;
+  inputs[3].value = todo.notes;
 };
 
 const addDeleteListenerToBtn = btn => {
