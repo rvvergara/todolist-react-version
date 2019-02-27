@@ -112,7 +112,7 @@ const prefillTodoForm = (project, todoId) => {
 
   inputs[0].value = todo.title;
   inputs[1].value = todo.description;
-  inputs[2].value = `${currentDueDate.getFullYear()}-0${currentDueDate.getMonth() + 1}-${currentDueDate.getDate()}`;
+  inputs[2].value = `${currentDueDate.getFullYear()}-0${currentDueDate.getMonth() + 1}-0${currentDueDate.getDate()}`;
   document.getElementsByTagName("select")[0].value = todo.priority;
   inputs[3].value = todo.notes;
 };
