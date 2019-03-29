@@ -33,7 +33,7 @@ const todoController = (
         id,
       };
       project.todos.splice(index, 1, todoUpdated);
-      localStorage.setItem(project.name, JSON.stringify(project));
+      localStorageData.setDataIntoLocalStorage(project.name, project);
     },
     delete(project, id) {
       // Extract parent project
@@ -42,7 +42,7 @@ const todoController = (
       const todoIndex = parentProject.todos.findIndex(x => x.id === id);
       // Splice project
       parentProject.todos.splice(todoIndex, 1);
-      localStorage.setItem(project, JSON.stringify(parentProject));
+      localStorageData.setDataIntoLocalStorage(project, parentProject);
     },
   })
 )();
