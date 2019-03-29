@@ -39,7 +39,7 @@ const todoController = (
       // Extract parent project
       const parentProject = localStorageData.getDataFromLocalStorage(project);
       // Find todo from name
-      const todoIndex = parentProject.todos.findIndex(x => x.id === id);
+      const todoIndex = parentProject.todos.findIndex(x => x.id === Number(id));
       // Splice project
       parentProject.todos.splice(todoIndex, 1);
       localStorageData.setDataIntoLocalStorage(project, parentProject);
