@@ -1,47 +1,50 @@
 import Todo from "../models/todo";
 import {
-  getTodoDataFromForm
-} from "./helpers/todos/todoHelpers";
+  getTodoDataFromForm,
+} from './helpers/todos/todoHelpers';
+
+import * as localStorageData from './helpers/common/storage';
+
 const todoController = (
-  () => {
-    return {
-      create(title, description, dueDate, priority, notes = "", project) {
-        let todo = new Todo(title, description, dueDate, priority, notes, project);
-        // Extract parent project from localStorage
-        let parentProject = JSON.parse(localStorage.getItem(project));
-        // Push todo into parentProj's todo
-        parentProject.todos.push(todo);
-        localStorage.setItem(project, JSON.stringify(parentProject));
-        return todo;
-      },
-      update(project, id, projectName) {
-        let index = project.todos.findIndex(x => x.id == id);
-        let done = project.todos[index].done;
-        let [title, description, dueDate, priority, notes, name] = getTodoDataFromForm(projectName);
-        let todoUpdated = {
-          title,
-          description,
-          dueDate,
-          priority,
-          notes,
-          project: name,
-          done: done,
-          id: id
-        };
-        project.todos.splice(index, 1, todoUpdated);
-        localStorage.setItem(project.name, JSON.stringify(project));
-      },
-      delete(project, id) {
-        // Extract parent project
-        let parentProject = JSON.parse(localStorage.getItem(project));
-        // Find todo from name
-        let todoIndex = parentProject.todos.findIndex(x => x.id == id);
-        // Splice project
-        parentProject.todos.splice(todoIndex, 1);
-        localStorage.setItem(project, JSON.stringify(parentProject));
-      }
-    }
-  }
+  () => ({
+    create(title, description, dueDate, priority, notes, project) {
+      const todo = new Todo(title, description, dueDate, priority, notes, project);
+      // Extract parent project from localStorage
+      const parentProject = localStorageData.getDataFromLocalStorage(project);
+      // Push todo into parentProj's todo
+      parentProject.todos.push(todo);
+      localStorageData.setDataIntoLocalStorage(project, parentProject);
+      return todo;
+    },
+    update(project, id, projectName) {
+      const index = project.todos.findIndex(x => x.id === id);
+      const {
+        done,
+      } = project.todos[index];
+      const [title, description, dueDate, priority, notes, name] = getTodoDataFromForm(projectName);
+      const todoUpdated = {
+        title,
+        description,
+        dueDate,
+        priority,
+        notes,
+        project: name,
+        done,
+        id,
+      };
+      project.todos.splice(index, 1, todoUpdated);
+      localStorage.setItem(project.name, JSON.stringify(project));
+    },
+    delete(project, id) {
+      // Extract parent project
+      const parentProject = JSON.parse(localStorage.getItem(project));
+      // Find todo from name
+      const todoIndex = parentProject.todos.findIndex(x => x.id === id);
+      // Splice project
+      parentProject.todos.splice(todoIndex, 1);
+      localStorage.setItem(project, JSON.stringify(parentProject));
+    },
+  })
 )();
 
 export default todoController;
