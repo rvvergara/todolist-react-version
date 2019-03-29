@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Project- Todo List</title>
+  <!-- Bootstrape css -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+    crossorigin="anonymous">
+  <!-- Fonawesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+    crossorigin="anonymous">
+  <!-- Custom css -->
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4">
+        <h1>Project Name</h1>
+        <hr>
+        <section>
+          <form>
+            <div class="form-group">
+              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter project name">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </section>
+        <ul class="list-group mt-2">
+          <li class="list-group-item ">
+            <a href="#">Project 1</a>
+          </li>
+          <li class="list-group-item">
+            <a href="#">Project 2</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-8">
+        <div class="projectTodos">
+          <h1>Todos</h1>
+          <hr>
+          <section id="todosTable">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Title</th>
+                  <th scope="col">Description</th>
+                  <th scope="col">Due Date</th>
+                  <th scope="col">Priority</th>
+                  <th scope="col">Note</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>Test title</td>
+                  <td>Desc</td>
+                  <td>Due date</td>
+                  <td>High</td>
+                  <td>Nothing special/td>
+                  <td>btns group</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <button class="btn btn-sm btn-block btn-primary"><i class="fas fa-plus-square"></i></button>
+          <section id="todoForm" class="mt-3">
+            <form>
+              <div class="form-row">
+                <div class="col">
+                  <input type="text" class="form-control" placeholder="Title">
+                </div>
+                <div class="col">
+                  <input type="text" class="form-control" placeholder="Description">
+                </div>
+                <div class="col">
+                  <input type="date" class="form-control">
+                </div>
+                <div class="col">
+                  <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+                    <option selected>Priority</option>
+                    <option value="1">Low</option>
+                    <option value="2">Midium</option>
+                    <option value="3">High</option>
+                  </select>
+                </div>
+                <div class="col">
+                  <input type="text" class="form-control" placeholder="Note">
+                </div>
+              </div>
+            </form>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- JS, Popper.js, and jQuery -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <!-- Custom js -->
+  <script src="main.js"></script>
+</body>
+
+</html>
