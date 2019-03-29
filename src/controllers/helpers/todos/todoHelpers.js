@@ -8,6 +8,7 @@ import {
   extractProject,
   extractProjectName
 } from './todoBody';
+import * as localStorageData from '../common/storage';
 
 
 
@@ -60,7 +61,7 @@ const appendAddTodoBtn = (btn, project) => {
 };
 
 export const submitTodoCallBack = target => {
-  let projectsArray = JSON.parse(localStorage["projectsArray"]),
+  let projectsArray = localStorageData.getDataFromLocalStorage("projectsArray"),
     index = Number(target.getAttribute("data-id")),
     project = projectsArray.find(x => x.id === index),
     todoData = getTodoDataFromForm(project.name),
