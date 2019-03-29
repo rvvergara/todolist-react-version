@@ -1,13 +1,7 @@
 export default class Project {
-  constructor(name) {
+  constructor(name, id) {
     this.name = name;
     this.todos = [];
-    let projectCount = Number(localStorage.projectCount);
-    this.id = ++projectCount;
-    localStorage.setItem("projectCount", projectCount);
+    this.id = id;
   }
-}
-
-if (localStorage["projectCount"] === undefined) {
-  localStorage.setItem("projectCount", 0);
 }
