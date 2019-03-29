@@ -1,5 +1,6 @@
 import todosController from "../../todosController";
 import * as localStorageData from '../common/storage';
+import * as dateFns from 'date-fns';
 
 import {
   showTodoForm
@@ -109,11 +110,13 @@ const updateBtnCallback = (target) => {
 const prefillTodoForm = (project, todoId) => {
   let todo = project.todos.find(x => x.id == todoId),
     inputs = document.getElementsByClassName("todo-form"),
-    currentDueDate = new Date(todo.dueDate);
+    currentDueDate = dateFns.format(new Date(todo.dueDate), 'YYYY-MM-DD');
+
+  window.curDueDate = currentDueDate;
 
   inputs[0].value = todo.title;
   inputs[1].value = todo.description;
-  inputs[2].value = `${currentDueDate.getFullYear()}-0${currentDueDate.getMonth() + 1}-0${currentDueDate.getDate()}`;
+  inputs[2].value = currentDueDate;
   document.getElementsByTagName("select")[0].value = todo.priority;
   inputs[3].value = todo.notes;
 };
