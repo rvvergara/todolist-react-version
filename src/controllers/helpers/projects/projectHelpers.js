@@ -157,14 +157,13 @@ export const createProjectsArray = () => {
 
 // Create a default project for new users or after localstorage is cleared
 export const createDefaultProject = () => {
+  let defaultProject;
   if (localStorageData.getDataFromLocalStorage("projectCount") === 0) {
-    let defaultProject = projectsController.create("Default Project");
+    defaultProject = projectsController.create("Default Project");
   }
-
-  if (localStorageData.getDataFromLocalStorage("Default Project") !== undefined) {
-    let defaultProject = localStorageData.getDataFromLocalStorage("Default Project");
+  if (localStorageData.getDataFromLocalStorage("Default Project") !== null) {
+    defaultProject = localStorageData.getDataFromLocalStorage("Default Project");
     generateAddTodoBtn(defaultProject);
-
     showTodoBody(defaultProject.name);
   };
 };
