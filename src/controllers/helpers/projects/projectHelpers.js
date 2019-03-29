@@ -1,6 +1,5 @@
 import {
-  showTodoBody,
-  extractProject
+  showTodoBody
 } from '../todos/todoBody';
 import projectsController from "../../projectsController";
 
@@ -8,9 +7,11 @@ import {
   generateAddTodoBtn
 } from "../todos/todoHelpers";
 
+import * as localStorageData from '../common/storage';
+
 export const showProjectList = () => {
   // show project list only if there are projects in the projectsArray
-  let projectsArray = JSON.parse(localStorage.getItem("projectsArray"));
+  let projectsArray = localStorageData.getDataFromLocalStorage("projectsArray");
   if (projectsArray.length > 0) {
     // Display should show all projects in li's
     projectsArray.forEach(project => {
@@ -59,7 +60,7 @@ const generateProjectLi = project => {
   // Add click event listener to each li
   li.addEventListener('click', () => {
     // Override the existing project with updated project
-    project = JSON.parse(localStorage.projectsArray).find(x => x.id === project.id);
+    project = localStorageData.getDataFromLocalStorage("projectsArray").find(x => x.id === project.id);
     generateAddTodoBtn(project);
     showTodoBody(project.name);
   });
@@ -103,7 +104,7 @@ const addBtnEventListeners = (btn, project, action) => {
   btn.addEventListener("click", e => {
     e.stopPropagation();
     // Override the existing project with updated project
-    project = JSON.parse(localStorage.projectsArray).find(x => x.id === project.id);
+    project = localStorageData.getDataFromLocalStorage("projectsArray").find(x => x.id === project.id);
     // call here function appropriate for type of action
     action === "update" ? updateCallback(e.target, project) : deleteCallback(project);
   });
@@ -136,7 +137,7 @@ const deleteCallback = project => {
 const removeProjFromList = project => {
   let projectLi = document.getElementById(`projectLi-${project.id}`);
   document.getElementsByTagName("ul")[0].removeChild(projectLi);
-  if (localStorage.projectsArray === "[]") {
+  if (localStorageData.getDataFromLocalStorage("projectsArray") === "[]") {
     // The display should show "No Projects Yet"
     let li = document.createElement("li");
     li.setAttribute("class", "list-group-item emptyMessage");
@@ -148,20 +149,20 @@ const removeProjFromList = project => {
 // Creating a projects array for new users or after localstorage is cleared
 
 export const createProjectsArray = () => {
-  if (localStorage.getItem("projectsArray") === null) {
+  if (localStorageData.getDataFromLocalStorage("projectsArray") === null) {
     let projectsArray = [];
-    localStorage.setItem("projectsArray", JSON.stringify(projectsArray));
+    localStorageData.setDataIntoLocalStorage("projectsArray", projectsArray);
   }
 };
 
 // Create a default project for new users or after localstorage is cleared
 export const createDefaultProject = () => {
-  if (localStorage["projectCount"] === "0") {
+  if (localStorageData.getDataFromLocalStorage("projectCount") === 0) {
     let defaultProject = projectsController.create("Default Project");
   }
 
-  if (localStorage["Default Project"] !== undefined) {
-    let defaultProject = JSON.parse(localStorage["Default Project"]);
+  if (localStorageData.getDataFromLocalStorage("Default Project") !== undefined) {
+    let defaultProject = localStorageData.getDataFromLocalStorage("Default Project");
     generateAddTodoBtn(defaultProject);
 
     showTodoBody(defaultProject.name);
