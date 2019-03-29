@@ -1,4 +1,5 @@
 import todosController from "../../todosController";
+import * as localStorageData from '../common/storage';
 
 import {
   showTodoForm
@@ -25,12 +26,12 @@ export const showTodoBody = (name) => {
 
 // Get project name from  localstorage projectsArray
 export const extractProjectName = dataID => {
-  return JSON.parse(localStorage["projectsArray"]).find(x => x.id === dataID).name;
+  return localStorageData.getDataFromLocalStorage("projectsArray").find(x => x.id === dataID).name;
 };
 
 // Get project from localstorage
 export const extractProject = name => {
-  return JSON.parse(localStorage[name]);
+  return localStorageData.getDataFromLocalStorage(name);
 };
 
 // Empty message to show if there is no todo yet in a project
@@ -171,7 +172,7 @@ const doneCheckBoxCallBack = (target, todo, project) => {
   target.setAttribute("value", todoStatus);
   let index = project.todos.findIndex(x => x.id === todo.id);
   project.todos.splice(index, 1, todo);
-  localStorage.setItem(project.name, JSON.stringify(project));
+  localStorageData.setDataIntoLocalStorage(project.name, project);
 };
 
 // checkbox change effect toggler
