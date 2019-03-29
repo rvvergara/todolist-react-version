@@ -1,44 +1,42 @@
 import Project from '../models/project';
+import * as localStorageData from './helpers/common/storage';
 
 const projectsController = (
   () => {
-    let projectsArray = JSON.parse(localStorage.getItem("projectsArray")) ? JSON.parse(localStorage.getItem("projectsArray")) : [];
+    let projectsArray = localStorageData.getDataFromLocalStorage("projectsArray") ? localStorageData.getDataFromLocalStorage("projectsArray") : [];
     return {
       create(name) {
         if (name === "") name = "Project Name (Please customize name)";
         let project = new Project(name);
-        // localStorage.setItem(name, JSON.stringify(project));
-        saveToLocalStorage(name, project);
+        localStorageData.setDataIntoLocalStorage(name, project);
         projectsArray.push(project);
-        saveToLocalStorage("projectsArray", projectsArray);
+        localStorageData.setDataIntoLocalStorage("projectsArray", projectsArray);
         return project;
       },
       update(id) {
         let oldProjectName = projectsArray.find(x => x.id === id).name;
-        let oldProject = JSON.parse(localStorage[oldProjectName]);
-        let project = JSON.parse(localStorage[oldProject.name]);
+        let oldProject = localStorageData.getDataFromLocalStorage(oldProjectName);
+        let project = localStorageData.getDataFromLocalStorage(oldProject.name);
         let index = projectsArray.findIndex(x => x.name === project.name);
         project.name = document.getElementById("projectName").value;
         project.todos = oldProject.todos.slice();
         projectsArray.splice(index, 1, project);
-        saveToLocalStorage(project.name, project);
-        saveToLocalStorage("projectsArray", projectsArray);
-        localStorage.removeItem(oldProject.name);
+        localStorageData.setDataIntoLocalStorage(project.name, project);
+        localStorageData.setDataIntoLocalStorage("projectsArray", projectsArray);
+        localStorageData.removeDataFromLocalStorage(oldProject.name);
         return project;
       },
       delete(name) {
-        let project = JSON.parse(localStorage[name]);
+        let project = localStorageData.getDataFromLocalStorage(name);
         let index = projectsArray.findIndex(x => x.name === project.name);
-        localStorage.removeItem(name);
+        localStorageData.removeDataFromLocalStorage(name);
         projectsArray.splice(index, 1);
-        saveToLocalStorage("projectsArray", projectsArray);
+        localStorageData.setDataIntoLocalStorage("projectsArray", projectsArray);
       }
     };
   }
 )();
 
-const saveToLocalStorage = (name, value) => {
-  localStorage.setItem(name, JSON.stringify(value));
-};
+
 
 export default projectsController;
