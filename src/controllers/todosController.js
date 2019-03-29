@@ -37,7 +37,7 @@ const todoController = (
     },
     delete(project, id) {
       // Extract parent project
-      const parentProject = JSON.parse(localStorage.getItem(project));
+      const parentProject = localStorageData.getDataFromLocalStorage(project);
       // Find todo from name
       const todoIndex = parentProject.todos.findIndex(x => x.id === id);
       // Splice project
