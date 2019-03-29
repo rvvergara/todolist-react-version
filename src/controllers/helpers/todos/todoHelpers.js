@@ -102,3 +102,9 @@ export const getTodoDataFromForm = name => {
     name
   ];
 };
+
+// Event submit event listener for submitting todo form
+document.getElementById("todosForm").addEventListener("submit", e => {
+  e.preventDefault();
+  submitTodoCallBack(e.target);
+});

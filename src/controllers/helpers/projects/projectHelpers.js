@@ -1,7 +1,12 @@
+import projectsController from "../../projectsController";
+
+import {
+  submitProjectForm,
+} from './formHelpers';
+
 import {
   showTodoBody
 } from '../todos/todoBody';
-import projectsController from "../../projectsController";
 
 import {
   generateAddTodoBtn
@@ -118,7 +123,7 @@ const updateCallback = (target, project) => {
 };
 
 // Logic for showing the project form
-export const showProjectForm = (target, action, id) => {
+const showProjectForm = (target, action, id) => {
   let projectNameForm = document.getElementById("projectNameForm");
   projectNameForm.removeAttribute("class");
   projectNameForm.setAttribute("data-action", action);
@@ -167,3 +172,14 @@ export const createDefaultProject = () => {
     showTodoBody(defaultProject.name);
   };
 };
+
+// Adding event listener to Project Form
+document.getElementById("projectNameForm").addEventListener('submit', e => {
+  e.preventDefault();
+  submitProjectForm(e.target);
+});
+// Adding event listener to Add Project Btn
+document.getElementById("addProjBtn").addEventListener("click", e => {
+  const action = "new";
+  showProjectForm(e.target, action);
+});
