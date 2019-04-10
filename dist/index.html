@@ -7,91 +7,19 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Project- Todo List</title>
   <!-- Bootstrape css -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <!-- Fonawesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
-    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   <!-- Custom css -->
   <link rel="stylesheet" href="./assets/css/app.css">
 </head>
 
 <body>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-4">
-        <h1>Project Name</h1>
-        <hr>
-        <section>
-          <form id="projectNameForm" class="d-none">
-            <div class="form-group">
-              <input type="text" class="form-control" id="projectName" placeholder="Enter project name">
-            </div>
-          </form>
-        </section>
-        <ul class="list-group mt-2">
-        </ul>
-        <button class="btn btn-primary btn-sm mt-2" id="addProjBtn">Add New Project</button>
-      </div>
-      <div class="col-md-8" id="todosDiv">
-        <h1>Todos</h1>
-        <hr>
-        <section id="todosTable">
-          <table class="table table-striped d-none">
-            <thead>
-              <tr>
-                <th scope="col">Title</th>
-                <th scope="col">Description</th>
-                <th scope="col">Due Date</th>
-                <th scope="col">Priority</th>
-                <th scope="col">Note</th>
-                <th scope="col">Status</th>
-                <th scope="col">Actions</th>
-              </tr>
-            </thead>
-            <tbody id="todoBody">
-            </tbody>
-          </table>
-        </section>
-        <section id="todosSection" class="d-none">
-          <form id="todosForm">
-            <div class="form-row">
-              <div class="col">
-                <input type="text" class="form-control todo-form" placeholder="Title">
-              </div>
-              <div class="col">
-                <input type="text" class="form-control todo-form" placeholder="Description">
-              </div>
-              <div class="col">
-                <input type="date" class="form-control todo-form">
-              </div>
-              <div class="col">
-                <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
-                  <option selected>Priority</option>
-                  <option value="Low">Low</option>
-                  <option value="Medium">Medium</option>
-                  <option value="High">High</option>
-                </select>
-              </div>
-              <div class="col">
-                <input type="text" class="form-control todo-form" placeholder="Note">
-              </div>
-            </div>
-            <input type="submit" value="Submit Todo" class="btn btn-primary btn-sm d-none">
-          </form>
-        </section>
-      </div>
-    </div>
-  </div>
-  <!-- JS, Popper.js, and jQuery -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-    crossorigin="anonymous"></script>
+  <div id="app"></div>
   <!-- Custom js -->
-  <script src="main.js"></script>
+  <script src="/main.js"></script>
 </body>
 
 </html>

@@ -1,16 +1,16 @@
 import projectsController from "../../projectsController";
 
-import {
-  submitProjectForm,
-} from './formHelpers';
+// import {
+//   submitProjectForm,
+// } from './formHelpers';
 
-import {
-  showTodoBody
-} from '../todos/todoBody';
+// import {
+//   showTodoBody
+// } from '../todos/todoBody';
 
-import {
-  generateAddTodoBtn
-} from "../todos/todoHelpers";
+// import {
+//   generateAddTodoBtn
+// } from "../todos/todoHelpers";
 
 import * as localStorageData from '../common/storage';
 
@@ -168,18 +168,18 @@ export const createDefaultProject = () => {
   }
   if (localStorageData.getDataFromLocalStorage("Default Project") !== null) {
     defaultProject = localStorageData.getDataFromLocalStorage("Default Project");
-    generateAddTodoBtn(defaultProject);
-    showTodoBody(defaultProject.name);
+    // generateAddTodoBtn(defaultProject);
+    // showTodoBody(defaultProject.name);
   };
 };
 
 // Adding event listener to Project Form
-document.getElementById("projectNameForm").addEventListener('submit', e => {
-  e.preventDefault();
-  submitProjectForm(e.target);
-});
-// Adding event listener to Add Project Btn
-document.getElementById("addProjBtn").addEventListener("click", e => {
-  const action = "new";
-  showProjectForm(e.target, action);
-});
+// document.getElementById("projectNameForm").addEventListener('submit', e => {
+//   e.preventDefault();
+//   submitProjectForm(e.target);
+// });
+// // Adding event listener to Add Project Btn
+// document.getElementById("addProjBtn").addEventListener("click", e => {
+//   const action = "new";
+//   showProjectForm(e.target, action);
+// });
