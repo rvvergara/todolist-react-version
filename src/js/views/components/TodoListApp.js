@@ -20,14 +20,25 @@ export default class TodoListApp extends React.Component {
     }
   }
 
+  clickAddProjectBtn = () => {
+    this.setState(() => ({
+      addOrEditProject: true,
+    }))
+  }
+
   render() {
     const {
       projects,
       selectedProject,
+      addOrEditProject,
     } = this.state;
     return (
       <div id="todo-app">
-        <ProjectList projects={projects} />
+        <ProjectList
+        projects={projects}
+        addOrEditProject={addOrEditProject}
+        clickAddProjectBtn={this.clickAddProjectBtn}
+        />
         <Todos
         selectedProject={selectedProject}
         />
