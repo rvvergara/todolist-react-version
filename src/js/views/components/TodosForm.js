@@ -10,8 +10,11 @@ export default (props) => {
     className={displayClass}
     onSubmit={props.submitTodo}
     >
-      <input placeholder="Add something" />
-      <button>Add Todo</button>
+      <input type="text" placeholder="Title" />
+      <input type="text" placeholder="Description" />
+      <input type="date"  />
+      <input type="text" placeholder="Note" />
+      <button>Add</button>
     </form>
   );
 };
