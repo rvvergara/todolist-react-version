@@ -3,17 +3,12 @@ import ProjectList from './ProjectList';
 import Todos from './Todos';
 
 export default class TodoListApp extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      projects: [],
-      selectedProject: undefined,
-      addOrEditProject: false,
-      addOrEditTodo: false,
-    };
-    this.handleTodoBtn = this.handleTodoBtn.bind(this);
-    this.submitTodo = this.submitTodo.bind(this);
-  }
+  state = {
+    projects: [],
+    selectedProject: undefined,
+    addOrEditProject: false,
+    addOrEditTodo: false,
+  };
 
   componentWillMount() {
     const json = localStorage.projectsArray;
@@ -26,13 +21,13 @@ export default class TodoListApp extends React.Component {
     }
   }
 
-  handleTodoBtn() {
+  handleTodoBtn = () => {
     this.setState(() => ({
       addOrEditTodo: true
     }));
-  }
+  };
 
-  submitTodo(e){
+  submitTodo = (e) => {
     e.preventDefault();
     this.setState(() => ({
       addOrEditTodo: false,
