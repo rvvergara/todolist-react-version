@@ -8,7 +8,11 @@ export default class TodoListApp extends React.Component {
     this.state = {
       projects: [],
       selectedProject: undefined,
+      addOrEditProject: false,
+      addOrEditTodo: false,
     };
+    this.handleTodoBtn = this.handleTodoBtn.bind(this);
+    this.submitTodo = this.submitTodo.bind(this);
   }
 
   componentWillMount() {
@@ -22,15 +26,31 @@ export default class TodoListApp extends React.Component {
     }
   }
 
+  handleTodoBtn() {
+    this.setState(() => ({
+      addOrEditTodo: true
+    }));
+  }
+
+  submitTodo(){
+    this.setState(() => ({
+      addOrEditTodo: false,
+    }))
+  }
+
   render() {
     const {
       projects,
       selectedProject,
+      addOrEditTodo,
     } = this.state;
     return (
       <div id="todo-app">
         <ProjectList projects={projects} />
-        <Todos selectedProject={selectedProject} />
+        <Todos
+        selectedProject={selectedProject}handleTodoBtn={this.handleTodoBtn} addOrEditTodo={addOrEditTodo}
+        submitTodo={this.submitTodo}
+        />
       </div>
     );
   }
