@@ -2,9 +2,8 @@ import React from 'react';
 
 export default (props) => {
   const {
-    addOrEditTodo
+    addOrEditTodo,
   } = props;
-  console.log(addOrEditTodo);
   const displayClass = addOrEditTodo ? '' : 'd-none';
   return (
     <form

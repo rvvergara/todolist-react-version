@@ -32,10 +32,12 @@ export default class TodoListApp extends React.Component {
     }));
   }
 
-  submitTodo(){
+  submitTodo(e){
+    e.preventDefault();
     this.setState(() => ({
       addOrEditTodo: false,
-    }))
+    }));
+    e.target.reset();
   }
 
   render() {
