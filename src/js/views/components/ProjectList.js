@@ -9,7 +9,9 @@ export default (props) => {
   return (
     <div>
       <h2>Project List</h2>
-      {projects.map(project => <ProjectItem key={project.name} name={project.name} />)}
+      {projects.map(project => <ProjectItem key={project.name}
+      name={project.name}
+      />)}
     </div>
   );
 }

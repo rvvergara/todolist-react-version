@@ -7,7 +7,6 @@ export default class TodoListApp extends React.Component {
     projects: [],
     selectedProject: undefined,
     addOrEditProject: false,
-    addOrEditTodo: false,
   };
 
   componentWillMount() {
@@ -21,32 +20,16 @@ export default class TodoListApp extends React.Component {
     }
   }
 
-  handleTodoBtn = () => {
-    this.setState(() => ({
-      addOrEditTodo: true
-    }));
-  };
-
-  submitTodo = (e) => {
-    e.preventDefault();
-    this.setState(() => ({
-      addOrEditTodo: false,
-    }));
-    e.target.reset();
-  }
-
   render() {
     const {
       projects,
       selectedProject,
-      addOrEditTodo,
     } = this.state;
     return (
       <div id="todo-app">
         <ProjectList projects={projects} />
         <Todos
-        selectedProject={selectedProject}handleTodoBtn={this.handleTodoBtn} addOrEditTodo={addOrEditTodo}
-        submitTodo={this.submitTodo}
+        selectedProject={selectedProject}
         />
       </div>
     );
