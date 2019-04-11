@@ -11,16 +11,18 @@ export default (props) => {
     clickAddProjectBtn,
     submitProjectForm,
     clickUpdateProjectBtn,
+    updateProjectForm,
   } = props;
   return (
     <div>
       <h2>Project List</h2>
-      {projects.map(project => (
+      {projects.map((project, i) => (
         <ProjectItem
           key={project.name}
+          dataID={i}
           name={project.name}
-          editProjectMode={editProjectMode}
-          clickUpdateProjectBtn={clickUpdateProjectBtn}
+          projects={projects}
+          updateProjectForm={updateProjectForm}
         />
       ))}
       <AddProjectBtn

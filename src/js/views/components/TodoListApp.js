@@ -37,6 +37,17 @@ export default class TodoListApp extends React.Component {
     e.target.reset();
   }
 
+  updateProjectForm = (id) => {
+    const project = projectsController.update(id);
+    this.setState((prevState) => {
+      const newProjects = [...prevState.projects];
+      newProjects[id - 1] = project;
+      return {
+        projects: newProjects,
+      }
+    })
+  }
+
   render() {
     const {
       projects,
@@ -50,6 +61,8 @@ export default class TodoListApp extends React.Component {
         addProjectMode={addProjectMode}
         clickAddProjectBtn={this.clickAddProjectBtn}
         submitProjectForm={this.submitProjectForm}
+        projects={projects}
+        updateProjectForm={this.updateProjectForm}
         />
         <Todos
         selectedProject={selectedProject}

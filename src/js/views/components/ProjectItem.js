@@ -1,5 +1,6 @@
 import React from 'react';
 import ProjectsForm from './ProjectsForm';
+import projectsController from '../../controllers/projectsController';
 class ProjectItem extends React.Component {
   state = {
     todos: [],
@@ -12,9 +13,21 @@ class ProjectItem extends React.Component {
     }));
   }
 
+
+  submitProjectForm = (e) => {
+    e.preventDefault();
+    const id = Number(e.target.getAttribute('data-id'));
+    this.props.updateProjectForm(id);
+    this.setState(() => ({
+      editProjectMode: false,
+    }));
+    e.target.reset();
+  }
+
   render(){
     const {
       name,
+      dataID,
     } = this.props;
     const regular = (
       <div>
@@ -28,9 +41,11 @@ class ProjectItem extends React.Component {
       </div>
     );
     const editMode = (
-      <ProjectsForm 
+      <ProjectsForm
+      dataID={dataID+1}
       editProjectMode={this.state.editProjectMode}
       name={name}
+      submitProjectForm={this.submitProjectForm}
       />
     )
     if (this.state.editProjectMode){

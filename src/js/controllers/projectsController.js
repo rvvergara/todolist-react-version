@@ -20,11 +20,11 @@ const projectsController = (
         return project;
       },
       update(id) {
-        let oldProjectName = projectsArray.find(x => x.id === id).name;
-        let oldProject = localStorageData.getDataFromLocalStorage(oldProjectName);
-        let project = localStorageData.getDataFromLocalStorage(oldProject.name);
-        let index = projectsArray.findIndex(x => x.name === project.name);
-        project.name = document.getElementById("projectName").value;
+        const oldProjectName = projectsArray.find(x => x.id === id).name;
+        const oldProject = localStorageData.getDataFromLocalStorage(oldProjectName);
+        const project = localStorageData.getDataFromLocalStorage(oldProject.name);
+        const index = projectsArray.findIndex(x => x.name === project.name);
+        project.name = document.getElementById(`project-${id}`).value;
         project.todos = oldProject.todos.slice();
         projectsArray.splice(index, 1, project);
         localStorageData.setDataIntoLocalStorage(project.name, project);
