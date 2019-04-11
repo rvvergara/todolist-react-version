@@ -78,11 +78,15 @@ class TodoItem extends React.Component {
       dueDate,
       priority,
       notes,
-      done
+      done,
+      todo,
     } = this.state;
     const doneClass = done ? 'strikeout' : '';
     const regular = (
-      <tr className={doneClass}>
+      <tr
+        className={doneClass}
+        id={todo.id}
+      >
         <td>{title}</td>
         <td>{description}</td>
         <td>{dueDate}</td>
@@ -102,7 +106,11 @@ class TodoItem extends React.Component {
           >
             Update
           </button>
-          <button>Delete</button>
+          <button
+            onClick={this.props.deleteTodo}
+          >
+            Delete
+          </button>
         </td>
       </tr>
     );

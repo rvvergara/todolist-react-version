@@ -11,8 +11,9 @@ class Todos extends React.Component {
   }
   
   componentWillMount(){
-    this.setState((prevState, props) => ({
+    this.setState(() => ({
       todos: JSON.parse(localStorage[this.state.project.name]).todos,
+      project: JSON.parse(localStorage[this.state.project.name]),
     }));
   }
 
@@ -30,9 +31,6 @@ class Todos extends React.Component {
 
   submitTodo = (e) => {
     e.preventDefault();
-    this.setState(() => ({
-      addTodoMode: false,
-    }));
     const [title, description, dueDate, priority, note] = e.target.elements;
 
     const todo = todosController.create(title.value, 
@@ -41,11 +39,32 @@ class Todos extends React.Component {
       priority.value,  
       note.value, 
       this.state.project.name);
+    const project = JSON.parse(localStorage[todo.project]);
+    const projectsArr = JSON.parse(localStorage.projectsArray);
+    const projectIndex = projectsArr.findIndex(x => x.id === project.id);
+    projectsArr[projectIndex] = project;
+    localStorage.setItem('projectsArray', JSON.stringify(projectsArr));
     this.setState((prevState) => ({
-      todos: [...prevState.todos, todo]
+      todos: [...prevState.todos, todo],
+      project: project,
+      addTodoMode: false,
     }));
-    this.props.addTodo(todo);
     e.target.reset();
+  }
+
+  deleteTodo = (e) => {
+    const todoID = Number(e.target.parentNode.parentNode.id);
+    const todoForDeletion = this.state.project.todos.find(x => x.id === todoID);
+    const projectName = todoForDeletion.project;
+    const projectsArr = JSON.parse(localStorage.projectsArray);
+    const projectIndex = projectsArr.findIndex(x => x.name === projectName);
+    projectsArr[projectIndex] = JSON.parse(localStorage[projectName]);
+    todosController.delete(projectName, todoID);
+    localStorage.setItem('projectsArray', JSON.stringify(projectsArr));
+    this.setState(() => ({
+      todos: JSON.parse(localStorage[projectName]).todos,
+      project: JSON.parse(localStorage[projectName]),
+    }))
   }
 
   render() {
@@ -69,7 +88,13 @@ class Todos extends React.Component {
           </thead>
           <tbody>
             {
-              this.state.project && this.state.project.todos.map((todo, i) => <TodoItem todo={todo} key={`todo-${i}`} />)
+              this.state.project && this.state.project.todos.map((todo, i) => (
+                <TodoItem
+                todo={todo}
+                key={todo.id}
+                deleteTodo={this.deleteTodo}
+                />
+                ))
             }
           </tbody>
         </table>
