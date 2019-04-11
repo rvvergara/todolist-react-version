@@ -60,6 +60,20 @@ export default class TodoListApp extends React.Component {
     }));
   }
 
+  addTodo = (todo) => {
+    this.setState((prevState) => {
+      const updatedSelectedProject = Object.assign({}, prevState.selectedProject);
+      updatedSelectedProject.todos.push(todo);
+      const projectsArr = JSON.parse(localStorage.projectsArray);
+      const projectIndex = projectsArr.findIndex(x => x.name === updatedSelectedProject.name);
+      projectsArr[projectIndex] = updatedSelectedProject;
+      localStorage.setItem("projectsArray", JSON.stringify(projectsArr));
+      return {
+        selectedProject: updatedSelectedProject
+      }
+    })
+  }
+
   render() {
     const {
       projects,
@@ -79,6 +93,7 @@ export default class TodoListApp extends React.Component {
         />
         <Todos
         selectedProject={selectedProject}
+        addTodo={this.addTodo}
         />
       </div>
     );

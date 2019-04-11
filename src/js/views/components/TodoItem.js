@@ -8,9 +8,12 @@ export default (props) => {
     <tr>
       <td>{todo.title}</td>
       <td>{todo.description}</td>
+      <td>{todo.dueDate}</td>
       <td>{todo.priority}</td>
-      <td>{todo.note}</td>
-      <td>{todo.status}</td>
+      <td>{todo.notes}</td>
+      <td>
+        <input type="checkbox" value="false" />
+      </td>
       <td>
         <button>Update</button>
         <button>Delete</button>

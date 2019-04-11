@@ -2,6 +2,7 @@ import React from 'react';
 import TodoItem from './TodoItem';
 import AddTodoBtn from './AddTodoBtn';
 import TodosForm from './TodosForm';
+import todosController from '../../controllers/todosController';
 class Todos extends React.Component {
   state = {
     todos: [],
@@ -11,13 +12,13 @@ class Todos extends React.Component {
   
   componentWillMount(){
     this.setState((prevState, props) => ({
-      todos: prevState.project.todos,
+      todos: JSON.parse(localStorage[this.state.project.name]).todos,
     }));
   }
 
   componentWillReceiveProps(props){
     this.setState(() => ({
-      project: props.selectedProject
+      project: props.selectedProject,
     }));
   }
 
@@ -31,7 +32,19 @@ class Todos extends React.Component {
     e.preventDefault();
     this.setState(() => ({
       addOrEditTodo: false,
-    }))
+    }));
+    const [title, description, dueDate, priority, note] = e.target.elements;
+
+    const todo = todosController.create(title.value, 
+      description.value, 
+      dueDate.value, 
+      priority.value,  
+      note.value, 
+      this.state.project.name);
+    this.setState((prevState) => ({
+      todos: [...prevState.todos, todo]
+    }));
+    this.props.addTodo(todo);
     e.target.reset();
   }
 
@@ -56,12 +69,12 @@ class Todos extends React.Component {
           </thead>
           <tbody>
             {
-              this.state.todos.map((todo, i) => <TodoItem todo={todo} key={`todo-${i}`} />)
+              this.state.project.todos.map((todo, i) => <TodoItem todo={todo} key={`todo-${i}`} />)
             }
           </tbody>
         </table>
         {
-          this.state.todos.length === 0 && <div>No todos yet for {this.state.project.name}</div>
+          this.state.project.todos.length === 0 && <div>No todos yet for {this.state.project.name}</div>
         }
         <AddTodoBtn
         handleTodoBtn={this.handleTodoBtn}
