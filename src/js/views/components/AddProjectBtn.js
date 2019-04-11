@@ -2,10 +2,10 @@ import React from 'react';
 
 export default (props) => {
   const {
-    addOrEditProject,
+    addProjectMode,
     clickAddProjectBtn,
   } = props;
-  const displayClass = !addOrEditProject ? '' : 'd-none'
+  const displayClass = !addProjectMode ? '' : 'd-none'
   return (
     <button
       type="button"

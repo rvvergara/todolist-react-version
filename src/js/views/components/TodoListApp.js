@@ -1,12 +1,13 @@
 import React from 'react';
 import ProjectList from './ProjectList';
 import Todos from './Todos';
+import projectsController from '../../controllers/projectsController';
 
 export default class TodoListApp extends React.Component {
   state = {
     projects: [],
     selectedProject: undefined,
-    addOrEditProject: false,
+    addProjectMode: false,
   };
 
   componentWillMount() {
@@ -22,22 +23,33 @@ export default class TodoListApp extends React.Component {
 
   clickAddProjectBtn = () => {
     this.setState(() => ({
-      addOrEditProject: true,
+      addProjectMode: true,
     }))
+  }
+
+  submitProjectForm = (e) => {
+    e.preventDefault();
+    const project = projectsController.create(e.target.elements[0].value);
+    this.setState((prevState) => ({
+      projects: prevState.projects.concat([project]),
+      addProjectMode: false,
+    }))
+    e.target.reset();
   }
 
   render() {
     const {
       projects,
       selectedProject,
-      addOrEditProject,
+      addProjectMode,
     } = this.state;
     return (
       <div id="todo-app">
         <ProjectList
         projects={projects}
-        addOrEditProject={addOrEditProject}
+        addProjectMode={addProjectMode}
         clickAddProjectBtn={this.clickAddProjectBtn}
+        submitProjectForm={this.submitProjectForm}
         />
         <Todos
         selectedProject={selectedProject}

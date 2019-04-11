@@ -6,8 +6,9 @@ import ProjectsForm from './ProjectsForm';
 export default (props) => {
   const {
     projects,
-    addOrEditProject,
+    addProjectMode,
     clickAddProjectBtn,
+    submitProjectForm,
   } = props;
   return (
     <div>
@@ -19,12 +20,13 @@ export default (props) => {
         />
       ))}
       <AddProjectBtn
-        addOrEditProject={addOrEditProject}
+        addProjectMode={addProjectMode}
         clickAddProjectBtn={clickAddProjectBtn}
       />
       <ProjectsForm
-      addOrEditProject={addOrEditProject}
+        addProjectMode={addProjectMode}
+        submitProjectForm={submitProjectForm}
       />
     </div>
   );
-}
+};

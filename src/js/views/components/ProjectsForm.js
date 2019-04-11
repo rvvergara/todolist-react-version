@@ -2,12 +2,16 @@ import React from 'react';
 
 export default (props) => {
   const {
-    addOrEditProject
+    addProjectMode,
+    submitProjectForm,
   } = props;
-  const displayClass = !addOrEditProject ? 'd-none' : '';
+  const displayClass = !addProjectMode ? 'd-none' : '';
   return (
-    <form className={displayClass}>
+    <form
+    className={displayClass}
+    onSubmit={submitProjectForm}
+    >
       <input type="text" placeholder="New Project Name" />
     </form>
-  )
-}
+  );
+};
