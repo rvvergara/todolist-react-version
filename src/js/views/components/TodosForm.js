@@ -10,7 +10,7 @@ export default (props) => {
     priority,
     notes,
   } = props;
-  const displayClass = addTodoMode || editTodoMode ? '' : 'd-none';
+  const displayClass = addTodoMode || editTodoMode ? 'todo-form' : 'd-none todo-form';
   return (
     <form
     className={displayClass}

@@ -87,12 +87,12 @@ const updateTodo = target => {
 };
 
 export const getTodoDataFromForm = name => {
-  let inputs = document.getElementsByClassName("todo-form"),
+  let inputs = document.getElementsByClassName("todo-form")[0].elements,
     title = inputs[0].value,
     description = inputs[1].value,
     dueDate = new Date(inputs[2].value).toDateString(),
     priority = document.getElementsByTagName("select")[0].value,
-    notes = inputs[3].value;
+    notes = inputs[4].value;
   return [
     title,
     description,
