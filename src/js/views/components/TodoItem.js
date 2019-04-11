@@ -3,6 +3,7 @@ import TodosForm from './TodosForm';
 import todosController from '../../controllers/todosController';
 class TodoItem extends React.Component {
   state = {
+    todo: {...this.props.todo},
     done: false,
     editTodoMode: false,
     title: this.props.todo.title,
@@ -12,10 +13,31 @@ class TodoItem extends React.Component {
     notes: this.props.todo.notes,
   }
 
+  componentWillMount(){
+    const todo = this.state.todo;
+    this.setState(() => ({
+      done: todo.done,
+    }))
+  }
+
   tickTodo = () => {
     this.setState((prevState) => ({
       done: !prevState.done,
-    }))
+    }));
+    this.setState((prevState)=> {
+      const newTodo = Object.assign({}, prevState.todo, {done: prevState.done});
+      const project = JSON.parse(localStorage[newTodo.project]);
+      const projectsArr = JSON.parse(localStorage.projectsArray);
+      const newTodoIndex = project.todos.findIndex(x => x.id === newTodo.id);
+      const projectIndex = projectsArr.findIndex(x => x.name === project.name);
+      project.todos[newTodoIndex] = newTodo;
+      projectsArr[projectIndex] = project;
+      localStorage.setItem(project.name, JSON.stringify(project));
+      localStorage.setItem("projectsArray", JSON.stringify(projectsArr));
+      return {
+        todo: newTodo,
+      }
+    })
   }
 
   clickUpdateBtn = () => {
@@ -26,8 +48,8 @@ class TodoItem extends React.Component {
 
   updateTodo = (e) => {
     e.preventDefault();
-    const project = JSON.parse(localStorage[this.props.todo.project]);
-    const todoID = this.props.todo.id;
+    const project = JSON.parse(localStorage[this.state.todo.project]);
+    const todoID = this.state.todo.id;
     const projectName = project.name;
     todosController.update(project, todoID, projectName);
     const todo = project.todos.find(x => x.id === todoID);
@@ -69,7 +91,8 @@ class TodoItem extends React.Component {
         <td>
           <input
           type="checkbox"
-          value="false"
+          defaultValue={this.state.done}
+          checked={this.state.done}
           onChange={this.tickTodo}
           />
         </td>
