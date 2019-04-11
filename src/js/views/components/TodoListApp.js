@@ -30,22 +30,26 @@ export default class TodoListApp extends React.Component {
   submitProjectForm = (e) => {
     e.preventDefault();
     const project = projectsController.create(e.target.elements[0].value);
-    this.setState((prevState) => ({
-      projects: prevState.projects.concat([project]),
+    this.setState(() => ({
+      projects: JSON.parse(localStorage.projectsArray),
       addProjectMode: false,
     }))
     e.target.reset();
   }
 
   updateProjectForm = (id) => {
-    const project = projectsController.update(id);
-    this.setState((prevState) => {
-      const newProjects = [...prevState.projects];
-      newProjects[id - 1] = project;
-      return {
-        projects: newProjects,
-      }
-    })
+    projectsController.update(id);
+    this.setState(() => ({
+      projects: JSON.parse(localStorage.projectsArray)
+    }));
+  }
+
+  deleteProject = (e) => {
+    const projectForDeletion = e.target.parentNode.childNodes[0].innerText;
+    projectsController.delete(projectForDeletion);
+    this.setState(() => ({
+      projects: JSON.parse(localStorage.projectsArray) 
+    }));
   }
 
   render() {
@@ -61,8 +65,8 @@ export default class TodoListApp extends React.Component {
         addProjectMode={addProjectMode}
         clickAddProjectBtn={this.clickAddProjectBtn}
         submitProjectForm={this.submitProjectForm}
-        projects={projects}
         updateProjectForm={this.updateProjectForm}
+        deleteProject={this.deleteProject}
         />
         <Todos
         selectedProject={selectedProject}

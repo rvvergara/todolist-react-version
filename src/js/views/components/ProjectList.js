@@ -7,11 +7,10 @@ export default (props) => {
   const {
     projects,
     addProjectMode,
-    editProjectMode,
     clickAddProjectBtn,
     submitProjectForm,
-    clickUpdateProjectBtn,
     updateProjectForm,
+    deleteProject,
   } = props;
   return (
     <div>
@@ -23,6 +22,7 @@ export default (props) => {
           name={project.name}
           projects={projects}
           updateProjectForm={updateProjectForm}
+          deleteProject={deleteProject}
         />
       ))}
       <AddProjectBtn

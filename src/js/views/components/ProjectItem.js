@@ -1,6 +1,5 @@
 import React from 'react';
 import ProjectsForm from './ProjectsForm';
-import projectsController from '../../controllers/projectsController';
 class ProjectItem extends React.Component {
   state = {
     todos: [],
@@ -12,7 +11,6 @@ class ProjectItem extends React.Component {
       editProjectMode: true,
     }));
   }
-
 
   submitProjectForm = (e) => {
     e.preventDefault();
@@ -28,11 +26,17 @@ class ProjectItem extends React.Component {
     const {
       name,
       dataID,
+      deleteProject,
     } = this.props;
     const regular = (
       <div>
         <span>{ name }</span>
-        <button>Delete</button>
+        <button
+          id={`delete-proj-${dataID+1}`}
+          onClick={deleteProject}
+        >
+          Delete
+        </button>
         <button
         onClick={this.clickUpdateProjectBtn}
         >
