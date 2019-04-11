@@ -3,9 +3,9 @@ import React from 'react';
 export default (props) => {
   const {
     handleTodoBtn,
-    addOrEditTodo,
+    addTodoMode,
   } = props;
-  const displayClass = !addOrEditTodo ? '' : 'd-none';
+  const displayClass = !addTodoMode ? '' : 'd-none';
   return (
     <button
     type='button'

@@ -1,30 +1,9 @@
 import React from 'react';
-
-// export default (props) => {
-//   const {
-//     todo
-//   } = props;
-//   return (
-//     <tr>
-//       <td>{todo.title}</td>
-//       <td>{todo.description}</td>
-//       <td>{todo.dueDate}</td>
-//       <td>{todo.priority}</td>
-//       <td>{todo.notes}</td>
-//       <td>
-//         <input type="checkbox" value="false" />
-//       </td>
-//       <td>
-//         <button>Update</button>
-//         <button>Delete</button>
-//       </td>
-//     </tr>
-//   )
-// }
-
+import TodosForm from './TodosForm';
 class TodoItem extends React.Component {
   state = {
     done: false,
+    editTodoMode: false,
   }
 
   tickProject = () => {
@@ -33,12 +12,18 @@ class TodoItem extends React.Component {
     }))
   }
 
+  clickUpdateBtn = () => {
+    this.setState(() => ({
+      editTodoMode: true,
+    }));
+  }
+
   render() {
     const {
       todo
     } = this.props;
     const doneClass = this.state.done ? 'strikeout' : '';
-    return (
+    const regular = (
       <tr className={doneClass}>
         <td>{todo.title}</td>
         <td>{todo.description}</td>
@@ -53,11 +38,31 @@ class TodoItem extends React.Component {
           />
         </td>
         <td>
-          <button>Update</button>
+          <button
+            onClick={this.clickUpdateBtn}
+          >
+            Update
+          </button>
           <button>Delete</button>
         </td>
       </tr>
+    );
+    const editOutput = (
+      <tr>
+        <td colSpan="6">
+          <TodosForm
+          editTodoMode={this.state.editTodoMode}
+          title={todo.title}
+          description={todo.description}
+          dueDate={todo.dueDate}
+          priority={todo.priority}
+          notes={todo.notes}
+          />
+        </td>
+      </tr>
+      
     )
+    return this.state.editTodoMode ? editOutput : regular; 
   }
 }
 

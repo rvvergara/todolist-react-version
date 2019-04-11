@@ -7,7 +7,7 @@ class Todos extends React.Component {
   state = {
     todos: [],
     project: this.props.selectedProject,
-    addOrEditTodo: false,
+    addTodoMode: false,
   }
   
   componentWillMount(){
@@ -24,14 +24,14 @@ class Todos extends React.Component {
 
   handleTodoBtn = () => {
     this.setState(() => ({
-      addOrEditTodo: true,
+      addTodoMode: true,
     }));
   }
 
   submitTodo = (e) => {
     e.preventDefault();
     this.setState(() => ({
-      addOrEditTodo: false,
+      addTodoMode: false,
     }));
     const [title, description, dueDate, priority, note] = e.target.elements;
 
@@ -78,10 +78,10 @@ class Todos extends React.Component {
         }
         {this.state.project ? <AddTodoBtn
         handleTodoBtn={this.handleTodoBtn}
-        addOrEditTodo={this.state.addOrEditTodo}
+        addTodoMode={this.state.addTodoMode}
         /> : "No todos for non-existent project"}
         <TodosForm
-        addOrEditTodo={this.state.addOrEditTodo}
+        addTodoMode={this.state.addTodoMode}
         submitTodo={this.submitTodo}
         />
       </div>
