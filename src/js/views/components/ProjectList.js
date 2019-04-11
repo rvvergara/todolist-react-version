@@ -11,6 +11,7 @@ export default (props) => {
     submitProjectForm,
     updateProjectForm,
     deleteProject,
+    selectProject,
   } = props;
   return (
     <div>
@@ -23,6 +24,7 @@ export default (props) => {
           projects={projects}
           updateProjectForm={updateProjectForm}
           deleteProject={deleteProject}
+          selectProject={selectProject}
         />
       ))}
       <AddProjectBtn

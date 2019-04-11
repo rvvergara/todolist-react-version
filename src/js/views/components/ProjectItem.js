@@ -27,9 +27,10 @@ class ProjectItem extends React.Component {
       name,
       dataID,
       deleteProject,
+      selectProject,
     } = this.props;
     const regular = (
-      <div>
+      <div onClick={selectProject}>
         <span>{ name }</span>
         <button
           id={`delete-proj-${dataID+1}`}

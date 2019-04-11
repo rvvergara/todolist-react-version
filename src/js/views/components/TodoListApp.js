@@ -33,6 +33,7 @@ export default class TodoListApp extends React.Component {
     this.setState(() => ({
       projects: JSON.parse(localStorage.projectsArray),
       addProjectMode: false,
+      selectedProject: project,
     }))
     e.target.reset();
   }
@@ -52,6 +53,13 @@ export default class TodoListApp extends React.Component {
     }));
   }
 
+  selectProject = (e) => {
+    const selectedProjectName = e.target.innerText;
+    this.setState(() => ({
+      selectedProject: JSON.parse(localStorage.projectsArray).find(x => x.name === selectedProjectName),
+    }));
+  }
+
   render() {
     const {
       projects,
@@ -67,6 +75,7 @@ export default class TodoListApp extends React.Component {
         submitProjectForm={this.submitProjectForm}
         updateProjectForm={this.updateProjectForm}
         deleteProject={this.deleteProject}
+        selectProject={this.selectProject}
         />
         <Todos
         selectedProject={selectedProject}

@@ -5,16 +5,19 @@ import TodosForm from './TodosForm';
 class Todos extends React.Component {
   state = {
     todos: [],
-    project: undefined,
+    project: this.props.selectedProject,
     addOrEditTodo: false,
   }
   
   componentWillMount(){
     this.setState((prevState, props) => ({
-      project: props.selectedProject,
-    }));
-    this.setState((prevState, props) => ({
       todos: prevState.project.todos,
+    }));
+  }
+
+  componentWillReceiveProps(props){
+    this.setState(() => ({
+      project: props.selectedProject
     }));
   }
 
@@ -58,7 +61,7 @@ class Todos extends React.Component {
           </tbody>
         </table>
         {
-          this.state.todos.length === 0 && <div>No todos yet</div>
+          this.state.todos.length === 0 && <div>No todos yet for {this.state.project.name}</div>
         }
         <AddTodoBtn
         handleTodoBtn={this.handleTodoBtn}
