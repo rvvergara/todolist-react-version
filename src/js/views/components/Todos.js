@@ -51,10 +51,10 @@ class Todos extends React.Component {
   render() {
     return (
       <div>
-          <h2>
+        {this.state.project ? <h2>
           Todo list for&nbsp;
-          {this.state.project.name}
-        </h2>
+          { this.state.project.name }
+        </h2> : <h2>Project Deleted</h2>}
         <table>
           <thead>
             <tr>
@@ -69,17 +69,17 @@ class Todos extends React.Component {
           </thead>
           <tbody>
             {
-              this.state.project.todos.map((todo, i) => <TodoItem todo={todo} key={`todo-${i}`} />)
+              this.state.project && this.state.project.todos.map((todo, i) => <TodoItem todo={todo} key={`todo-${i}`} />)
             }
           </tbody>
         </table>
         {
-          this.state.project.todos.length === 0 && <div>No todos yet for {this.state.project.name}</div>
+          this.state.project && this.state.project.todos.length === 0 && <div>No todos yet for {this.state.project.name}</div>
         }
-        <AddTodoBtn
+        {this.state.project ? <AddTodoBtn
         handleTodoBtn={this.handleTodoBtn}
         addOrEditTodo={this.state.addOrEditTodo}
-        />
+        /> : "No todos for non-existent project"}
         <TodosForm
         addOrEditTodo={this.state.addOrEditTodo}
         submitTodo={this.submitTodo}

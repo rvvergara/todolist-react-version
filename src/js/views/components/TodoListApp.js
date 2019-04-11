@@ -49,7 +49,7 @@ export default class TodoListApp extends React.Component {
     const projectForDeletion = e.target.parentNode.childNodes[0].innerText;
     projectsController.delete(projectForDeletion);
     this.setState(() => ({
-      projects: JSON.parse(localStorage.projectsArray) 
+      projects: JSON.parse(localStorage.projectsArray)
     }));
   }
 
