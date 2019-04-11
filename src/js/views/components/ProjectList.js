@@ -7,8 +7,10 @@ export default (props) => {
   const {
     projects,
     addProjectMode,
+    editProjectMode,
     clickAddProjectBtn,
     submitProjectForm,
+    clickUpdateProjectBtn,
   } = props;
   return (
     <div>
@@ -17,6 +19,8 @@ export default (props) => {
         <ProjectItem
           key={project.name}
           name={project.name}
+          editProjectMode={editProjectMode}
+          clickUpdateProjectBtn={clickUpdateProjectBtn}
         />
       ))}
       <AddProjectBtn
