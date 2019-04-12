@@ -39,11 +39,9 @@ class Todos extends React.Component {
       priority.value,  
       note.value, 
       this.state.project.name);
+    
     const project = JSON.parse(localStorage[todo.project]);
-    const projectsArr = JSON.parse(localStorage.projectsArray);
-    const projectIndex = projectsArr.findIndex(x => x.id === project.id);
-    projectsArr[projectIndex] = project;
-    localStorage.setItem('projectsArray', JSON.stringify(projectsArr));
+    
     this.setState((prevState) => ({
       todos: [...prevState.todos, todo],
       project: project,

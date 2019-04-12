@@ -1,6 +1,8 @@
 import Todo from "../models/todo";
 import {
   getTodoDataFromForm,
+  updateProjectsArray,
+  pushTodoToProject,
 } from './helpers/todos/todoHelpers';
 
 import * as localStorageData from './helpers/common/storage';
@@ -9,11 +11,7 @@ const todoController = (
   () => ({
     create(title, description, dueDate, priority, notes, project) {
       const todo = new Todo(title, description, dueDate, priority, notes, project);
-      // Extract parent project from localStorage
-      const parentProject = localStorageData.getDataFromLocalStorage(project);
-      // Push todo into parentProj's todo
-      parentProject.todos.push(todo);
-      localStorageData.setDataIntoLocalStorage(project, parentProject);
+      pushTodoToProject(todo);
       return todo;
     },
     update(project, id, projectName) {
