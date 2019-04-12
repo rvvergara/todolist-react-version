@@ -73,7 +73,9 @@ class Todos extends React.Component {
           Todo list for&nbsp;
           { this.state.project.name }
         </h2> : <h2>Project Deleted</h2>}
-        <table>
+        <table
+          className="table table-striped"
+        >
           <thead>
             <tr>
               <th>Title</th>

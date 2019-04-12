@@ -5,12 +5,12 @@ export default (props) => {
     handleTodoBtn,
     addTodoMode,
   } = props;
-  const displayClass = !addTodoMode ? '' : 'd-none';
+  const displayClass = !addTodoMode ? 'btn btn-primary btn-block' : 'd-none';
   return (
     <button
-    type='button'
-    className={displayClass}
-    onClick={handleTodoBtn}
+      type='button'
+      className={displayClass}
+      onClick={handleTodoBtn}
     >
     Add Todo
     </button>

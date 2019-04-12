@@ -20,6 +20,7 @@ export default (props) => {
         onSubmit={submitProjectForm}
       >
         <input
+          className="form-control"
           type="text"
           id={`project-${dataID}`}
           defaultValue={name}

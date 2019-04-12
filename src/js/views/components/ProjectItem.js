@@ -31,15 +31,21 @@ class ProjectItem extends React.Component {
     } = this.props;
     const regular = (
       <div onClick={selectProject}>
-        <span>{ name }</span>
+        <span
+          className="mx-1"
+        >
+          { name }
+        </span>
         <button
+          className="btn btn-sm btn-danger"
           id={`delete-proj-${dataID+1}`}
           onClick={deleteProject}
         >
           Delete
         </button>
         <button
-        onClick={this.clickUpdateProjectBtn}
+          className="btn btn-sm btn-warning"
+          onClick={this.clickUpdateProjectBtn}
         >
         Update
         </button>

@@ -5,7 +5,7 @@ export default (props) => {
     addProjectMode,
     clickAddProjectBtn,
   } = props;
-  const displayClass = !addProjectMode ? '' : 'd-none'
+  const displayClass = !addProjectMode ? 'btn btn-primary mt-1' : 'd-none';
   return (
     <button
       type="button"
