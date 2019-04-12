@@ -87,7 +87,7 @@ class TodoItem extends React.Component {
       >
         <td>{title}</td>
         <td>{description}</td>
-        <td>{dueDate}</td>
+        <td>{new Date(dueDate).toDateString()}</td>
         <td>{priority}</td>
         <td>{notes}</td>
         <td>
