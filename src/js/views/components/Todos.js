@@ -54,11 +54,8 @@ class Todos extends React.Component {
     const todoID = Number(e.target.parentNode.parentNode.id);
     const todoForDeletion = this.state.project.todos.find(x => x.id === todoID);
     const projectName = todoForDeletion.project;
-    const projectsArr = JSON.parse(localStorage.projectsArray);
-    const projectIndex = projectsArr.findIndex(x => x.name === projectName);
-    projectsArr[projectIndex] = JSON.parse(localStorage[projectName]);
+    // Run controller delete action
     todosController.delete(projectName, todoID);
-    localStorage.setItem('projectsArray', JSON.stringify(projectsArr));
     this.setState(() => ({
       todos: JSON.parse(localStorage[projectName]).todos,
       project: JSON.parse(localStorage[projectName]),

@@ -41,6 +41,7 @@ const todoController = (
       // Splice project
       parentProject.todos.splice(todoIndex, 1);
       localStorageData.setDataIntoLocalStorage(project, parentProject);
+      updateProjectsArray(parentProject);
     },
   })
 )();
