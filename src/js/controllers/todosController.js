@@ -3,6 +3,7 @@ import {
   getTodoDataFromForm,
   updateProjectsArray,
   pushTodoToProject,
+  updateTodoInProject,
 } from './helpers/todos/todoHelpers';
 
 import * as localStorageData from './helpers/common/storage';
@@ -14,12 +15,18 @@ const todoController = (
       pushTodoToProject(todo);
       return todo;
     },
+
     update(project, id, projectName) {
-      const index = project.todos.findIndex(x => x.id === id);
+      const {
+        todos,
+      } = project;
+      const index = todos.findIndex(x => x.id === id);
       const {
         done,
-      } = project.todos[index];
+      } = todos[index];
+
       const [title, description, dueDate, priority, notes, name] = getTodoDataFromForm(projectName);
+
       const todoUpdated = {
         title,
         description,
@@ -30,9 +37,13 @@ const todoController = (
         done,
         id,
       };
-      project.todos.splice(index, 1, todoUpdated);
-      localStorageData.setDataIntoLocalStorage(project.name, project);
+
+      updateTodoInProject(todoUpdated, project, index);
+
+      updateProjectsArray(project);
+      return todoUpdated;
     },
+
     delete(project, id) {
       // Extract parent project
       const parentProject = localStorageData.getDataFromLocalStorage(project);

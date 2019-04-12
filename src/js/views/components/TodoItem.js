@@ -48,27 +48,23 @@ class TodoItem extends React.Component {
 
   updateTodo = (e) => {
     e.preventDefault();
-    const project = JSON.parse(localStorage[this.state.todo.project]);
-    const todoID = this.state.todo.id;
+    const {
+      todo
+    } = this.state;
+    
+    const project = JSON.parse(localStorage[todo.project]);
+    const todoID = todo.id;
     const projectName = project.name;
-    todosController.update(project, todoID, projectName);
-    const todo = project.todos.find(x => x.id === todoID);
-    const todoIndex = project.todos.findIndex(x => x.id === todoID);
+    const updatedTodo = todosController.update(project, todoID, projectName);
+        
     this.setState(()=>({
       editTodoMode: false,
-      title: todo.title,
-      description: todo.description,
-      dueDate: todo.dueDate,
-      priority: todo.priority,
-      notes: todo.notes,
+      title: updatedTodo.title,
+      description: updatedTodo.description,
+      dueDate: updatedTodo.dueDate,
+      priority: updatedTodo.priority,
+      notes: updatedTodo.notes,
     }));
-    const updatedProject = Object.assign({}, project);
-    updatedProject.todos[todoIndex] = todo;
-    localStorage.setItem(updatedProject.name, JSON.stringify(updatedProject));
-    const projectsArr = JSON.parse(localStorage.projectsArray);
-    const projectIndex = projectsArr.findIndex(x => x.name === updatedProject.name);
-    projectsArr[projectIndex] = updatedProject;
-    localStorage.setItem("projectsArray", JSON.stringify(projectsArr));
   }
 
   render() {
