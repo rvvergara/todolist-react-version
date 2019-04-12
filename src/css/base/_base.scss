@@ -11,6 +11,10 @@ button {
   cursor: pointer;
 }
 
+button:disabled {
+  cursor: default;
+}
+
 .d-none {
   display: none;
 }

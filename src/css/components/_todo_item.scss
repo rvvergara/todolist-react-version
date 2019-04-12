@@ -4,7 +4,10 @@ table {
 
 td {
   position: relative;
-  padding: 5px 10px;
+}
+
+tr {
+  padding: 0 $xl-size;
 }
 
 tr.strikeout {
@@ -24,4 +27,9 @@ tr.strikeout td:before {
 tr.strikeout td:after {
   content: "\00B7";
   font-size: 1px;
+}
+
+td {
+  position: relative;
+  padding: 0 $xl-size;
 }
