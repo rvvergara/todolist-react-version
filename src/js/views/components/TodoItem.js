@@ -42,6 +42,12 @@ class TodoItem extends React.Component {
     }));
   }
 
+  handleChange = (key, value) => {
+    this.setState(() => ({
+      [key]: value,
+    }));
+  }
+
   updateTodo = (e) => {
     e.preventDefault();
     const {
@@ -119,6 +125,7 @@ class TodoItem extends React.Component {
           priority={priority}
           notes={notes}
           submitTodo={this.updateTodo}
+          handleChange={this.handleChange}
           />
         </td>
       </tr>

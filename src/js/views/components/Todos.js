@@ -29,6 +29,10 @@ class Todos extends React.Component {
     }));
   }
 
+  handleChange = () => {
+    
+  } 
+
   submitTodo = (e) => {
     e.preventDefault();
     const [title, description, dueDate, priority, note] = e.target.elements;
@@ -103,6 +107,7 @@ class Todos extends React.Component {
         <TodosForm
         addTodoMode={this.state.addTodoMode}
         submitTodo={this.submitTodo}
+        handleChange={this.handleChange}
         />
       </div>
     )
