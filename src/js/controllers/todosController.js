@@ -1,6 +1,9 @@
 import Todo from "../models/todo";
 import {
   getTodoDataFromForm,
+  updateProjectsArray,
+  pushTodoToProject,
+  updateTodoInProject,
 } from './helpers/todos/todoHelpers';
 
 import * as localStorageData from './helpers/common/storage';
@@ -9,19 +12,21 @@ const todoController = (
   () => ({
     create(title, description, dueDate, priority, notes, project) {
       const todo = new Todo(title, description, dueDate, priority, notes, project);
-      // Extract parent project from localStorage
-      const parentProject = localStorageData.getDataFromLocalStorage(project);
-      // Push todo into parentProj's todo
-      parentProject.todos.push(todo);
-      localStorageData.setDataIntoLocalStorage(project, parentProject);
+      pushTodoToProject(todo);
       return todo;
     },
+
     update(project, id, projectName) {
-      const index = project.todos.findIndex(x => x.id === id);
+      const {
+        todos,
+      } = project;
+      const index = todos.findIndex(x => x.id === id);
       const {
         done,
-      } = project.todos[index];
+      } = todos[index];
+
       const [title, description, dueDate, priority, notes, name] = getTodoDataFromForm(projectName);
+
       const todoUpdated = {
         title,
         description,
@@ -32,9 +37,12 @@ const todoController = (
         done,
         id,
       };
-      project.todos.splice(index, 1, todoUpdated);
-      localStorageData.setDataIntoLocalStorage(project.name, project);
+
+      updateTodoInProject(todoUpdated, project, index);
+
+      return todoUpdated;
     },
+
     delete(project, id) {
       // Extract parent project
       const parentProject = localStorageData.getDataFromLocalStorage(project);
@@ -43,6 +51,7 @@ const todoController = (
       // Splice project
       parentProject.todos.splice(todoIndex, 1);
       localStorageData.setDataIntoLocalStorage(project, parentProject);
+      updateProjectsArray(parentProject);
     },
   })
 )();

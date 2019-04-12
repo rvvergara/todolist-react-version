@@ -1,3 +1,15 @@
+table {
+  border-collapse: collapse;
+}
+
+td {
+  position: relative;
+}
+
+tr {
+  padding: 0 $xl-size;
+}
+
 tr.strikeout {
   opacity: 0.3;
   transition: 2s opacity;
@@ -15,4 +27,9 @@ tr.strikeout td:before {
 tr.strikeout td:after {
   content: "\00B7";
   font-size: 1px;
+}
+
+td {
+  position: relative;
+  padding: 0 $xl-size;
 }
