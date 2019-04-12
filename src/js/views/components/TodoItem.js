@@ -94,11 +94,13 @@ class TodoItem extends React.Component {
         </td>
         <td>
           <button
+            disabled={this.state.done}
             onClick={this.clickUpdateBtn}
           >
             Update
           </button>
           <button
+            disabled={this.state.done}
             onClick={this.props.deleteTodo}
           >
             Delete
