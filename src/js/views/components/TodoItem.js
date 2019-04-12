@@ -1,6 +1,7 @@
 import React from 'react';
 import TodosForm from './TodosForm';
 import todosController from '../../controllers/todosController';
+import { updateTodoInProject } from '../../controllers/helpers/todos/todoHelpers';
 class TodoItem extends React.Component {
   state = {
     todo: {...this.props.todo},
@@ -27,13 +28,8 @@ class TodoItem extends React.Component {
     this.setState((prevState)=> {
       const newTodo = Object.assign({}, prevState.todo, {done: prevState.done});
       const project = JSON.parse(localStorage[newTodo.project]);
-      const projectsArr = JSON.parse(localStorage.projectsArray);
       const newTodoIndex = project.todos.findIndex(x => x.id === newTodo.id);
-      const projectIndex = projectsArr.findIndex(x => x.name === project.name);
-      project.todos[newTodoIndex] = newTodo;
-      projectsArr[projectIndex] = project;
-      localStorage.setItem(project.name, JSON.stringify(project));
-      localStorage.setItem("projectsArray", JSON.stringify(projectsArr));
+      updateTodoInProject(newTodo, project, newTodoIndex);
       return {
         todo: newTodo,
       }

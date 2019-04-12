@@ -40,7 +40,6 @@ const todoController = (
 
       updateTodoInProject(todoUpdated, project, index);
 
-      updateProjectsArray(project);
       return todoUpdated;
     },
 

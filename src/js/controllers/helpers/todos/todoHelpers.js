@@ -41,5 +41,6 @@ export const updateTodoInProject = (todo, project, index) => {
   } = project;
   todos[index] = todo;
   setDataIntoLocalStorage(project.name, project);
+  updateProjectsArray(project);
   return project;
 };
