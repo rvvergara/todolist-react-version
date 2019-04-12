@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "by [Ryan](https://github.com/rvvergara) and [Dipto](https://github.com/dipto0321)",
   "private": true,
-  "homepage": "https://github.com/rvvergara/todolist-react-version",
+  "homepage": "https://github.com/rvvergara/todolist-react-version/build",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
