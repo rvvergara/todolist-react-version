@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ProjectItem from './ProjectItem';
 import AddProjectBtn from './AddProjectBtn';
 import ProjectsForm from './ProjectsForm';
 
-export default (props) => {
+const ProjectList = (props) => {
   const {
     projects,
     addProjectMode,
@@ -38,3 +39,15 @@ export default (props) => {
     </div>
   );
 };
+
+ProjectList.propTypes = {
+  projects: PropTypes.arrayOf(Object).isRequired,
+  addProjectMode: PropTypes.bool.isRequired,
+  clickAddProjectBtn: PropTypes.func.isRequired,
+  submitProjectForm: PropTypes.func.isRequired,
+  updateProjectForm: PropTypes.func.isRequired,
+  deleteProject: PropTypes.func.isRequired,
+  selectProject: PropTypes.func.isRequired,
+};
+
+export default ProjectList;
