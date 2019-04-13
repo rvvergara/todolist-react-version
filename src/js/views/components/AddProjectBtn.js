@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default (props) => {
+const AddProjectBtn = (props) => {
   const {
     addProjectMode,
     clickAddProjectBtn,
@@ -16,3 +17,10 @@ export default (props) => {
     </button>
   );
 };
+
+AddProjectBtn.propTypes = {
+  addProjectMode: PropTypes.func.isRequired,
+  clickAddProjectBtn: PropTypes.func.isRequired,
+};
+
+export default AddProjectBtn;
