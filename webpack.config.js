@@ -2,18 +2,21 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
 module.exports = {
-  entry: './src/js/index.js',
+  entry: path.join(__dirname, '/src/js/index.js'),
   output: {
     filename: '[name].bundle.js',
-    path: path.resolve(__dirname, 'build'),
+    path: path.join(__dirname, 'build'),
   },
   devServer: {
-    contentBase: path.resolve(__dirname, 'dist'),
+    contentBase: path.join(__dirname, 'dist'),
+    host: 'localhost',
+    port: '3000',
+    hot: true,
   },
   plugins: [new HtmlWebpackPlugin({
     title: 'TodoList React App',
     filename: 'index.html',
-    template: './dist/index.html',
+    template: path.join(__dirname, '/dist/index.html'),
   })],
   devtool: 'cheap-module-eval-source-map',
   module: {
