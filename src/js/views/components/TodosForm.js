@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default (props) => {
+const TodosForm = (props) => {
   const {
     addTodoMode,
     editTodoMode,
@@ -64,3 +65,27 @@ export default (props) => {
     </form>
   );
 };
+
+TodosForm.propTypes = {
+  addTodoMode: PropTypes.bool,
+  editTodoMode: PropTypes.bool,
+  title: PropTypes.string,
+  description: PropTypes.string,
+  dueDate: PropTypes.string,
+  priority: PropTypes.string,
+  notes: PropTypes.string,
+  handleChange: PropTypes.func.isRequired,
+  submitTodo: PropTypes.func.isRequired,
+};
+
+TodosForm.defaultProps = {
+  title: undefined,
+  description: undefined,
+  dueDate: undefined,
+  priority: undefined,
+  notes: undefined,
+  addTodoMode: false,
+  editTodoMode: false,
+};
+
+export default TodosForm;
