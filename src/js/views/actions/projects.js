@@ -1,10 +1,5 @@
 import uuid from 'uuid';
 
-const getProjects = () => ({
-  type: 'GET_PROJECTS',
-  projects: localStorage.projectsArray,
-});
-
 const addProject = ({ name = 'PROJECT', description = 'SOME PROJECT' } = {}) => ({
   type: 'ADD_PROJECT',
   project: {
@@ -27,7 +22,6 @@ const deleteProject = id => ({
 });
 
 export {
-  getProjects,
   addProject,
   updateProject,
   deleteProject,
