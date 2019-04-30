@@ -27,26 +27,4 @@ describe('ProjectList', () => {
   test('should render correctly', () => {
     expect(wrapper).toMatchSnapshot();
   });
-
-  test('should change addProjectMode state upon clicking AddBtn', () => {
-    wrapper.find('AddProjectBtn').prop('clickAddProjectBtn')();
-    expect(wrapper.state('addProjectMode')).toBe(true);
-    expect(wrapper).toMatchSnapshot();
-  });
-
-  test('should handle valid new project submission', () => {
-    wrapper.find('ProjectsForm').prop('submitProjectForm')({
-      preventDefault: () => {},
-      target: {
-        elements: [{ value: 'Cook' }],
-        reset: () => {},
-      },
-    });
-    expect(wrapper.state('addProjectMode')).toBe(false);
-    expect(addProject).toHaveBeenLastCalledWith({ name: 'Cook' });
-  });
-
-  test('should change error state for invalid project submission', () => {
-
-  });
 });

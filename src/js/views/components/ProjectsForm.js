@@ -7,13 +7,16 @@ const ProjectsForm = (props) => {
     submitProjectForm,
     editProjectMode,
     name,
+    error,
   } = props;
   const displayClass = addProjectMode || editProjectMode ? '' : 'd-none';
   return (
     <div>
+      {error && (
       <div>
-        Invalid Project Name
+        { error }
       </div>
+      )}
       <form
         className={displayClass}
         onSubmit={submitProjectForm}

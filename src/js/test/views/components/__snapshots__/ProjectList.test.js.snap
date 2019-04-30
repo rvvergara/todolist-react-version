@@ -64,16 +64,6 @@ exports[`ProjectList should render correctly 1`] = `
       name="Third"
     />
   </div>
-  <div>
-    <AddProjectBtn
-      addProjectMode={false}
-      clickAddProjectBtn={[Function]}
-    />
-    <ProjectsForm
-      addProjectMode={false}
-      handleChange={[Function]}
-      submitProjectForm={[Function]}
-    />
-  </div>
+  <ConnectFunction />
 </div>
 `;
