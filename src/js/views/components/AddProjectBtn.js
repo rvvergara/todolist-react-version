@@ -19,7 +19,7 @@ const AddProjectBtn = (props) => {
 };
 
 AddProjectBtn.propTypes = {
-  addProjectMode: PropTypes.func.isRequired,
+  addProjectMode: PropTypes.bool.isRequired,
   clickAddProjectBtn: PropTypes.func.isRequired,
 };
 
