@@ -7,7 +7,7 @@ import {
   from './controllers/helpers/projects/projectHelpers';
 import TodoListApp from './views/components/TodoListApp';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../css/styles.scss';
+import '../scss/styles.scss';
 
 createProjectsArray();
 createDefaultProject();
