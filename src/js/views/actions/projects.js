@@ -11,6 +11,7 @@ const addProject = ({ name = 'PROJECT', description = 'SOME PROJECT' } = {}) => 
     id: uuid(),
     name,
     description,
+    todos: [],
   },
 });
 
@@ -31,4 +32,3 @@ export {
   updateProject,
   deleteProject,
 };
-
