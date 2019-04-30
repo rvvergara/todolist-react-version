@@ -2,6 +2,15 @@ import projectsReducer from '../../../views/reducers/projects';
 import projects from '../../fixtures/projects';
 
 describe('projects reducer', () => {
+  test('should get all projects', () => {
+    const action = {
+      type: 'GET_PROJECTS',
+      projects,
+    };
+    const state = projectsReducer([], action);
+    expect(state).toEqual(projects);
+  });
+
   test('should add valid project', () => {
     const project = {
       id: 3,

@@ -1,5 +1,8 @@
 export default (state = [], action) => {
   switch (action.type) {
+    case 'GET_PROJECTS':
+      return [...state, ...action.projects]
+
     case 'ADD_PROJECT':
     {
       const index = state.findIndex(project => project.name === action.project.name);

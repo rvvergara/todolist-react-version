@@ -1,8 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import ProjectItem from './ProjectItem';
 import AddProjectBtn from './AddProjectBtn';
 import ProjectsForm from './ProjectsForm';
+
+export class ProjectList extends React.Component {
+
+};
+
+const mapStateToProps = state => ({
+  projects: state.projects,
+});
 
 const ProjectList = (props) => {
   const {

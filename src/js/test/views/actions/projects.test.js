@@ -1,8 +1,19 @@
 import {
+  getProjects,
   addProject,
   updateProject,
   deleteProject,
 } from '../../../views/actions/projects';
+import projects from '../../fixtures/projects';
+
+describe('getProjects', () => {
+  test('return a valid action', () => {
+    expect(getProjects(projects)).toEqual({
+      type: 'GET_PROJECTS',
+      projects,
+    });
+  });
+});
 
 describe('addProject', () => {
   let newProject;

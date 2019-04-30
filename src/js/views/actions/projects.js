@@ -1,5 +1,10 @@
 import uuid from 'uuid';
 
+const getProjects = projects => ({
+  type: 'GET_PROJECTS',
+  projects,
+});
+
 const addProject = ({ name = 'PROJECT', description = 'SOME PROJECT' } = {}) => ({
   type: 'ADD_PROJECT',
   project: {
@@ -22,6 +27,7 @@ const deleteProject = id => ({
 });
 
 export {
+  getProjects,
   addProject,
   updateProject,
   deleteProject,
