@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddNewProject it should render correctly 1`] = `
+<div>
+  <AddProjectBtn
+    addProjectMode={false}
+    clickAddProjectBtn={[Function]}
+  />
+  <ProjectsForm
+    addProjectMode={false}
+    error=""
+    handleChange={[Function]}
+    name=""
+    submitProjectForm={[Function]}
+  />
+</div>
+`;
