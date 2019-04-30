@@ -7,7 +7,9 @@ import {
 import { selectProject } from '../actions/selectedProject';
 import ProjectItem from './ProjectItem';
 import AddNewProject from './AddNewProject';
-
+import {
+  getDataFromLocalStorage
+} from '../../controllers/helpers/common/storage';
 export class ProjectList extends React.Component {
   handleSelectProject = (e) => {
     const {projects, selectProject} = this.props;
@@ -20,9 +22,8 @@ export class ProjectList extends React.Component {
       getProjects,
       selectProject,
     } = this.props;
-    const json = localStorage.projectsArray;
-    if(json){
-      const projectsArray = JSON.parse(json);
+    const projectsArray = getDataFromLocalStorage('projectsArray');
+    if(projectsArray){
       getProjects(projectsArray);
       selectProject(projectsArray[0].name);
     }

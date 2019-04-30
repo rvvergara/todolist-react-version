@@ -20,14 +20,3 @@ export const createDefaultProject = () => {
     const defaultProject = localStorageData.getDataFromLocalStorage('Default Project');
   }
 };
-
-// Adding event listener to Project Form
-// document.getElementById('projectNameForm').addEventListener('submit', e => {
-//   e.preventDefault();
-//   submitProjectForm(e.target);
-// });
-// // Adding event listener to Add Project Btn
-// document.getElementById('addProjBtn').addEventListener('click', e => {
-//   const action = 'new';
-//   showProjectForm(e.target, action);
-// });

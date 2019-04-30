@@ -3,6 +3,8 @@ import { shallow } from 'enzyme';
 import { ProjectList } from '../../../views/components/ProjectList';
 import projects from '../../fixtures/projects';
 
+jest.mock('../../../controllers/helpers/common/storage.js');
+
 describe('ProjectList', () => {
   let wrapper;
   let getProjects;
@@ -26,5 +28,14 @@ describe('ProjectList', () => {
 
   test('should render correctly', () => {
     expect(wrapper).toMatchSnapshot();
+    expect(getProjects).toHaveBeenCalled();
+    expect(selectProject).toHaveBeenCalled();
+  });
+
+  test('should handle change selected project', () => {
+    wrapper.find('ProjectItem').at(1).prop('handleSelectProject')({
+      target: { id: 1 },
+    });
+    expect(selectProject).toHaveBeenLastCalledWith(projects[1].name);
   });
 });
