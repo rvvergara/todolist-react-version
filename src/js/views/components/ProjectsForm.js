@@ -1,32 +1,34 @@
 import React from 'react';
 
-export default (props) => {
+const ProjectsForm = (props) => {
   const {
     addProjectMode,
+    handleChange,
     submitProjectForm,
     editProjectMode,
     name,
-    dataID,
   } = props;
   const displayClass = addProjectMode || editProjectMode ? '' : 'd-none';
   return (
     <div>
-      <div className="d-none">
+      <div>
         Invalid Project Name
       </div>
       <form
-        data-id={dataID}
         className={displayClass}
         onSubmit={submitProjectForm}
       >
         <input
           className="form-control"
           type="text"
-          id={`project-${dataID}`}
-          defaultValue={name}
+          name="projectName"
+          value={name}
+          onChange={e => handleChange(e.target.name, e.target.value)}
           placeholder={name || 'New Project Name'}
         />
       </form>
     </div>
   );
 };
+
+export default ProjectsForm;

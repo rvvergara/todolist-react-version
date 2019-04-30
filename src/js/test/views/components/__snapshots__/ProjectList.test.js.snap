@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProjectList should change addProjectMode state upon clicking AddBtn 1`] = `
+<div>
+  <h2>
+    Project List
+  </h2>
+  <div>
+    <ProjectItem
+      handleSelectProject={[Function]}
+      id={0}
+      key="0"
+      name="First"
+    />
+    <ProjectItem
+      handleSelectProject={[Function]}
+      id={1}
+      key="1"
+      name="Second"
+    />
+    <ProjectItem
+      handleSelectProject={[Function]}
+      id={2}
+      key="2"
+      name="Third"
+    />
+  </div>
+  <div>
+    <AddProjectBtn
+      addProjectMode={true}
+      clickAddProjectBtn={[Function]}
+    />
+    <ProjectsForm
+      addProjectMode={true}
+      handleChange={[Function]}
+      submitProjectForm={[Function]}
+    />
+  </div>
+</div>
+`;
+
+exports[`ProjectList should render correctly 1`] = `
+<div>
+  <h2>
+    Project List
+  </h2>
+  <div>
+    <ProjectItem
+      handleSelectProject={[Function]}
+      id={0}
+      key="0"
+      name="First"
+    />
+    <ProjectItem
+      handleSelectProject={[Function]}
+      id={1}
+      key="1"
+      name="Second"
+    />
+    <ProjectItem
+      handleSelectProject={[Function]}
+      id={2}
+      key="2"
+      name="Third"
+    />
+  </div>
+  <div>
+    <AddProjectBtn
+      addProjectMode={false}
+      clickAddProjectBtn={[Function]}
+    />
+    <ProjectsForm
+      addProjectMode={false}
+      handleChange={[Function]}
+      submitProjectForm={[Function]}
+    />
+  </div>
+</div>
+`;

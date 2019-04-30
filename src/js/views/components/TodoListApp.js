@@ -68,15 +68,7 @@ export default class TodoListApp extends React.Component {
     } = this.state;
     return (
       <div id="todo-app">
-        <ProjectList
-        projects={projects}
-        addProjectMode={addProjectMode}
-        clickAddProjectBtn={this.clickAddProjectBtn}
-        submitProjectForm={this.submitProjectForm}
-        updateProjectForm={this.updateProjectForm}
-        deleteProject={this.deleteProject}
-        selectProject={this.selectProject}
-        />
+        <ProjectList />
         <Todos
         selectedProject={selectedProject}
         />
