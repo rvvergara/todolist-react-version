@@ -6,6 +6,7 @@ const addTodo = (todo, projectName) => ({
     ...todo,
     projectName,
     id: uuid(),
+    done: false,
   },
 });
 
