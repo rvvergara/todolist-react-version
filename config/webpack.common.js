@@ -5,7 +5,7 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
-  entry: './src/js/playground/redux-scratch.js',
+  entry: './src/js/index.js',
   output: {
     filename: 'js/[name].bundle.js',
     // Need to set publicPath in order for index.html to refer to /main.bundle.js instead of main.bundle.js
