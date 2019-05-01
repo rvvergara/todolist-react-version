@@ -10,7 +10,6 @@ import {
   setProjectForEdit,
 } from '../actions/projectForm';
 import { deleteProject, updateProject } from '../actions/projects';
-import { updateTodo } from '../actions/todos';
 export class ProjectItem extends React.Component {
   state = {
     todos: [],
@@ -86,10 +85,9 @@ export class ProjectItem extends React.Component {
 };
 
 const mapStateToProps = state => ({
-  projectTodos: state.todos.filter(todo => todo.projectName === state.selectedProject),
   addProjectMode: state.projectForm.addProjectMode,
   editProjectMode: state.projectForm.editProjectMode,
   projectBeingEdited: state.projectForm.projectBeingEdited,
 });
 
-export default connect(mapStateToProps, { addProjectModeSwitch, editProjectModeSwitch, selectProject, setProjectForEdit, deleteProject, updateProject, updateTodo })(ProjectItem);
+export default connect(mapStateToProps, { addProjectModeSwitch, editProjectModeSwitch, selectProject, setProjectForEdit, deleteProject, updateProject })(ProjectItem);
