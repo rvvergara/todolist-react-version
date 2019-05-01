@@ -1,6 +1,7 @@
 const defaultState = {
   addProjectMode: false,
   editProjectMode: false,
+  projectBeingEdited: undefined,
 };
 
 export default (state = defaultState, action) => {
@@ -9,6 +10,8 @@ export default (state = defaultState, action) => {
       return { ...state, addProjectMode: !state.addProjectMode };
     case 'SWITCH_EDIT_PROJECT':
       return { ...state, editProjectMode: !state.editProjectMode };
+    case 'SET_PROJECT_FOR_EDIT':
+      return { ...state, projectBeingEdited: action.id };
     default:
       return state;
   }

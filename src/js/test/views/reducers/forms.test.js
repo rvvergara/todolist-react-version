@@ -1,4 +1,5 @@
 import formsReducer from '../../../views/reducers/forms';
+import projects from '../../fixtures/projects';
 
 describe('formsReducer', () => {
   let defaultState;
@@ -7,6 +8,7 @@ describe('formsReducer', () => {
     defaultState = {
       addProjectMode: false,
       editProjectMode: false,
+      projectBeingEdited: undefined,
     };
   });
 
@@ -30,5 +32,13 @@ describe('formsReducer', () => {
     const action = { type: 'SWITCH_EDIT_PROJECT' };
     defaultState.editProjectMode = true;
     expect(formsReducer(defaultState, action).editProjectMode).toBe(false);
+  });
+
+  test('it should set project currently being edited', () => {
+    const action = {
+      type: 'SET_PROJECT_FOR_EDIT',
+      id: projects[1].id,
+    };
+    expect(formsReducer(defaultState, action).projectBeingEdited).toBe(projects[1].id);
   });
 });
