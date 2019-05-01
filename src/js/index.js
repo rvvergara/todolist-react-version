@@ -25,7 +25,15 @@ const newTodo = {
   notes: 'Labore magna laboris culpa et tempor deserunt pariatur in qui.',
 };
 
+const anotherTodo = {
+  title: 'Isa Pa',
+  description: 'Occaecat velit adipisicing irure ea.',
+  dueDate: moment().add(15, 'days').valueOf(),
+  notes: 'Anim duis consequat tempor ex duis eiusmod aliqua Lorem veniam laboris duis.',
+};
+
 store.dispatch(addTodo(newTodo, 'Default Project'));
+store.dispatch(addTodo(anotherTodo, 'Default Project'));
 
 const jsx = (
   <Provider store={store}>
