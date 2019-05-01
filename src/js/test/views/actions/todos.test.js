@@ -1,9 +1,18 @@
 import {
+  getTodos,
   addTodo,
   updateTodo,
   deleteTodo,
 } from '../../../views/actions/todos';
 import projects from '../../fixtures/projects';
+import todos from '../../fixtures/todos';
+
+test('getTodos should return a valid action', () => {
+  expect(getTodos(todos)).toEqual({
+    type: 'GET_TODOS',
+    todos,
+  });
+});
 
 test('addTodo should return a valid action', () => {
   const newTodo = {
