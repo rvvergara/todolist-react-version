@@ -1,59 +1,32 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ProjectItem it should render correctly 1`] = `
-<ProjectItem
-  addProjectMode={false}
-  addProjectModeSwitch={[MockFunction]}
-  deleteProject={[MockFunction]}
-  editProjectMode={false}
-  editProjectModeSwitch={[MockFunction]}
-  project={
-    Object {
-      "description": "Enim dolore quis tempor sit.",
-      "id": 0,
-      "name": "First",
-    }
-  }
-  selectProject={[MockFunction]}
+exports[`ProjectItem interaction with ProjectsForm it should render with ProjectsForm 1`] = `
+<ProjectsForm
+  handleChange={[Function]}
+  name="First"
+  submitProjectForm={[Function]}
+/>
+`;
+
+exports[`ProjectItem it should render correctly without projectsForm 1`] = `
+<div
+  onClick={[Function]}
 >
-  <div
-    onClick={[Function]}
+  <span
+    className="mx-1"
   >
-    <span
-      className="mx-1"
-    >
-      First
-    </span>
-    <ProjectItemBtns
-      clickUpdateProjectBtn={[Function]}
-      handleDeleteProject={[Function]}
-      project={
-        Object {
-          "description": "Enim dolore quis tempor sit.",
-          "id": 0,
-          "name": "First",
-        }
+    First
+  </span>
+  <ProjectItemBtns
+    clickUpdateProjectBtn={[Function]}
+    handleDeleteProject={[Function]}
+    project={
+      Object {
+        "description": "Enim dolore quis tempor sit.",
+        "id": 0,
+        "name": "First",
       }
-    >
-      <div>
-        <button
-          className="btn btn-sm btn-danger"
-          id="delete-0"
-          onClick={[Function]}
-          type="button"
-        >
-          Delete
-        </button>
-        <button
-          className="btn btn-sm btn-warning"
-          id="update-0"
-          onClick={[Function]}
-          type="button"
-        >
-          Update
-        </button>
-      </div>
-    </ProjectItemBtns>
-  </div>
-</ProjectItem>
+    }
+  />
+</div>
 `;
