@@ -1,9 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import TodoItem from './TodoItem';
 import AddTodoBtn from './AddTodoBtn';
 import TodosForm from './TodosForm';
 import todosController from '../../controllers/todosController';
-class Todos extends React.Component {
+export class Todos extends React.Component {
   state = {
     todos: [],
     project: this.props.selectedProject,
@@ -116,4 +117,4 @@ class Todos extends React.Component {
   }
 }
 
-export default Todos;
+export default connect()(Todos);
