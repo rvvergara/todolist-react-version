@@ -1,49 +1,54 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import ProjectsForm from './ProjectsForm';
-class ProjectItem extends React.Component {
+import { selectProject } from '../actions/selectedProject';
+import {
+  addProjectModeSwitch,
+  editProjectModeSwitch,
+} from '../actions/forms';
+export class ProjectItem extends React.Component {
   state = {
     todos: [],
-    editProjectMode: false,
   }
 
-  clickUpdateProjectBtn = () => {
-    this.setState(() => ({
-      editProjectMode: true,
-    }));
+  handleSelectProject = () => {
+    this.props.selectProject(this.props.project.name);
+  };
+
+  clickUpdateProjectBtn = (e) => {
+    e.stopPropagation();
+    this.props.editProjectModeSwitch()
+    this.setState({ editMode: true});
   }
 
   submitProjectForm = (e) => {
     e.preventDefault();
-    const id = Number(e.target.getAttribute('data-id'));
-    this.props.updateProjectForm(id);
-    this.setState(() => ({
-      editProjectMode: false,
-    }));
+    this.props.editProjectMode();
     e.target.reset();
   }
 
   render(){
     const {
-      name,
       dataID,
       deleteProject,
-      selectProject,
+      project,
     } = this.props;
     const regular = (
-      <div onClick={selectProject}>
+      <div onClick={this.handleSelectProject}>
         <span
           className="mx-1"
         >
-          { name }
+          { project.name }
         </span>
         <button
           className="btn btn-sm btn-danger"
-          id={`delete-proj-${dataID+1}`}
+          id={`delete-${project.id}`}
           onClick={deleteProject}
         >
           Delete
         </button>
         <button
+          id={`update-${project.id}`}
           className="btn btn-sm btn-warning"
           onClick={this.clickUpdateProjectBtn}
         >
@@ -54,12 +59,11 @@ class ProjectItem extends React.Component {
     const editMode = (
       <ProjectsForm
       dataID={dataID+1}
-      editProjectMode={this.state.editProjectMode}
       name={name}
       submitProjectForm={this.submitProjectForm}
       />
     )
-    if (this.state.editProjectMode){
+    if (this.props.editProjectMode){
       return editMode
     }else{
       return regular
@@ -67,4 +71,9 @@ class ProjectItem extends React.Component {
   }
 };
 
-export default ProjectItem;
+const mapStateToProps = state => ({
+  addProjectMode: state.forms.addProjectMode,
+  editProjectMode: state.forms.editProjectMode,
+});
+
+export default connect(mapStateToProps, { addProjectModeSwitch, editProjectModeSwitch, selectProject})(ProjectItem);

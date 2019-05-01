@@ -8,48 +8,44 @@ import { selectProject } from '../actions/selectedProject';
 import ProjectItem from './ProjectItem';
 import AddNewProject from './AddNewProject';
 import {
-  getDataFromLocalStorage
+  getDataFromLocalStorage,
 } from '../../controllers/helpers/common/storage';
-export class ProjectList extends React.Component {
-  handleSelectProject = (e) => {
-    const {projects, selectProject} = this.props;
-    const project = projects.find( project => project.id === e.target.id);
-    selectProject(project.name);
-  }
 
-  componentWillMount(){
+export class ProjectList extends React.Component {
+  componentWillMount() {
     const {
       getProjects,
       selectProject,
     } = this.props;
     const projectsArray = getDataFromLocalStorage('projectsArray');
-    if(projectsArray){
+    if (projectsArray) {
       getProjects(projectsArray);
       selectProject(projectsArray[0].name);
     }
   }
 
-  render(){
-      return (
-    <div>
-      <h2>Project List</h2>
+  render() {
+    const {
+      projects,
+    } = this.props;
+    return (
       <div>
-        {
-          this.props.projects.map(project => (
-            <ProjectItem 
+        <h2>Project List</h2>
+        <div>
+          {
+          projects.map(project => (
+            <ProjectItem
+              project={project}
               key={project.id}
-              name={project.name}
-              id={project.id}
-              handleSelectProject={this.handleSelectProject}
             />
           ))
         }
+        </div>
+        <AddNewProject />
       </div>
-      <AddNewProject />
-    </div>
-  );
+    );
   }
-};
+}
 
 const mapStateToProps = state => ({
   projects: state.projects,
@@ -58,7 +54,6 @@ const mapStateToProps = state => ({
 
 ProjectList.propTypes = {
   projects: PropTypes.arrayOf(Object).isRequired,
-  selectedProject: PropTypes.string.isRequired,
   getProjects: PropTypes.func.isRequired,
   selectProject: PropTypes.func.isRequired,
 };

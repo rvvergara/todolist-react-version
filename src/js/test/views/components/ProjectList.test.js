@@ -28,14 +28,13 @@ describe('ProjectList', () => {
 
   test('should render correctly', () => {
     expect(wrapper).toMatchSnapshot();
-    expect(getProjects).toHaveBeenLastCalledWith(projects);
-    expect(selectProject).toHaveBeenCalled();
   });
 
-  test('should handle change selected project', () => {
-    wrapper.find('ProjectItem').at(1).prop('handleSelectProject')({
-      target: { id: 1 },
-    });
-    expect(selectProject).toHaveBeenLastCalledWith(projects[1].name);
+  test('should call getProjects action before mounting', () => {
+    expect(getProjects).toHaveBeenLastCalledWith(projects);
+  });
+
+  test('should select first project before rendering', () => {
+    expect(selectProject).toHaveBeenCalled();
   });
 });

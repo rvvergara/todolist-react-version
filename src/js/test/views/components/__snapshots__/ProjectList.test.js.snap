@@ -6,23 +6,35 @@ exports[`ProjectList should render correctly 1`] = `
     Project List
   </h2>
   <div>
-    <ProjectItem
-      handleSelectProject={[Function]}
-      id={0}
+    <ConnectFunction
       key="0"
-      name="First"
+      project={
+        Object {
+          "description": "Enim dolore quis tempor sit.",
+          "id": 0,
+          "name": "First",
+        }
+      }
     />
-    <ProjectItem
-      handleSelectProject={[Function]}
-      id={1}
+    <ConnectFunction
       key="1"
-      name="Second"
+      project={
+        Object {
+          "description": "Cupidatat occaecat anim excepteur dolore eu est ea aute ea commodo ipsum.",
+          "id": 1,
+          "name": "Second",
+        }
+      }
     />
-    <ProjectItem
-      handleSelectProject={[Function]}
-      id={2}
+    <ConnectFunction
       key="2"
-      name="Third"
+      project={
+        Object {
+          "description": "Est qui nulla qui veniam nulla.",
+          "id": 2,
+          "name": "Third",
+        }
+      }
     />
   </div>
   <ConnectFunction />

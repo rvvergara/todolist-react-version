@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProjectItem it should render correctly 1`] = `
+<ProjectItem
+  addProjectMode={false}
+  addProjectModeSwitch={[MockFunction]}
+  editProjectMode={false}
+  editProjectModeSwitch={[MockFunction]}
+  project={
+    Object {
+      "description": "Enim dolore quis tempor sit.",
+      "id": 0,
+      "name": "First",
+    }
+  }
+  selectProject={[MockFunction]}
+>
+  <div
+    onClick={[Function]}
+  >
+    <span
+      className="mx-1"
+    >
+      First
+    </span>
+    <button
+      className="btn btn-sm btn-danger"
+      id="delete-0"
+    >
+      Delete
+    </button>
+    <button
+      className="btn btn-sm btn-warning"
+      id="update-0"
+      onClick={[Function]}
+    >
+      Update
+    </button>
+  </div>
+</ProjectItem>
+`;
