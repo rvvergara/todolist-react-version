@@ -1,7 +1,5 @@
 import React from 'react';
-import moment from 'moment';
 import 'react-dates/initialize';
-import { SingleDatePicker } from 'react-dates';
 import TodosForm from './TodosForm';
 import todosController from '../../controllers/todosController';
 import { updateTodoInProject } from '../../controllers/helpers/todos/todoHelpers';
@@ -45,31 +43,8 @@ class TodoItem extends React.Component {
     }));
   }
 
-  handleChange = (key, value) => {
-    this.setState(() => ({
-      [key]: value,
-    }));
-  }
-
-  updateTodo = (e) => {
-    e.preventDefault();
-    const {
-      todo
-    } = this.state;
-    
-    const project = JSON.parse(localStorage[todo.project]);
-    const todoID = todo.id;
-    const projectName = project.name;
-    const updatedTodo = todosController.update(project, todoID, projectName);
-        
-    this.setState(()=>({
-      editTodoMode: false,
-      title: updatedTodo.title,
-      description: updatedTodo.description,
-      dueDate: updatedTodo.dueDate,
-      priority: updatedTodo.priority,
-      notes: updatedTodo.notes,
-    }));
+  handleSubmit = (updates) => {
+    console.log(updates);
   }
 
   render() {
@@ -123,14 +98,8 @@ class TodoItem extends React.Component {
       <tr>
         <td colSpan="6">
           <TodosForm
-          editTodoMode={this.state.editTodoMode}
-          title={title}
-          description={description}
-          dueDate={dueDate}
-          priority={priority}
-          notes={notes}
-          submitTodo={this.updateTodo}
-          handleChange={this.handleChange}
+            todo={this.props.todo}
+            handleSubmit={this.handleSubmit}
           />
         </td>
       </tr>

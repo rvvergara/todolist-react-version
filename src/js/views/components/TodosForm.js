@@ -1,91 +1,111 @@
 import React from 'react';
+import moment from 'moment';
+import 'react-dates/initialize';
+import { SingleDatePicker } from 'react-dates';
 import PropTypes from 'prop-types';
 
-const TodosForm = (props) => {
-  const {
-    addTodoMode,
-    editTodoMode,
-    title,
-    description,
-    dueDate,
-    priority,
-    notes,
-    handleChange,
-    submitTodo,
-  } = props;
-  const displayClass = addTodoMode || editTodoMode ? 'todo-form form-inline' : 'd-none todo-form';
-  return (
-    <form
-      className={displayClass}
-      onSubmit={submitTodo}
-    >
-      <input
-        className="form-control"
-        type="text"
-        placeholder="Title"
-        value={title}
-        onChange={e => handleChange('title', e.target.value)}
-      />
-      <input
-        className="form-control"
-        type="text"
-        placeholder="Description"
-        value={description}
-        onChange={e => handleChange('description', e.target.value)}
-      />
-      <input
-        className="form-control"
-        type="date"
-        value={dueDate}
-        onChange={e => handleChange('dueDate', e.target.value)}
-      />
-      <select
-        className="form-control"
-        value={priority}
-        onChange={e => handleChange('priority', e.target.value)}
-      >
-        <option value="Priority">Priority</option>
-        <option value="Low">Low</option>
-        <option value="Medium">Medium</option>
-        <option value="High">High</option>
-      </select>
-      <input
-        className="form-control"
-        type="text"
-        value={notes}
-        placeholder="Notes"
-        onChange={e => handleChange('notes', e.target.value)}
-      />
-      <button
-        type="submit"
-        className="d-none"
-      >
-        Add
-      </button>
-    </form>
-  );
-};
+class TodosForm extends React.Component {
+  state = {
+    title: this.props.todo ? this.props.todo.title : '',
+    description: this.props.todo ? this.props.todo.description : '',
+    dueDate: this.props.todo ? moment(this.props.todo.dueDate) : moment(),
+    priority: this.props.todo ? this.props.todo.priority : 'Priority',
+    notes: this.props.todo ? this.props.todo.notes : '',
+    projectName: this.props.todo ? this.props.todo.projectName : '',
+    done: this.props.todo ? this.props.todo.done : false,
+    error: '',
+    calendarFocused: false,
+  };
 
-TodosForm.propTypes = {
-  addTodoMode: PropTypes.bool,
-  editTodoMode: PropTypes.bool,
-  title: PropTypes.string,
-  description: PropTypes.string,
-  dueDate: PropTypes.string,
-  priority: PropTypes.string,
-  notes: PropTypes.string,
-  handleChange: PropTypes.func.isRequired,
-  submitTodo: PropTypes.func.isRequired,
-};
+  handleChange = (key, value) => {
+    this.setState(() => ({
+      [key]: value,
+    }));
+  }
 
-TodosForm.defaultProps = {
-  title: undefined,
-  description: undefined,
-  dueDate: undefined,
-  priority: undefined,
-  notes: undefined,
-  addTodoMode: false,
-  editTodoMode: false,
-};
+  onDateChange = (dueDate) => {if(dueDate) this.setState(() => ({dueDate}))};
+
+  onFocusChange = ({focused}) => this.setState(() => ({ calendarFocused: focused }));
+
+  submitTodo = (e) => {
+    const {
+      title,
+      description,
+      dueDate,
+      notes,
+      projectName,
+      done,
+    } = this.state;
+    e.preventDefault();
+    if(!title){
+      this.setState({
+        error: 'Please enter a title'
+      });
+    }else{
+      this.setState({ error: ''});
+      this.props.handleSubmit({
+        title,
+        description,
+        dueDate: dueDate.valueOf(),
+        notes,
+        projectName,
+        done,
+      });
+    }
+  }
+
+  render() {
+    return (
+      <form
+        onSubmit={this.submitTodo}
+      >
+        <input
+          className="form-control"
+          type="text"
+          placeholder="Title"
+          value={this.state.title}
+          onChange={e => this.handleChange('title', e.target.value)}
+        />
+        <input
+          className="form-control"
+          type="text"
+          placeholder="Description"
+          value={this.state.description}
+          onChange={e => handleChange('description', e.target.value)}
+        />
+        <SingleDatePicker 
+          date={this.state.dueDate}
+          onDateChange={this.onDateChange}
+          focused={this.state.calendarFocused}
+          onFocusChange={this.onFocusChange}
+          numberOfMonths={1}
+        />
+        <select
+          className="form-control"
+          value={this.state.priority}
+          onChange={e => this.handleChange('priority', e.target.value)}
+        >
+          <option value="Priority">Priority</option>
+          <option value="Low">Low</option>
+          <option value="Medium">Medium</option>
+          <option value="High">High</option>
+        </select>
+        <input
+          className="form-control"
+          type="text"
+          value={this.state.notes}
+          placeholder="Notes"
+          onChange={e => handleChange('notes', e.target.value)}
+        />
+        <button
+          type="submit"
+          className="d-none"
+        >
+          Add
+        </button>
+      </form>
+    );
+  }
+}
 
 export default TodosForm;
