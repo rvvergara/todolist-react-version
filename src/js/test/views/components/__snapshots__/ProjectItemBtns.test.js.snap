@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render correctly 1`] = `
+<div>
+  <button
+    className="btn btn-sm btn-danger"
+    id="delete-0"
+    onClick={[MockFunction]}
+    type="button"
+  >
+    Delete
+  </button>
+  <button
+    className="btn btn-sm btn-warning"
+    id="update-0"
+    onClick={[MockFunction]}
+    type="button"
+  >
+    Update
+  </button>
+</div>
+`;
