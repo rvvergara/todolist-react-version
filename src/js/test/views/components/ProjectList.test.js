@@ -2,8 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { ProjectList } from '../../../views/components/ProjectList';
 import projects from '../../fixtures/projects';
-
-jest.mock('../../../controllers/helpers/common/storage.js');
+import * as storage from '../../../controllers/helpers/common/storage';
 
 describe('ProjectList', () => {
   let wrapper;
@@ -15,6 +14,7 @@ describe('ProjectList', () => {
     getProjects = jest.fn();
     addProject = jest.fn();
     selectProject = jest.fn();
+    storage.getDataFromLocalStorage = jest.fn(() => projects);
     wrapper = shallow(
       <ProjectList
         projects={projects}
@@ -28,7 +28,7 @@ describe('ProjectList', () => {
 
   test('should render correctly', () => {
     expect(wrapper).toMatchSnapshot();
-    expect(getProjects).toHaveBeenCalled();
+    expect(getProjects).toHaveBeenLastCalledWith(projects);
     expect(selectProject).toHaveBeenCalled();
   });
 

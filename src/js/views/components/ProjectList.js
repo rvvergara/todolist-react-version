@@ -56,12 +56,11 @@ const mapStateToProps = state => ({
   selectedProject: state.selectedProject,
 });
 
-export default connect(mapStateToProps, { getProjects, selectProject })(ProjectList);
-
-
 ProjectList.propTypes = {
   projects: PropTypes.arrayOf(Object).isRequired,
   selectedProject: PropTypes.string.isRequired,
   getProjects: PropTypes.func.isRequired,
   selectProject: PropTypes.func.isRequired,
 };
+
+export default connect(mapStateToProps, { getProjects, selectProject })(ProjectList);
