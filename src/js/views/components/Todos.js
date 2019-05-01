@@ -4,6 +4,8 @@ import TodoItem from './TodoItem';
 import AddTodoBtn from './AddTodoBtn';
 import TodosForm from './TodosForm';
 import todosController from '../../controllers/todosController';
+import { getDataFromLocalStorage } from '../../controllers/helpers/common/storage';
+import { getTodos } from '../actions/todos';
 export class Todos extends React.Component {
   state = {
     todos: [],
@@ -12,16 +14,8 @@ export class Todos extends React.Component {
   }
   
   componentWillMount(){
-    this.setState(() => ({
-      todos: JSON.parse(localStorage[this.state.project.name]).todos,
-      project: JSON.parse(localStorage[this.state.project.name]),
-    }));
-  }
-
-  componentWillReceiveProps(props){
-    this.setState(() => ({
-      project: props.selectedProject,
-    }));
+    const project = getDataFromLocalStorage(this.props.selectedProject);
+    this.props.getTodos(project.todos);
   }
 
   handleTodoBtn = () => {
@@ -30,9 +24,9 @@ export class Todos extends React.Component {
     }));
   }
 
-  handleChange = () => {
-    
-  } 
+  handleChange = (key, val) => this.setState({
+    [key]: val,
+  });
 
   submitTodo = (e) => {
     e.preventDefault();
@@ -56,15 +50,7 @@ export class Todos extends React.Component {
   }
 
   deleteTodo = (e) => {
-    const todoID = Number(e.target.parentNode.parentNode.id);
-    const todoForDeletion = this.state.project.todos.find(x => x.id === todoID);
-    const projectName = todoForDeletion.project;
-    // Run controller delete action
-    todosController.delete(projectName, todoID);
-    this.setState(() => ({
-      todos: JSON.parse(localStorage[projectName]).todos,
-      project: JSON.parse(localStorage[projectName]),
-    }))
+    console.log("todo deleted")
   }
 
   render() {
@@ -72,7 +58,7 @@ export class Todos extends React.Component {
       <div>
         {this.state.project ? <h2>
           Todo list for&nbsp;
-          { this.state.project.name }
+          { this.props.selectedProject }
         </h2> : <h2>Project Deleted</h2>}
         <table
           className="table table-striped"
@@ -90,7 +76,7 @@ export class Todos extends React.Component {
           </thead>
           <tbody>
             {
-              this.state.project && this.state.project.todos.map((todo, i) => (
+              this.props.shownTodos.map((todo, i) => (
                 <TodoItem
                 todo={todo}
                 key={todo.id}
@@ -101,9 +87,9 @@ export class Todos extends React.Component {
           </tbody>
         </table>
         {
-          this.state.project && this.state.project.todos.length === 0 && <div>No todos yet for {this.state.project.name}</div>
+          this.props.shownTodos.length === 0 && <div>No todos yet for {this.props.selectedProject}</div>
         }
-        {this.state.project ? <AddTodoBtn
+        {this.props.selectedProject ? <AddTodoBtn
         handleTodoBtn={this.handleTodoBtn}
         addTodoMode={this.state.addTodoMode}
         /> : "No todos for non-existent project"}
@@ -117,4 +103,9 @@ export class Todos extends React.Component {
   }
 }
 
-export default connect()(Todos);
+const mapStateToProps = state => ({
+  shownTodos: state.todos.filter(todo => todo.projectName === state.selectedProject),
+  selectedProject: state.selectedProject,
+});
+
+export default connect(mapStateToProps, { getTodos })(Todos);
