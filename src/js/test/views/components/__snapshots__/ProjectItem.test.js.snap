@@ -4,6 +4,7 @@ exports[`ProjectItem it should render correctly 1`] = `
 <ProjectItem
   addProjectMode={false}
   addProjectModeSwitch={[MockFunction]}
+  deleteProject={[MockFunction]}
   editProjectMode={false}
   editProjectModeSwitch={[MockFunction]}
   project={
@@ -23,19 +24,36 @@ exports[`ProjectItem it should render correctly 1`] = `
     >
       First
     </span>
-    <button
-      className="btn btn-sm btn-danger"
-      id="delete-0"
+    <ProjectItemBtns
+      clickUpdateProjectBtn={[Function]}
+      handleDeleteProject={[Function]}
+      project={
+        Object {
+          "description": "Enim dolore quis tempor sit.",
+          "id": 0,
+          "name": "First",
+        }
+      }
     >
-      Delete
-    </button>
-    <button
-      className="btn btn-sm btn-warning"
-      id="update-0"
-      onClick={[Function]}
-    >
-      Update
-    </button>
+      <div>
+        <button
+          className="btn btn-sm btn-danger"
+          id="delete-0"
+          onClick={[Function]}
+          type="button"
+        >
+          Delete
+        </button>
+        <button
+          className="btn btn-sm btn-warning"
+          id="update-0"
+          onClick={[Function]}
+          type="button"
+        >
+          Update
+        </button>
+      </div>
+    </ProjectItemBtns>
   </div>
 </ProjectItem>
 `;

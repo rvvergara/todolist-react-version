@@ -1,12 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import ProjectItemBtns from './ProjectItemBtns';
 import ProjectsForm from './ProjectsForm';
+import projectsController from '../../controllers/projectsController';
 import { selectProject } from '../actions/selectedProject';
 import {
   addProjectModeSwitch,
   editProjectModeSwitch,
   setProjectForEdit,
 } from '../actions/forms';
+import { deleteProject } from '../actions/projects';
 export class ProjectItem extends React.Component {
   state = {
     todos: [],
@@ -29,10 +32,14 @@ export class ProjectItem extends React.Component {
     e.target.reset();
   }
 
+  handleDeleteProject = () => {
+    this.props.deleteProject(this.props.project.id);
+    projectsController.delete(this.props.project.name);
+  };
+
   render(){
     const {
       dataID,
-      deleteProject,
       project,
     } = this.props;
     const regular = (
@@ -42,20 +49,11 @@ export class ProjectItem extends React.Component {
         >
           { project.name }
         </span>
-        <button
-          className="btn btn-sm btn-danger"
-          id={`delete-${project.id}`}
-          onClick={deleteProject}
-        >
-          Delete
-        </button>
-        <button
-          id={`update-${project.id}`}
-          className="btn btn-sm btn-warning"
-          onClick={this.clickUpdateProjectBtn}
-        >
-        Update
-        </button>
+        <ProjectItemBtns 
+          project={project}
+          handleDeleteProject={this.handleDeleteProject}
+          clickUpdateProjectBtn={this.clickUpdateProjectBtn}
+        />
       </div>
     );
     const editMode = (
@@ -79,4 +77,4 @@ const mapStateToProps = state => ({
   projectBeingEdited: state.forms.projectBeingEdited,
 });
 
-export default connect(mapStateToProps, { addProjectModeSwitch, editProjectModeSwitch, selectProject, setProjectForEdit})(ProjectItem);
+export default connect(mapStateToProps, { addProjectModeSwitch, editProjectModeSwitch, selectProject, setProjectForEdit, deleteProject })(ProjectItem);

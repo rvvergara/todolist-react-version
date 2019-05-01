@@ -8,11 +8,13 @@ describe('ProjectItem', () => {
   let addProjectModeSwitch;
   let editProjectModeSwitch;
   let selectProject;
+  let deleteProject;
 
   beforeEach(() => {
     addProjectModeSwitch = jest.fn();
     editProjectModeSwitch = jest.fn();
     selectProject = jest.fn();
+    deleteProject = jest.fn();
     wrapper = mount(
       <ProjectItem
         project={projects[0]}
@@ -21,6 +23,7 @@ describe('ProjectItem', () => {
         addProjectModeSwitch={addProjectModeSwitch}
         editProjectModeSwitch={editProjectModeSwitch}
         selectProject={selectProject}
+        deleteProject={deleteProject}
       />,
     );
   });
