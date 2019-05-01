@@ -84,6 +84,7 @@ export class ProjectItem extends React.Component {
 };
 
 const mapStateToProps = state => ({
+  projectTodos: state.todos.filter(todo => todo.projectName === state.selectedProject),
   addProjectMode: state.projectForm.addProjectMode,
   editProjectMode: state.projectForm.editProjectMode,
   projectBeingEdited: state.projectForm.projectBeingEdited,
