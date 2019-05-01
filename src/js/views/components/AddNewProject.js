@@ -5,7 +5,7 @@ import ProjectsForm from './ProjectsForm';
 import {
   addProject,
 } from '../actions/projects';
-import { addProjectModeSwitch, editProjectModeSwitch } from '../actions/forms';
+import { addProjectModeSwitch, editProjectModeSwitch } from '../actions/projectForm';
 import projectsController from '../../controllers/projectsController';
 
 export class AddNewProject extends React.Component {
@@ -70,8 +70,8 @@ export class AddNewProject extends React.Component {
 
 const mapStateToProps = state => ({
   projects: state.projects,
-  addProjectMode: state.forms.addProjectMode,
-  editProjectMode: state.forms.editProjectMode,
+  addProjectMode: state.projectForm.addProjectMode,
+  editProjectMode: state.projectForm.editProjectMode,
 });
 
 export default connect(mapStateToProps, { addProject, addProjectModeSwitch, editProjectModeSwitch})(AddNewProject);

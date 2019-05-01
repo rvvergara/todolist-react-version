@@ -8,7 +8,7 @@ import {
   addProjectModeSwitch,
   editProjectModeSwitch,
   setProjectForEdit,
-} from '../actions/forms';
+} from '../actions/projectForm';
 import { deleteProject, updateProject } from '../actions/projects';
 export class ProjectItem extends React.Component {
   state = {
@@ -84,9 +84,9 @@ export class ProjectItem extends React.Component {
 };
 
 const mapStateToProps = state => ({
-  addProjectMode: state.forms.addProjectMode,
-  editProjectMode: state.forms.editProjectMode,
-  projectBeingEdited: state.forms.projectBeingEdited,
+  addProjectMode: state.projectForm.addProjectMode,
+  editProjectMode: state.projectForm.editProjectMode,
+  projectBeingEdited: state.projectForm.projectBeingEdited,
 });
 
 export default connect(mapStateToProps, { addProjectModeSwitch, editProjectModeSwitch, selectProject, setProjectForEdit, deleteProject, updateProject })(ProjectItem);

@@ -1,4 +1,4 @@
-import formsReducer from '../../../views/reducers/forms';
+import formsReducer from '../../../views/reducers/projectForm';
 import projects from '../../fixtures/projects';
 
 describe('formsReducer', () => {

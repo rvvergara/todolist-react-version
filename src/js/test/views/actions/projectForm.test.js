@@ -2,7 +2,7 @@ import {
   addProjectModeSwitch,
   editProjectModeSwitch,
   setProjectForEdit,
-} from '../../../views/actions/forms';
+} from '../../../views/actions/projectForm';
 
 test('addProjectModeSwitch should return the right action', () => {
   expect(addProjectModeSwitch()).toEqual({ type: 'SWITCH_ADD_PROJECT' });
