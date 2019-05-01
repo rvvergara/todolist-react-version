@@ -10,6 +10,7 @@ import {
   from './controllers/helpers/projects/projectHelpers';
 import TodoListApp from './views/components/TodoListApp';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-dates/lib/css/_datepicker.css';
 import '../scss/styles.scss';
 import { addTodo } from './views/actions/todos';
 
