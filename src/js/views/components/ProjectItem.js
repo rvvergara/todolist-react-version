@@ -5,6 +5,7 @@ import { selectProject } from '../actions/selectedProject';
 import {
   addProjectModeSwitch,
   editProjectModeSwitch,
+  setProjectForEdit,
 } from '../actions/forms';
 export class ProjectItem extends React.Component {
   state = {
@@ -17,6 +18,7 @@ export class ProjectItem extends React.Component {
 
   clickUpdateProjectBtn = (e) => {
     e.stopPropagation();
+    this.props.setProjectForEdit(this.props.project.id);
     this.props.editProjectModeSwitch()
     this.setState({ editMode: true});
   }
@@ -63,7 +65,7 @@ export class ProjectItem extends React.Component {
       submitProjectForm={this.submitProjectForm}
       />
     )
-    if (this.props.editProjectMode){
+    if (this.props.editProjectMode && this.props.project.id === this.props.projectBeingEdited){
       return editMode
     }else{
       return regular
@@ -74,6 +76,7 @@ export class ProjectItem extends React.Component {
 const mapStateToProps = state => ({
   addProjectMode: state.forms.addProjectMode,
   editProjectMode: state.forms.editProjectMode,
+  projectBeingEdited: state.forms.projectBeingEdited,
 });
 
-export default connect(mapStateToProps, { addProjectModeSwitch, editProjectModeSwitch, selectProject})(ProjectItem);
+export default connect(mapStateToProps, { addProjectModeSwitch, editProjectModeSwitch, selectProject, setProjectForEdit})(ProjectItem);
