@@ -1,11 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import 'react-dates/initialize';
 import TodosForm from './TodosForm';
+import { updateTodo } from '../actions/todos';
 import todosController from '../../controllers/todosController';
 import { updateTodoInProject } from '../../controllers/helpers/todos/todoHelpers';
-class TodoItem extends React.Component {
+export class TodoItem extends React.Component {
   state = {
-    todo: {...this.props.todo},
     done: false,
     editTodoMode: false,
     title: this.props.todo.title,
@@ -15,26 +16,10 @@ class TodoItem extends React.Component {
     notes: this.props.todo.notes,
   }
 
-  componentWillMount(){
-    const todo = this.state.todo;
-    this.setState(() => ({
-      done: todo.done,
-    }))
-  }
-
   tickTodo = () => {
     this.setState((prevState) => ({
       done: !prevState.done,
     }));
-    this.setState((prevState)=> {
-      const newTodo = Object.assign({}, prevState.todo, {done: prevState.done});
-      const project = JSON.parse(localStorage[newTodo.project]);
-      const newTodoIndex = project.todos.findIndex(x => x.id === newTodo.id);
-      updateTodoInProject(newTodo, project, newTodoIndex);
-      return {
-        todo: newTodo,
-      }
-    })
   }
 
   clickUpdateBtn = () => {
@@ -44,10 +29,13 @@ class TodoItem extends React.Component {
   }
 
   handleSubmit = (updates) => {
-    console.log(updates);
+    this.props.updateTodo(this.props.todo.id, updates);
   }
 
   render() {
+    const {
+      todo
+    } = this.props;
     const {
       title,
       description,
@@ -55,8 +43,7 @@ class TodoItem extends React.Component {
       priority,
       notes,
       done,
-      todo,
-    } = this.state;
+    } = todo;
     const doneClass = done ? 'strikeout' : '';
     const regular = (
       <tr
@@ -109,4 +96,8 @@ class TodoItem extends React.Component {
   }
 }
 
-export default TodoItem;
+const mapStateToProps = state => ({
+  selectedProject: state.selectedProject,
+});
+
+export default connect(mapStateToProps, { updateTodo})(TodoItem);

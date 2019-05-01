@@ -5,11 +5,11 @@ const getTodos = todos => ({
   todos,
 });
 
-const addTodo = (todo, projectName) => ({
+const addTodo = (todo, projectID) => ({
   type: 'ADD_TODO',
   todo: {
     ...todo,
-    projectName,
+    projectID,
     id: uuid(),
     done: false,
   },

@@ -21,7 +21,7 @@ test('addTodo should return a valid action', () => {
     dueDate: 7566177,
     notes: '',
   };
-  const action = addTodo(newTodo, projects[0].name);
+  const action = addTodo(newTodo, projects[0].id);
   expect(action.type).toBe('ADD_TODO');
   expect(action.todo.title).toBe(newTodo.title);
   expect(action.todo.description).toBe(newTodo.description);

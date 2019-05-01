@@ -33,8 +33,10 @@ const anotherTodo = {
   notes: 'Anim duis consequat tempor ex duis eiusmod aliqua Lorem veniam laboris duis.',
 };
 
-store.dispatch(addTodo(newTodo, 'Default Project'));
-store.dispatch(addTodo(anotherTodo, 'Default Project'));
+const project = JSON.parse(localStorage['Default Project']);
+
+store.dispatch(addTodo(newTodo, project.id));
+store.dispatch(addTodo(anotherTodo, project.id));
 
 const jsx = (
   <Provider store={store}>

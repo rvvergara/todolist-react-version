@@ -104,7 +104,7 @@ export class Todos extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  shownTodos: state.todos.filter(todo => todo.projectName === state.selectedProject),
+  shownTodos: state.todos.filter(todo => todo.projectID === state.selectedProject),
   selectedProject: state.selectedProject,
 });
 
