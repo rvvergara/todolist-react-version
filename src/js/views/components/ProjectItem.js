@@ -22,8 +22,8 @@ export class ProjectItem extends React.Component {
   clickUpdateProjectBtn = (e) => {
     e.stopPropagation();
     this.props.setProjectForEdit(this.props.project.id);
-    this.props.editProjectModeSwitch()
-    this.setState({ editMode: true});
+    this.props.editProjectModeSwitch();
+    if(this.props.addProjectMode) this.props.addProjectModeSwitch();
   }
 
   submitProjectForm = (e) => {

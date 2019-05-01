@@ -8,6 +8,8 @@ import projects from '../../fixtures/projects';
 describe('AddNewProject', () => {
   let wrapper;
   let addProject;
+  let addProjectModeSwitch;
+  let editProjectModeSwitch;
 
   beforeEach(() => {
     addProject = jest.fn(({ name }) => ({
@@ -17,10 +19,16 @@ describe('AddNewProject', () => {
         description: '',
       },
     }));
+    addProjectModeSwitch = jest.fn();
+    editProjectModeSwitch = jest.fn();
     wrapper = shallow(
       <AddNewProject
         projects={projects}
+        addProjectMode={false}
+        editProjectMode={false}
         addProject={addProject}
+        addProjectModeSwitch={addProjectModeSwitch}
+        editProjectModeSwitch={editProjectModeSwitch}
       />,
     );
   });
@@ -29,17 +37,19 @@ describe('AddNewProject', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  test('it should change addProjectMode state on clicking AddBtn', () => {
+  test('it should call addProjectModeSwitch on clicking AddBtn', () => {
     wrapper.find('AddProjectBtn').prop('clickAddProjectBtn')();
-    expect(wrapper.state('addProjectMode')).toBe(true);
+    expect(addProjectModeSwitch).toHaveBeenCalled();
   });
 
   test('it should handle change in input', () => {
+    wrapper.setProps({ addProjectMode: true });
     wrapper.find('ProjectsForm').prop('handleChange')('projectName', 'New');
     expect(wrapper.state('projectName')).toBe('New');
   });
 
   test('it should handle invalid form submission', () => {
+    wrapper.setProps({ addProjectMode: true });
     wrapper.find('ProjectsForm').prop('submitProjectForm')({
       preventDefault: () => {},
     });
@@ -47,6 +57,7 @@ describe('AddNewProject', () => {
   });
 
   test('it should handle successful form submission', () => {
+    wrapper.setProps({ addProjectMode: true });
     wrapper.find('ProjectsForm').prop('handleChange')('projectName', 'New Project');
     wrapper.find('ProjectsForm').prop('submitProjectForm')({
       preventDefault: () => {},

@@ -9,7 +9,6 @@ const ProjectsForm = (props) => {
     name,
     error,
   } = props;
-  const displayClass = addProjectMode || editProjectMode ? '' : 'd-none';
   return (
     <div>
       {error && (
@@ -18,7 +17,6 @@ const ProjectsForm = (props) => {
       </div>
       )}
       <form
-        className={displayClass}
         onSubmit={submitProjectForm}
       >
         <input

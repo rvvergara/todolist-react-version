@@ -5,6 +5,7 @@ import ProjectsForm from './ProjectsForm';
 import {
   addProject,
 } from '../actions/projects';
+import { addProjectModeSwitch, editProjectModeSwitch } from '../actions/forms';
 import projectsController from '../../controllers/projectsController';
 
 export class AddNewProject extends React.Component {
@@ -15,9 +16,8 @@ export class AddNewProject extends React.Component {
   };
 
   handleClickAddBtn = () => {
-    this.setState({
-      addProjectMode: true,
-    });
+    this.props.addProjectModeSwitch();
+    if(this.props.editProjectMode) this.props.editProjectModeSwitch();
   };
 
   handleChange = (key, val) => this.setState({
@@ -31,10 +31,10 @@ export class AddNewProject extends React.Component {
     const isValid = this.validateName(name);
     if(isValid && name){
       this.setState({
-        addProjectMode: false,
         projectName: '',
         error: '',
       });
+      this.props.addProjectModeSwitch();
       const newProject = addProject({name});
       projectsController.create(name, newProject.project.id);
     } else {
@@ -52,17 +52,17 @@ export class AddNewProject extends React.Component {
   render() {
     return (
       <div>
-        <AddProjectBtn
+        {!this.props.addProjectMode && <AddProjectBtn
           addProjectMode={this.state.addProjectMode}
           clickAddProjectBtn={this.handleClickAddBtn}
-        />
-        <ProjectsForm
+        />}
+        { this.props.addProjectMode && <ProjectsForm
           addProjectMode={this.state.addProjectMode}
           submitProjectForm={this.handleSubmitProjectForm}
           handleChange={this.handleChange}
           error={this.state.error}
           name={this.state.projectName}
-        />
+        />}
       </div>
     );
   }
@@ -70,6 +70,8 @@ export class AddNewProject extends React.Component {
 
 const mapStateToProps = state => ({
   projects: state.projects,
+  addProjectMode: state.forms.addProjectMode,
+  editProjectMode: state.forms.editProjectMode,
 });
 
-export default connect(mapStateToProps, { addProject})(AddNewProject);
+export default connect(mapStateToProps, { addProject, addProjectModeSwitch, editProjectModeSwitch})(AddNewProject);
