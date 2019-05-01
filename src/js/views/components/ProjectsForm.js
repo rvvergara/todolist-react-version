@@ -2,10 +2,8 @@ import React from 'react';
 
 const ProjectsForm = (props) => {
   const {
-    addProjectMode,
     handleChange,
     submitProjectForm,
-    editProjectMode,
     name,
     error,
   } = props;
@@ -25,7 +23,7 @@ const ProjectsForm = (props) => {
           name="projectName"
           value={name}
           onChange={e => handleChange(e.target.name, e.target.value)}
-          placeholder={name || 'New Project Name'}
+          placeholder="New Project Name"
         />
       </form>
     </div>

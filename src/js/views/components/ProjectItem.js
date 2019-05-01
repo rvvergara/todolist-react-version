@@ -9,10 +9,12 @@ import {
   editProjectModeSwitch,
   setProjectForEdit,
 } from '../actions/forms';
-import { deleteProject } from '../actions/projects';
+import { deleteProject, updateProject } from '../actions/projects';
 export class ProjectItem extends React.Component {
   state = {
     todos: [],
+    error: '',
+    projectName: this.props.project.name,
   }
 
   handleSelectProject = () => {
@@ -24,13 +26,24 @@ export class ProjectItem extends React.Component {
     this.props.setProjectForEdit(this.props.project.id);
     this.props.editProjectModeSwitch();
     if(this.props.addProjectMode) this.props.addProjectModeSwitch();
-  }
+  };
+
+
+  handleChange = (key, val) => this.setState(() => ({
+    [key]: val,
+  }));
 
   submitProjectForm = (e) => {
     e.preventDefault();
-    this.props.editProjectMode();
+    const updates = {
+      name: this.state.projectName,
+    };
+    const id = this.props.project.id;
+    this.props.updateProject(id, updates);
+    projectsController.update(id, updates);
+    this.props.editProjectModeSwitch();
     e.target.reset();
-  }
+  };
 
   handleDeleteProject = () => {
     this.props.deleteProject(this.props.project.id);
@@ -39,7 +52,6 @@ export class ProjectItem extends React.Component {
 
   render(){
     const {
-      dataID,
       project,
     } = this.props;
     const regular = (
@@ -58,9 +70,9 @@ export class ProjectItem extends React.Component {
     );
     const editMode = (
       <ProjectsForm
-      dataID={dataID+1}
-      name={name}
+      name={this.state.projectName}
       submitProjectForm={this.submitProjectForm}
+      handleChange={this.handleChange}
       />
     )
     if (this.props.editProjectMode && this.props.project.id === this.props.projectBeingEdited){
@@ -77,4 +89,4 @@ const mapStateToProps = state => ({
   projectBeingEdited: state.forms.projectBeingEdited,
 });
 
-export default connect(mapStateToProps, { addProjectModeSwitch, editProjectModeSwitch, selectProject, setProjectForEdit, deleteProject })(ProjectItem);
+export default connect(mapStateToProps, { addProjectModeSwitch, editProjectModeSwitch, selectProject, setProjectForEdit, deleteProject, updateProject })(ProjectItem);
