@@ -2,6 +2,15 @@ import todosReducer from '../../../views/reducers/todos';
 import todos from '../../fixtures/todos';
 
 describe('todos reducer', () => {
+  test('should get all todos from database', () => {
+    const todosStored = todos;
+    const action = {
+      type: 'GET_TODOS',
+      todos: todosStored,
+    };
+    expect(todosReducer([], action)).toEqual(todos);
+  });
+
   test('should add a valid todo', () => {
     const newTodo = {
       title: 'My todo',

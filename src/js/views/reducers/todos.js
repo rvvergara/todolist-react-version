@@ -1,5 +1,7 @@
 export default (state = [], action) => {
   switch (action.type) {
+    case 'GET_TODOS':
+      return [...state, ...action.todos];
     case 'ADD_TODO':
       return action.todo.title ? [...state, action.todo] : state;
     case 'UPDATE_TODO':
