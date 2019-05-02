@@ -42,7 +42,7 @@ export class ProjectItem extends React.Component {
     this.props.updateProject(id, updates);
     projectsController.update(id, updates);
     this.props.editProjectModeSwitch();
-    this.props.selectProject(updates.name);
+    this.props.selectProject({...this.props.project, name: updates.name});
     e.target.reset();
   };
 

@@ -14,7 +14,8 @@ export class Todos extends React.Component {
   }
   
   componentWillMount(){
-    const project = getDataFromLocalStorage(this.props.selectedProject);
+    const projectName = this.props.selectedProject.name;
+    const project = getDataFromLocalStorage(projectName);
     this.props.getTodos(project.todos);
   }
 
@@ -58,7 +59,7 @@ export class Todos extends React.Component {
       <div>
         {this.state.project ? <h2>
           Todo list for&nbsp;
-          { this.props.selectedProject }
+          { this.props.selectedProject.name }
         </h2> : <h2>Project Deleted</h2>}
         <table
           className="table table-striped"
@@ -87,7 +88,7 @@ export class Todos extends React.Component {
           </tbody>
         </table>
         {
-          this.props.shownTodos.length === 0 && <div>No todos yet for {this.props.selectedProject}</div>
+          this.props.shownTodos.length === 0 && <div>No todos yet for {this.props.selectedProject.name}</div>
         }
         {this.props.selectedProject ? <AddTodoBtn
         handleTodoBtn={this.handleTodoBtn}
@@ -104,7 +105,7 @@ export class Todos extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  shownTodos: state.todos.filter(todo => todo.projectID === state.selectedProject),
+  shownTodos: state.todos.filter(todo => todo.projectID === state.selectedProject.id),
   selectedProject: state.selectedProject,
 });
 
