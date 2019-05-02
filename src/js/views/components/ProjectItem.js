@@ -32,7 +32,7 @@ export class ProjectItem extends React.Component {
     this.props.editProjectModeSwitch();
     this.props.setProjectForEdit(this.props.project.id);
     if(this.props.addProjectMode) this.props.addProjectModeSwitch();
-    if(this.props.addTodoMode) this.props.addProjectModeSwitch();
+    if(this.props.addTodoMode) this.props.addTodoModeSwitch();
     if(this.props.editTodoMode) this.props.editTodoModeSwitch();
   };
 

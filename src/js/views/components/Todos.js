@@ -83,16 +83,20 @@ export class Todos extends React.Component {
         {
           this.props.shownTodos.length === 0 && <div>No todos yet for {this.props.selectedProject.name}</div>
         }
-        {this.props.selectedProject ? <AddTodoBtn
-        handleTodoBtn={this.handleTodoBtn}
-        addTodoMode={this.props.addTodoMode}
-        editTodoMode={this.props.editTodoMode}
-        /> : "No todos for non-existent project"}
-        {this.props.addTodoMode && <TodosForm
-        addTodoMode={this.props.addTodoMode}
-        handleSubmit={this.submitTodo}
-        handleChange={this.handleChange}
-        />}
+        { (this.props.selectedProject && !this.props.addTodoMode && !this.props.editTodoMode) && 
+          <AddTodoBtn
+            handleTodoBtn={this.handleTodoBtn}
+            addTodoMode={this.props.addTodoMode}
+            editTodoMode={this.props.editTodoMode}
+          />
+        }
+
+        {this.props.addTodoMode && 
+          <TodosForm
+            addTodoMode={this.props.addTodoMode}
+            handleSubmit={this.submitTodo}
+            handleChange={this.handleChange}
+          />}
       </div>
     )
   }
