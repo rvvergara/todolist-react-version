@@ -11,7 +11,6 @@ export class TodoItem extends React.Component {
   state = {
     todo: this.props.todo,
     done: false,
-    // editTodoMode: false,
     title: this.props.todo.title,
     description: this.props.todo.description,
     dueDate: this.props.todo.dueDate,

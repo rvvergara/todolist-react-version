@@ -9,6 +9,7 @@ import {
   selectProject
 } from '../actions/selectedProject';
 import { addProjectModeSwitch, editProjectModeSwitch } from '../actions/projectForm';
+import { addTodoModeSwitch, editTodoModeSwitch } from '../actions/todoForm';
 import projectsController from '../../controllers/projectsController';
 
 export class AddNewProject extends React.Component {
@@ -21,6 +22,8 @@ export class AddNewProject extends React.Component {
   handleClickAddBtn = () => {
     this.props.addProjectModeSwitch();
     if(this.props.editProjectMode) this.props.editProjectModeSwitch();
+    if(this.props.addTodoMode) this.props.addTodoModeSwitch();
+    if(this.props.editTodoMode) this.props.editTodoModeSwitch();
   };
 
   handleChange = (key, val) => this.setState({
@@ -77,6 +80,8 @@ const mapStateToProps = state => ({
   projects: state.projects,
   addProjectMode: state.projectForm.addProjectMode,
   editProjectMode: state.projectForm.editProjectMode,
+  addTodoMode: state.todoForm.addTodoMode,
+  editTodoMode: state.todoForm.editTodoMode,
 });
 
-export default connect(mapStateToProps, { addProject, addProjectModeSwitch, editProjectModeSwitch, selectProject})(AddNewProject);
+export default connect(mapStateToProps, { addProject, addProjectModeSwitch, editProjectModeSwitch, selectProject, addTodoModeSwitch, editTodoModeSwitch})(AddNewProject);

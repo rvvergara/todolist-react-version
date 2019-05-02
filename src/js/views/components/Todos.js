@@ -6,12 +6,12 @@ import TodosForm from './TodosForm';
 import todosController from '../../controllers/todosController';
 import { getDataFromLocalStorage } from '../../controllers/helpers/common/storage';
 import { getTodos, addTodo, deleteTodo } from '../actions/todos';
-import { addTodoModeSwitch } from '../actions/todoForm';
+import { addTodoModeSwitch, editTodoModeSwitch } from '../actions/todoForm';
+import { addProjectModeSwitch, editProjectModeSwitch } from '../actions/projectForm';
 export class Todos extends React.Component {
   state = {
     todos: [],
     project: this.props.selectedProject,
-    // addTodoMode: false,
   }
   
   componentWillMount(){
@@ -21,6 +21,9 @@ export class Todos extends React.Component {
 
   handleTodoBtn = () => {
     this.props.addTodoModeSwitch();
+    if(this.props.editTodoMode) this.props.editTodoModeSwitch();
+    if(this.props.addProjectMode) this.props.addProjectModeSwitch();
+    if(this.props.editProjectMode) this.props.editProjectModeSwitch();
   }
 
   handleChange = (key, val) => this.setState({
@@ -96,6 +99,8 @@ const mapStateToProps = state => ({
   selectedProject: state.selectedProject,
   addTodoMode: state.todoForm.addTodoMode,
   editTodoMode: state.todoForm.editTodoMode,
+  addProjectMode: state.projectForm.addProjectMode,
+  editProjectMode: state.projectForm.editProjectMode,
 });
 
-export default connect(mapStateToProps, { getTodos, addTodo, deleteTodo, addTodoModeSwitch })(Todos);
+export default connect(mapStateToProps, { getTodos, addTodo, deleteTodo, addTodoModeSwitch, editTodoModeSwitch, addProjectModeSwitch, editProjectModeSwitch })(Todos);
