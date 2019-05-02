@@ -39,6 +39,12 @@ export class TodoItem extends React.Component {
         editTodoMode: false,
       }
     });
+  };
+
+  handleDelete = (e) => {
+    e.stopPropagation();
+    this.props.deleteTodo(this.props.todo.id);
+    todosController.delete(this.props.todo.id, this.props.selectedProject);
   }
 
   render() {
@@ -83,7 +89,7 @@ export class TodoItem extends React.Component {
           <button
             className="btn btn-sm btn-danger"
             disabled={this.state.done}
-            onClick={this.props.deleteTodo}
+            onClick={this.handleDelete}
           >
             Delete
           </button>

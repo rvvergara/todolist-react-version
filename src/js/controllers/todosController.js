@@ -33,15 +33,23 @@ const todoController = (
       localStorageData.setDataIntoLocalStorage('projectsArray', projectsArray);
     },
 
-    delete(project, id) {
-      // Extract parent project
-      const parentProject = localStorageData.getDataFromLocalStorage(project);
-      // Find todo from name
-      const todoIndex = parentProject.todos.findIndex(x => x.id === Number(id));
-      // Splice project
-      parentProject.todos.splice(todoIndex, 1);
-      localStorageData.setDataIntoLocalStorage(project, parentProject);
-      updateProjectsArray(parentProject);
+    delete(id) {
+      const projectsArray = localStorageData.getDataFromLocalStorage('projectsArray');
+      const todosArray = localStorageData.getDataFromLocalStorage('todosArray');
+      const todoInArray = todosArray.find(todo => todo.id === id);
+      const projectIndexInArray = projectsArray.findIndex(project => project.id === todoInArray.projectID);
+      const projectInArray = projectsArray.find(project => project.id === todoInArray.projectID);
+      const projectStandAlone = localStorageData.getDataFromLocalStorage(projectInArray.name);
+      // 1. Remove todo in todosArray
+      const newTodosArray = todosArray.filter(todo => todo.id !== todoInArray.id);
+      localStorageData.setDataIntoLocalStorage('todosArray', newTodosArray);
+      // 2. Remove todo in project
+      const newProjectsTodos = projectStandAlone.todos.filter(todo => todo.id !== todoInArray.id);
+      const newProject = { ...projectStandAlone, todos: newProjectsTodos };
+      localStorageData.setDataIntoLocalStorage(projectStandAlone.name, newProject);
+      // 3. Update projectsArray
+      projectsArray[projectIndexInArray] = newProject;
+      localStorageData.setDataIntoLocalStorage('projectsArray', projectsArray);
     },
   })
 )();

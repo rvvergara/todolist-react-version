@@ -5,7 +5,7 @@ import AddTodoBtn from './AddTodoBtn';
 import TodosForm from './TodosForm';
 import todosController from '../../controllers/todosController';
 import { getDataFromLocalStorage } from '../../controllers/helpers/common/storage';
-import { getTodos, addTodo } from '../actions/todos';
+import { getTodos, addTodo, deleteTodo } from '../actions/todos';
 export class Todos extends React.Component {
   state = {
     todos: [],
@@ -36,8 +36,8 @@ export class Todos extends React.Component {
     })
   }
 
-  deleteTodo = (e) => {
-    console.log("todo deleted")
+  deleteTodo = (id) => {
+    this.props.deleteTodo(id);
   }
 
   render() {
@@ -96,4 +96,4 @@ const mapStateToProps = state => ({
   selectedProject: state.selectedProject,
 });
 
-export default connect(mapStateToProps, { getTodos, addTodo })(Todos);
+export default connect(mapStateToProps, { getTodos, addTodo, deleteTodo })(Todos);
