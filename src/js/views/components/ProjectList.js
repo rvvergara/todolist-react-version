@@ -20,7 +20,7 @@ export class ProjectList extends React.Component {
     const projectsArray = getDataFromLocalStorage('projectsArray');
     if (projectsArray) {
       getProjects(projectsArray);
-      selectProject(projectsArray[0].id);
+      selectProject(projectsArray[0]);
     }
   }
 
