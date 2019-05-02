@@ -3,7 +3,6 @@
 exports[`AddNewProject it should render correctly 1`] = `
 <div>
   <AddProjectBtn
-    addProjectMode={false}
     clickAddProjectBtn={[Function]}
   />
 </div>

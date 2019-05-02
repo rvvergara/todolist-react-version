@@ -60,10 +60,13 @@ export class AddNewProject extends React.Component {
   render() {
     return (
       <div>
-        {!this.props.addProjectMode && <AddProjectBtn
-          addProjectMode={this.state.addProjectMode}
-          clickAddProjectBtn={this.handleClickAddBtn}
-        />}
+        {
+          !this.props.addProjectMode && 
+          
+          <AddProjectBtn
+            clickAddProjectBtn={this.handleClickAddBtn}
+          />
+      }
         { this.props.addProjectMode && <ProjectsForm
           addProjectMode={this.state.addProjectMode}
           submitProjectForm={this.handleSubmitProjectForm}

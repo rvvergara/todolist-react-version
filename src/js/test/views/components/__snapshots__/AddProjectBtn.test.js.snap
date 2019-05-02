@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddProjectBtn should render correctly 1`] = `
+<button
+  className="btn btn-primary mt-1"
+  onClick={[MockFunction]}
+  type="button"
+>
+  Add New Project
+</button>
+`;

@@ -3,14 +3,13 @@ import PropTypes from 'prop-types';
 
 const AddProjectBtn = (props) => {
   const {
-    addProjectMode,
     clickAddProjectBtn,
   } = props;
-  const displayClass = !addProjectMode ? 'btn btn-primary mt-1' : 'd-none';
+
   return (
     <button
       type="button"
-      className={displayClass}
+      className="btn btn-primary mt-1"
       onClick={clickAddProjectBtn}
     >
     Add New Project
@@ -19,7 +18,6 @@ const AddProjectBtn = (props) => {
 };
 
 AddProjectBtn.propTypes = {
-  addProjectMode: PropTypes.bool.isRequired,
   clickAddProjectBtn: PropTypes.func.isRequired,
 };
 
