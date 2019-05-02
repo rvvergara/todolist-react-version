@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProjectsForm it should render correctly with error 1`] = `
+<div>
+  <div>
+    You missed something
+  </div>
+  <form
+    onSubmit={[MockFunction]}
+  >
+    <input
+      className="form-control"
+      name="projectName"
+      onChange={[Function]}
+      placeholder="New Project Name"
+      type="text"
+      value=""
+    />
+  </form>
+</div>
+`;
+
+exports[`ProjectsForm it should render correctly with name 1`] = `
+<div>
+  <form
+    onSubmit={[MockFunction]}
+  >
+    <input
+      className="form-control"
+      name="projectName"
+      onChange={[Function]}
+      placeholder="New Project Name"
+      type="text"
+      value="Another Project"
+    />
+  </form>
+</div>
+`;
+
+exports[`ProjectsForm it should render correctly without name and error 1`] = `
+<div>
+  <form
+    onSubmit={[MockFunction]}
+  >
+    <input
+      className="form-control"
+      name="projectName"
+      onChange={[Function]}
+      placeholder="New Project Name"
+      type="text"
+      value=""
+    />
+  </form>
+</div>
+`;
