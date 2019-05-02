@@ -71,7 +71,7 @@ class TodosForm extends React.Component {
           type="text"
           placeholder="Description"
           value={this.state.description}
-          onChange={e => handleChange('description', e.target.value)}
+          onChange={e => this.handleChange('description', e.target.value)}
         />
         <SingleDatePicker 
           date={this.state.dueDate}
@@ -95,7 +95,7 @@ class TodosForm extends React.Component {
           type="text"
           value={this.state.notes}
           placeholder="Notes"
-          onChange={e => handleChange('notes', e.target.value)}
+          onChange={e => this.handleChange('notes', e.target.value)}
         />
         <button
           type="submit"

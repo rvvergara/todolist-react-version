@@ -36,10 +36,14 @@ export const updateProjectsArray = (project) => {
 };
 
 export const pushTodoToProject = (todo) => {
-  const parentProject = getDataFromLocalStorage(todo.project);
-  parentProject.todos.push(todo);
-  setDataIntoLocalStorage(todo.project, parentProject);
-  updateProjectsArray(parentProject);
+  const projectsArray = getDataFromLocalStorage('projectsArray');
+  const todoProjectInArray = projectsArray.find(project => project.id === todo.projectID);
+  const parentProjectInArray = getDataFromLocalStorage(todoProjectInArray.name);
+  const parentProjectStandAlone = getDataFromLocalStorage(parentProjectInArray.name);
+  parentProjectInArray.todos.push(todo);
+  parentProjectStandAlone.todos.push(todo);
+  setDataIntoLocalStorage(todoProjectInArray.name, parentProjectStandAlone);
+  updateProjectsArray(parentProjectInArray);
 };
 
 export const updateTodoInProject = (todo, project, index) => {

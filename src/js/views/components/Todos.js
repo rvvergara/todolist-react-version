@@ -5,7 +5,7 @@ import AddTodoBtn from './AddTodoBtn';
 import TodosForm from './TodosForm';
 import todosController from '../../controllers/todosController';
 import { getDataFromLocalStorage } from '../../controllers/helpers/common/storage';
-import { getTodos } from '../actions/todos';
+import { getTodos, addTodo } from '../actions/todos';
 export class Todos extends React.Component {
   state = {
     todos: [],
@@ -29,25 +29,9 @@ export class Todos extends React.Component {
     [key]: val,
   });
 
-  submitTodo = (e) => {
-    e.preventDefault();
-    const [title, description, dueDate, priority, note] = e.target.elements;
-
-    const todo = todosController.create(title.value, 
-      description.value, 
-      dueDate.value, 
-      priority.value,  
-      note.value, 
-      this.state.project.name);
-    
-    const project = JSON.parse(localStorage[todo.project]);
-    
-    this.setState((prevState) => ({
-      todos: [...prevState.todos, todo],
-      project: project,
-      addTodoMode: false,
-    }));
-    e.target.reset();
+  submitTodo = (todoFromForm) => {
+    const newTodo = this.props.addTodo(todoFromForm, this.props.selectedProject.id);
+    todosController.create(newTodo.todo);
   }
 
   deleteTodo = (e) => {
@@ -96,7 +80,7 @@ export class Todos extends React.Component {
         /> : "No todos for non-existent project"}
         <TodosForm
         addTodoMode={this.state.addTodoMode}
-        submitTodo={this.submitTodo}
+        handleSubmit={this.submitTodo}
         handleChange={this.handleChange}
         />
       </div>
@@ -105,8 +89,9 @@ export class Todos extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  todos: state.todos,
   shownTodos: state.todos.filter(todo => todo.projectID === state.selectedProject.id),
   selectedProject: state.selectedProject,
 });
 
-export default connect(mapStateToProps, { getTodos })(Todos);
+export default connect(mapStateToProps, { getTodos, addTodo })(Todos);

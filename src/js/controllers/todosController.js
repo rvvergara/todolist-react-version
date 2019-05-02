@@ -1,4 +1,4 @@
-import Todo from "../models/todo";
+import Todo from '../models/todo';
 import {
   getTodoDataFromForm,
   updateProjectsArray,
@@ -10,8 +10,8 @@ import * as localStorageData from './helpers/common/storage';
 
 const todoController = (
   () => ({
-    create(title, description, dueDate, priority, notes, project) {
-      const todo = new Todo(title, description, dueDate, priority, notes, project);
+    create(todoEntry) {
+      const todo = new Todo(todoEntry);
       pushTodoToProject(todo);
       return todo;
     },
