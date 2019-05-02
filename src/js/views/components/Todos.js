@@ -14,9 +14,8 @@ export class Todos extends React.Component {
   }
   
   componentWillMount(){
-    const projectName = this.props.selectedProject.name;
-    const project = getDataFromLocalStorage(projectName);
-    this.props.getTodos(project.todos);
+    const todos = getDataFromLocalStorage('todosArray');
+    this.props.getTodos(todos);
   }
 
   handleTodoBtn = () => {

@@ -10,6 +10,13 @@ const parseDate = (dateStr) => {
   return `${currentDate.getFullYear()}-${monthPrefix}${currentDate.getMonth() + 1}-${dayPrefix}${currentDate.getDate()}`;
 };
 
+export const createTodosArray = () => {
+  if (getDataFromLocalStorage('todosArray') === null) {
+    const todosArray = [];
+    setDataIntoLocalStorage('todosArray', todosArray);
+  }
+};
+
 export const getTodoDataFromForm = (name) => {
   const inputs = document.getElementsByClassName('todo-form')[0].elements;
   const title = inputs[0].value;
@@ -37,13 +44,16 @@ export const updateProjectsArray = (project) => {
 
 export const pushTodoToProject = (todo) => {
   const projectsArray = getDataFromLocalStorage('projectsArray');
+  const todosArray = getDataFromLocalStorage('todosArray');
   const todoProjectInArray = projectsArray.find(project => project.id === todo.projectID);
   const parentProjectInArray = getDataFromLocalStorage(todoProjectInArray.name);
   const parentProjectStandAlone = getDataFromLocalStorage(parentProjectInArray.name);
   parentProjectInArray.todos.push(todo);
+  todosArray.push(todo);
   parentProjectStandAlone.todos.push(todo);
   setDataIntoLocalStorage(todoProjectInArray.name, parentProjectStandAlone);
   updateProjectsArray(parentProjectInArray);
+  setDataIntoLocalStorage('todosArray', todosArray);
 };
 
 export const updateTodoInProject = (todo, project, index) => {
@@ -51,7 +61,11 @@ export const updateTodoInProject = (todo, project, index) => {
     todos,
   } = project;
   todos[index] = todo;
+  const todosArray = getDataFromLocalStorage('todosArray');
+  const todosArrayIndex = todosArray.findIndex(t => t.id === todo.id);
+  todosArray[todosArrayIndex] = todo;
   setDataIntoLocalStorage(project.name, project);
+  setDataIntoLocalStorage('todosArray', todosArray);
   updateProjectsArray(project);
   return project;
 };
