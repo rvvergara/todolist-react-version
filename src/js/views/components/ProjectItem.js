@@ -56,14 +56,17 @@ export class ProjectItem extends React.Component {
 
   handleDeleteProject = () => {
     this.props.deleteProject(this.props.project.id);
-    this.props.projectTodos.forEach(todo => this.props.deleteTodo(todo.id));
     projectsController.delete(this.props.project.id);
+    this.props.deleteAllTodos(this.props.projectTodos);
     this.props.handleDeleteProject(this.props.project.id);
+    this.switchModesOffOnDelete();
+  };
+
+  switchModesOffOnDelete = () => {
     if(this.props.addProjectMode) this.props.addProjectModeSwitch();
     if(this.props.editProjectMode) this.props.editProjectModeSwitch();
     if(this.props.addTodoMode) this.props.addTodoModeSwitch();
-    if(this.props.editTodoMode) this.props.editTodoModeSwitch();
-
+    if(this.props.editTodoMode) this.props.editTodoModeSwitch();    
   };
 
   render(){
@@ -108,4 +111,18 @@ const mapStateToProps = (state, props) => ({
   editTodoMode: state.todoForm.editTodoMode,
 });
 
-export default connect(mapStateToProps, { addProjectModeSwitch, editProjectModeSwitch, selectProject, setProjectForEdit, deleteProject, updateProject, deleteTodo, addTodoModeSwitch, editTodoModeSwitch, })(ProjectItem);
+const mapDispatchToProps = (dispatch, props) => ({
+  addProjectModeSwitch: () => dispatch(addProjectModeSwitch()),
+  addTodoModeSwitch: () => dispatch(addTodoModeSwitch()),
+  deleteProject: id => dispatch(deleteProject(id)),
+  deleteAllTodos: (todos) => {
+    todos.forEach(todo => dispatch(deleteTodo(todo.id)));
+  },
+  editTodoModeSwitch: () => dispatch(editTodoModeSwitch()),
+  editProjectModeSwitch: () => dispatch(editProjectModeSwitch()),
+  selectProject: project => dispatch(selectProject(project)),
+  setProjectForEdit: id => dispatch(setProjectForEdit(id)),
+  updateProject: (id, updates) => dispatch(updateProject(id, updates)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectItem);

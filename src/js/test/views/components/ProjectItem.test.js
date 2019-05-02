@@ -7,26 +7,38 @@ import projects from '../../fixtures/projects';
 describe('ProjectItem', () => {
   let wrapper;
   let addProjectModeSwitch;
-  let editProjectModeSwitch;
-  let selectProject;
+  let addTodoModeSwitch;
   let deleteProject;
+  // let deleteTodo;
+  let deleteAllTodos;
+  let editTodoModeSwitch;
+  let editProjectModeSwitch;
   let handleDeleteProject;
-  let updateProject;
+  let selectProject;
   let setProjectForEdit;
+  let updateProject;
 
   beforeEach(() => {
     addProjectModeSwitch = jest.fn();
-    editProjectModeSwitch = jest.fn();
-    selectProject = jest.fn();
+    addTodoModeSwitch = jest.fn();
     deleteProject = jest.fn();
+    deleteAllTodos = jest.fn();
+    editProjectModeSwitch = jest.fn();
+    editTodoModeSwitch = jest.fn();
     handleDeleteProject = jest.fn();
-    updateProject = jest.fn();
+    selectProject = jest.fn();
     setProjectForEdit = jest.fn();
+    updateProject = jest.fn();
     wrapper = shallow(
       <ProjectItem
         project={projects[0]}
-        addProjectMode
+        addProjectMode={false}
+        addTodoMode={false}
+        addTodoModeSwitch={addTodoModeSwitch}
+        deleteAllTodos={deleteAllTodos}
         editProjectMode={false}
+        editTodoMode={false}
+        editTodoModeSwitch={editTodoModeSwitch}
         addProjectModeSwitch={addProjectModeSwitch}
         editProjectModeSwitch={editProjectModeSwitch}
         selectProject={selectProject}
@@ -49,27 +61,89 @@ describe('ProjectItem', () => {
   });
 
   describe('interacting with ProjectItemBtns clickUpdateProjectBtn', () => {
-    beforeEach(() => {
+    test('should call editProjectModeSwitch', () => {
       wrapper.find('ProjectItemBtns').prop('clickUpdateProjectBtn')({
         stopPropagation: () => {},
       });
-    });
-    test('should call setProjectForEdit', () => {
-      expect(setProjectForEdit).toHaveBeenLastCalledWith(projects[0].id);
-    });
-    test('should call editProjectModeSwitch', () => {
       expect(editProjectModeSwitch).toHaveBeenCalled();
     });
-    test('should call addProjectModeSwitch if adProjectMode is true', () => {
+
+    test('should call setProjectForEdit', () => {
+      wrapper.find('ProjectItemBtns').prop('clickUpdateProjectBtn')({
+        stopPropagation: () => {},
+      });
+      expect(setProjectForEdit).toHaveBeenLastCalledWith(projects[0].id);
+    });
+
+    test('should call addProjectModeSwitch if addProjectMode is true', () => {
+      wrapper.setProps({ addProjectMode: true });
+      wrapper.find('ProjectItemBtns').prop('clickUpdateProjectBtn')({
+        stopPropagation: () => {},
+      });
       expect(addProjectModeSwitch).toHaveBeenCalled();
+    });
+
+    test('should call addTodoModeSwitch if addTodoMode is true', () => {
+      wrapper.setProps({ addTodoMode: true });
+      wrapper.find('ProjectItemBtns').prop('clickUpdateProjectBtn')({
+        stopPropagation: () => {},
+      });
+      expect(addTodoModeSwitch).toHaveBeenCalled();
+    });
+
+    test('should call editTodoModeSwitch if editTodoMode is true', () => {
+      wrapper.setProps({ editTodoMode: true });
+      wrapper.find('ProjectItemBtns').prop('clickUpdateProjectBtn')({
+        stopPropagation: () => {},
+      });
+      expect(editTodoModeSwitch).toHaveBeenCalled();
     });
   });
 
-  test('should call on deleProject and projectsController.delete', () => {
-    projectsController.delete = jest.fn();
-    wrapper.find('ProjectItemBtns').prop('handleDeleteProject')();
-    expect(deleteProject).toHaveBeenLastCalledWith(projects[0].id);
-    expect(projectsController.delete).toHaveBeenLastCalledWith(projects[0].id);
+
+  describe('interaction with ProjectItemBtns handleDeleteProject', () => {
+    beforeEach(() => {
+      projectsController.delete = jest.fn();
+    });
+
+    test('should call on deleProject and projectsController.delete', () => {
+      wrapper.find('ProjectItemBtns').prop('handleDeleteProject')();
+      expect(deleteProject).toHaveBeenLastCalledWith(projects[0].id);
+    });
+
+    test('should call on projectController.delete action', () => {
+      wrapper.find('ProjectItemBtns').prop('handleDeleteProject')();
+      expect(projectsController.delete).toHaveBeenLastCalledWith(projects[0].id);
+    });
+
+    test('should call on deleteAllTodo', () => {
+      wrapper.find('ProjectItemBtns').prop('handleDeleteProject')();
+      expect(deleteAllTodos).toHaveBeenCalled();
+    });
+
+    test('should call addProjectModeSwitch if addProjectMode is true', () => {
+      wrapper.setProps({ addProjectMode: true });
+      wrapper.find('ProjectItemBtns').prop('handleDeleteProject')();
+      expect(addProjectModeSwitch).toHaveBeenCalled();
+    });
+
+    test('should call editProjectModeSwitch if editProjectMode is true', () => {
+      wrapper.setProps({ editProjectMode: true });
+      wrapper.find('ProjectItemBtns').prop('handleDeleteProject')();
+      expect(editProjectModeSwitch).toHaveBeenCalled();
+    });
+
+    test('should call adddTodoModeSwitch if addTodoMode is true', () => {
+      wrapper.setProps({ addTodoMode: true });
+      wrapper.find('ProjectItemBtns').prop('handleDeleteProject')();
+      expect(addTodoModeSwitch).toHaveBeenCalled();
+    });
+
+    test('should call editTodoModeSwitch if editTodoMode is true', () => {
+      wrapper.setProps({ editTodoMode: true });
+      wrapper.find('ProjectItemBtns').prop('handleDeleteProject')();
+      expect(editTodoModeSwitch).toHaveBeenCalled();
+    });
   });
 
   describe('interaction with ProjectsForm', () => {
@@ -94,6 +168,7 @@ describe('ProjectItem', () => {
       expect(updateProject).toHaveBeenLastCalledWith(projects[0].id, { name });
       expect(projectsController.update).toHaveBeenLastCalledWith(projects[0].id, { name });
       expect(editProjectModeSwitch).toHaveBeenCalled();
+      expect(selectProject).toHaveBeenLastCalledWith({ ...projects[0], name });
     });
   });
 });

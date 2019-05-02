@@ -25,6 +25,17 @@ exports[`ProjectItem it should render correctly without projectsForm 1`] = `
         "description": "Enim dolore quis tempor sit.",
         "id": 0,
         "name": "First",
+        "todos": Array [
+          Object {
+            "id": 10,
+          },
+          Object {
+            "id": 20,
+          },
+          Object {
+            "id": 30,
+          },
+        ],
       }
     }
   />
