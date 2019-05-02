@@ -35,11 +35,16 @@ export class Todos extends React.Component {
     todosController.create(newTodo.todo);
     this.setState({
       addTodoMode: false,
-    })
+    });
+    this.props.addTodoModeSwitch();
   }
 
   deleteTodo = (id) => {
     this.props.deleteTodo(id);
+    if(this.props.addTodoMode) this.props.addTodoModeSwitch();
+    if(this.props.editTodoMode) this.props.editTodoModeSwitch();
+    if(this.props.addProjectMode) this.props.addProjectModeSwitch();
+    if(this.props.editProjectMode) this.props.editProjectModeSwitch();
   }
 
   render() {

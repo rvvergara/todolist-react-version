@@ -59,6 +59,11 @@ export class ProjectItem extends React.Component {
     this.props.projectTodos.forEach(todo => this.props.deleteTodo(todo.id));
     projectsController.delete(this.props.project.id);
     this.props.handleDeleteProject(this.props.project.id);
+    if(this.props.addProjectMode) this.props.addProjectModeSwitch();
+    if(this.props.editProjectMode) this.props.editProjectModeSwitch();
+    if(this.props.addTodoMode) this.props.addTodoModeSwitch();
+    if(this.props.editTodoMode) this.props.editTodoModeSwitch();
+
   };
 
   render(){
