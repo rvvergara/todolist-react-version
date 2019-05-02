@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import 'react-dates/initialize';
+import moment from 'moment';
 import TodosForm from './TodosForm';
 import { updateTodo } from '../actions/todos';
 import todosController from '../../controllers/todosController';
@@ -60,7 +61,7 @@ export class TodoItem extends React.Component {
       >
         <td>{title}</td>
         <td>{description}</td>
-        <td>{new Date(dueDate).toDateString()}</td>
+        <td>{moment(dueDate).format('dddd MMM D, YYYY')}</td>
         <td>{priority}</td>
         <td>{notes}</td>
         <td>

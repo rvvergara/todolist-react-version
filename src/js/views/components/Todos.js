@@ -31,6 +31,9 @@ export class Todos extends React.Component {
   submitTodo = (todoFromForm) => {
     const newTodo = this.props.addTodo(todoFromForm, this.props.selectedProject.id);
     todosController.create(newTodo.todo);
+    this.setState({
+      addTodoMode: false,
+    })
   }
 
   deleteTodo = (e) => {
@@ -77,11 +80,11 @@ export class Todos extends React.Component {
         handleTodoBtn={this.handleTodoBtn}
         addTodoMode={this.state.addTodoMode}
         /> : "No todos for non-existent project"}
-        <TodosForm
+        {this.state.addTodoMode && <TodosForm
         addTodoMode={this.state.addTodoMode}
         handleSubmit={this.submitTodo}
         handleChange={this.handleChange}
-        />
+        />}
       </div>
     )
   }

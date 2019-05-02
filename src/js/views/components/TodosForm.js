@@ -33,6 +33,7 @@ class TodosForm extends React.Component {
       description,
       dueDate,
       notes,
+      priority,
       projectName,
       done,
     } = this.state;
@@ -48,6 +49,7 @@ class TodosForm extends React.Component {
         description,
         dueDate: dueDate.valueOf(),
         notes,
+        priority,
         projectName,
         done,
       });
