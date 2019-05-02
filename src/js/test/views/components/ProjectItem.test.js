@@ -48,6 +48,7 @@ describe('ProjectItem', () => {
         updateProject={updateProject}
         handleDeleteProject={handleDeleteProject}
         projectTodos={[]}
+        projects={projects}
       />,
     );
   });
@@ -157,7 +158,7 @@ describe('ProjectItem', () => {
       wrapper.find('ProjectsForm').prop('handleChange')('projectName', 'My Project');
       expect(wrapper.state('projectName')).toBe('My Project');
     });
-    test('should handle project updating', () => {
+    test('should handle project successful updating', () => {
       const name = 'Cool Project';
       projectsController.update = jest.fn();
       wrapper.find('ProjectsForm').prop('handleChange')('projectName', name);
@@ -169,6 +170,18 @@ describe('ProjectItem', () => {
       expect(projectsController.update).toHaveBeenLastCalledWith(projects[0].id, { name });
       expect(editProjectModeSwitch).toHaveBeenCalled();
       expect(selectProject).toHaveBeenLastCalledWith({ ...projects[0], name });
+      expect(wrapper.state('error')).toBe('');
+    });
+
+    test('should handle invalid updating', () => {
+      const name = 'First';
+      projectsController.update = jest.fn();
+      wrapper.find('ProjectsForm').prop('handleChange')('projectName', name);
+      wrapper.find('ProjectsForm').prop('submitProjectForm')({
+        preventDefault: () => {},
+        target: { reset: () => {} },
+      });
+      expect(wrapper.state('error').length).toBeGreaterThan(0);
     });
   });
 });

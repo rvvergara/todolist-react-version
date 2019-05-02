@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const ProjectsForm = (props) => {
   const {
@@ -28,6 +29,13 @@ const ProjectsForm = (props) => {
       </form>
     </div>
   );
+};
+
+ProjectsForm.propTypes = {
+  handleChange: PropTypes.func.isRequired,
+  submitProjectForm: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
+  error: PropTypes.string.isRequired,
 };
 
 export default ProjectsForm;

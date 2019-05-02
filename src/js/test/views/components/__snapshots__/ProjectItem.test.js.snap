@@ -2,6 +2,7 @@
 
 exports[`ProjectItem interaction with ProjectsForm it should render with ProjectsForm 1`] = `
 <ProjectsForm
+  error=""
   handleChange={[Function]}
   name="First"
   submitProjectForm={[Function]}

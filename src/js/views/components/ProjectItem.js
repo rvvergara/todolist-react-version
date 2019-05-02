@@ -46,12 +46,25 @@ export class ProjectItem extends React.Component {
     const updates = {
       name: this.state.projectName,
     };
-    const id = this.props.project.id;
+    const isValid = this.validateName(updates.name);
+    if(updates.name && isValid){const id = this.props.project.id;
     this.props.updateProject(id, updates);
     projectsController.update(id, updates);
     this.props.editProjectModeSwitch();
     this.props.selectProject({...this.props.project, name: updates.name});
+    this.setState({
+      error: '',
+    })}else{
+      this.setState({
+        error: 'You have entered a duplicate or invalid name'
+      });
+    }
     e.target.reset();
+  };
+
+  validateName = name => {
+    const {projects} = this.props;
+    return projects.findIndex(project => project.name === name) === -1; 
   };
 
   handleDeleteProject = () => {
@@ -92,6 +105,7 @@ export class ProjectItem extends React.Component {
       name={this.state.projectName}
       submitProjectForm={this.submitProjectForm}
       handleChange={this.handleChange}
+      error={this.state.error}
       />
     )
     if (this.props.editProjectMode && this.props.project.id === this.props.projectBeingEdited){
@@ -103,6 +117,7 @@ export class ProjectItem extends React.Component {
 };
 
 const mapStateToProps = (state, props) => ({
+  projects: state.projects,
   projectTodos: state.todos.filter(todo => todo.projectID === props.project.id),
   addProjectMode: state.projectForm.addProjectMode,
   editProjectMode: state.projectForm.editProjectMode,
@@ -111,7 +126,7 @@ const mapStateToProps = (state, props) => ({
   editTodoMode: state.todoForm.editTodoMode,
 });
 
-const mapDispatchToProps = (dispatch, props) => ({
+const mapDispatchToProps = (dispatch) => ({
   addProjectModeSwitch: () => dispatch(addProjectModeSwitch()),
   addTodoModeSwitch: () => dispatch(addTodoModeSwitch()),
   deleteProject: id => dispatch(deleteProject(id)),
