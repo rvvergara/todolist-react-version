@@ -41,7 +41,7 @@ describe('ProjectItem', () => {
 
   test('should call selectProject upon click', () => {
     wrapper.find('div').at(0).simulate('click');
-    expect(selectProject).toHaveBeenLastCalledWith(projects[0].name);
+    expect(selectProject).toHaveBeenLastCalledWith(projects[0].id);
   });
 
   describe('interacting with ProjectItemBtns clickUpdateProjectBtn', () => {

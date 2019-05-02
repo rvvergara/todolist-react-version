@@ -18,7 +18,7 @@ export class ProjectItem extends React.Component {
   }
 
   handleSelectProject = () => {
-    this.props.selectProject(this.props.project.name);
+    this.props.selectProject(this.props.project.id);
   };
 
   clickUpdateProjectBtn = (e) => {
