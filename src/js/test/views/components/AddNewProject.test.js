@@ -10,6 +10,7 @@ describe('AddNewProject', () => {
   let addProject;
   let addProjectModeSwitch;
   let editProjectModeSwitch;
+  let selectProject;
 
   beforeEach(() => {
     addProject = jest.fn(({ name }) => ({
@@ -21,6 +22,7 @@ describe('AddNewProject', () => {
     }));
     addProjectModeSwitch = jest.fn();
     editProjectModeSwitch = jest.fn();
+    selectProject = jest.fn();
     wrapper = shallow(
       <AddNewProject
         projects={projects}
@@ -29,6 +31,7 @@ describe('AddNewProject', () => {
         addProject={addProject}
         addProjectModeSwitch={addProjectModeSwitch}
         editProjectModeSwitch={editProjectModeSwitch}
+        selectProject={selectProject}
       />,
     );
   });
@@ -66,5 +69,6 @@ describe('AddNewProject', () => {
     expect(wrapper.state('projectName')).toBe('');
     expect(wrapper.state('error')).toBe('');
     expect(addProject).toHaveBeenLastCalledWith({ name: 'New Project' });
+    expect(selectProject).toHaveBeenLastCalledWith({ name: 'New Project', description: '' });
   });
 });

@@ -5,6 +5,9 @@ import ProjectsForm from './ProjectsForm';
 import {
   addProject,
 } from '../actions/projects';
+import {
+  selectProject
+} from '../actions/selectedProject';
 import { addProjectModeSwitch, editProjectModeSwitch } from '../actions/projectForm';
 import projectsController from '../../controllers/projectsController';
 
@@ -37,11 +40,12 @@ export class AddNewProject extends React.Component {
       this.props.addProjectModeSwitch();
       const newProject = addProject({name});
       projectsController.create(name, newProject.project.id);
+      this.props.selectProject(newProject.project);
     } else {
       this.setState({
         error: 'You have entered a duplicate or invalid name'
       });
-    }
+    };
   };
 
   validateName = name => {
@@ -74,4 +78,4 @@ const mapStateToProps = state => ({
   editProjectMode: state.projectForm.editProjectMode,
 });
 
-export default connect(mapStateToProps, { addProject, addProjectModeSwitch, editProjectModeSwitch})(AddNewProject);
+export default connect(mapStateToProps, { addProject, addProjectModeSwitch, editProjectModeSwitch, selectProject})(AddNewProject);
