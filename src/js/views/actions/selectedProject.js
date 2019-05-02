@@ -1,6 +1,6 @@
-const selectProject = selectedProject => ({
+const selectProject = project => ({
   type: 'SELECT_PROJECT',
-  selectedProject,
+  project,
 });
 
 export {

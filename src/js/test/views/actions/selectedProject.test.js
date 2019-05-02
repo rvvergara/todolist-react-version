@@ -4,9 +4,14 @@ import {
 
 describe('selectProject', () => {
   test('should return a valid action', () => {
-    expect(selectProject('Next Project')).toEqual({
+    const project = {
+      id: '226Arra5',
+      name: 'My Project',
+      description: 'Cool project this is',
+    };
+    expect(selectProject(project)).toEqual({
       type: 'SELECT_PROJECT',
-      selectedProject: 'Next Project',
+      project,
     });
   });
 });
