@@ -7,6 +7,7 @@ exports[`ProjectList should render correctly 1`] = `
   </h2>
   <div>
     <ConnectFunction
+      handleDeleteProject={[Function]}
       key="0"
       project={
         Object {
@@ -17,6 +18,7 @@ exports[`ProjectList should render correctly 1`] = `
       }
     />
     <ConnectFunction
+      handleDeleteProject={[Function]}
       key="1"
       project={
         Object {
@@ -27,6 +29,7 @@ exports[`ProjectList should render correctly 1`] = `
       }
     />
     <ConnectFunction
+      handleDeleteProject={[Function]}
       key="2"
       project={
         Object {
@@ -37,6 +40,8 @@ exports[`ProjectList should render correctly 1`] = `
       }
     />
   </div>
-  <ConnectFunction />
+  <ConnectFunction
+    addNewProject={[Function]}
+  />
 </div>
 `;

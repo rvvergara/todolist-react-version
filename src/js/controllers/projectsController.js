@@ -32,15 +32,22 @@ const projectsController = (
         localStorageData.removeDataFromLocalStorage(oldProject.name);
         return project;
       },
-      delete(name) {
-        const project = localStorageData.getDataFromLocalStorage(name);
-        let projectCount = localStorageData.getDataFromLocalStorage('projectCount');
-        const index = projectsArray.findIndex(x => x.name === project.name);
-        localStorageData.removeDataFromLocalStorage(name);
-        projectsArray.splice(index, 1);
-        projectCount -= 1;
-        localStorageData.setDataIntoLocalStorage('projectCount', projectCount);
-        localStorageData.setDataIntoLocalStorage('projectsArray', projectsArray);
+      delete(id) {
+        const projectsArray = localStorageData.getDataFromLocalStorage('projectsArray');
+        const projectCount = localStorageData.getDataFromLocalStorage('projectCount');
+        const todosArray = localStorageData.getDataFromLocalStorage('todosArray');
+        const projectInArray = projectsArray.find(project => project.id === id);
+        const projectStandAlone = localStorageData.getDataFromLocalStorage(projectInArray.name);
+        // Delete all project todos
+        const newTodosArray = todosArray.filter(todo => todo.projectID !== projectStandAlone.id);
+        localStorageData.setDataIntoLocalStorage('todosArray', newTodosArray);
+        // Delete stand alone project
+        localStorageData.removeDataFromLocalStorage(projectInArray.name);
+        // Delete project from projectsArray
+        const newProjectsArray = projectsArray.filter(project => project.id !== projectInArray.id);
+        localStorageData.setDataIntoLocalStorage('projectsArray', newProjectsArray);
+        // Reduce project count in localstorage by 1
+        localStorageData.setDataIntoLocalStorage('projectCount', projectCount - 1);
       },
     };
   }

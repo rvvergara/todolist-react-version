@@ -11,6 +11,7 @@ describe('AddNewProject', () => {
   let addProjectModeSwitch;
   let editProjectModeSwitch;
   let selectProject;
+  let addNewProject;
 
   beforeEach(() => {
     addProject = jest.fn(({ name }) => ({
@@ -23,6 +24,7 @@ describe('AddNewProject', () => {
     addProjectModeSwitch = jest.fn();
     editProjectModeSwitch = jest.fn();
     selectProject = jest.fn();
+    addNewProject = jest.fn();
     wrapper = shallow(
       <AddNewProject
         projects={projects}
@@ -32,6 +34,7 @@ describe('AddNewProject', () => {
         addProjectModeSwitch={addProjectModeSwitch}
         editProjectModeSwitch={editProjectModeSwitch}
         selectProject={selectProject}
+        addNewProject={addNewProject}
       />,
     );
   });

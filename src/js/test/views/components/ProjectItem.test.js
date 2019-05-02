@@ -10,6 +10,7 @@ describe('ProjectItem', () => {
   let editProjectModeSwitch;
   let selectProject;
   let deleteProject;
+  let handleDeleteProject;
   let updateProject;
   let setProjectForEdit;
 
@@ -18,6 +19,7 @@ describe('ProjectItem', () => {
     editProjectModeSwitch = jest.fn();
     selectProject = jest.fn();
     deleteProject = jest.fn();
+    handleDeleteProject = jest.fn();
     updateProject = jest.fn();
     setProjectForEdit = jest.fn();
     wrapper = shallow(
@@ -32,6 +34,8 @@ describe('ProjectItem', () => {
         setProjectForEdit={setProjectForEdit}
         projectBeingEdited={undefined}
         updateProject={updateProject}
+        handleDeleteProject={handleDeleteProject}
+        projectTodos={[]}
       />,
     );
   });
@@ -65,7 +69,7 @@ describe('ProjectItem', () => {
     projectsController.delete = jest.fn();
     wrapper.find('ProjectItemBtns').prop('handleDeleteProject')();
     expect(deleteProject).toHaveBeenLastCalledWith(projects[0].id);
-    expect(projectsController.delete).toHaveBeenLastCalledWith(projects[0].name);
+    expect(projectsController.delete).toHaveBeenLastCalledWith(projects[0].id);
   });
 
   describe('interaction with ProjectsForm', () => {

@@ -11,7 +11,7 @@ describe('ProjectList', () => {
   let selectProject;
 
   beforeEach(() => {
-    getProjects = jest.fn();
+    getProjects = jest.fn(() => []);
     addProject = jest.fn();
     selectProject = jest.fn();
     storage.getDataFromLocalStorage = jest.fn(() => projects);

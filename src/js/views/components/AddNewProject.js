@@ -41,6 +41,7 @@ export class AddNewProject extends React.Component {
       const newProject = addProject({name});
       projectsController.create(name, newProject.project.id);
       this.props.selectProject(newProject.project);
+      this.props.addNewProject(newProject.project);
     } else {
       this.setState({
         error: 'You have entered a duplicate or invalid name'

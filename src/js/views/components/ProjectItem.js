@@ -10,6 +10,7 @@ import {
   setProjectForEdit,
 } from '../actions/projectForm';
 import { deleteProject, updateProject } from '../actions/projects';
+import { deleteTodo } from '../actions/todos';
 export class ProjectItem extends React.Component {
   state = {
     todos: [],
@@ -48,7 +49,9 @@ export class ProjectItem extends React.Component {
 
   handleDeleteProject = () => {
     this.props.deleteProject(this.props.project.id);
-    projectsController.delete(this.props.project.name);
+    this.props.projectTodos.forEach(todo => this.props.deleteTodo(todo.id));
+    projectsController.delete(this.props.project.id);
+    this.props.handleDeleteProject(this.props.project.id);
   };
 
   render(){
@@ -84,10 +87,11 @@ export class ProjectItem extends React.Component {
   }
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, props) => ({
+  projectTodos: state.todos.filter(todo => todo.projectID === props.project.id),
   addProjectMode: state.projectForm.addProjectMode,
   editProjectMode: state.projectForm.editProjectMode,
   projectBeingEdited: state.projectForm.projectBeingEdited,
 });
 
-export default connect(mapStateToProps, { addProjectModeSwitch, editProjectModeSwitch, selectProject, setProjectForEdit, deleteProject, updateProject })(ProjectItem);
+export default connect(mapStateToProps, { addProjectModeSwitch, editProjectModeSwitch, selectProject, setProjectForEdit, deleteProject, updateProject, deleteTodo })(ProjectItem);

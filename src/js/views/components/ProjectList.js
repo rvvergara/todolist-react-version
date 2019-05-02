@@ -12,6 +12,9 @@ import {
 } from '../../controllers/helpers/common/storage';
 
 export class ProjectList extends React.Component {
+  state = {
+    projects: this.props.projects,
+  }
   componentWillMount() {
     const {
       getProjects,
@@ -19,10 +22,30 @@ export class ProjectList extends React.Component {
     } = this.props;
     const projectsArray = getDataFromLocalStorage('projectsArray');
     if (projectsArray) {
-      getProjects(projectsArray);
+      const newProjects = getProjects(projectsArray);
       selectProject(projectsArray[0]);
+      this.setState({
+        projects: newProjects.projects,
+      })
     }
+  };
+
+  addNewProject = (project) => {
+    this.setState(prevState => ({
+      projects: [...prevState.projects ,project],
+    }));
   }
+
+  handleDeleteProject = (id) => {
+    this.setState((prevState) => {
+      const newProjects = prevState.projects.filter(project => project.id !== id);
+      const newSelectedProj = newProjects.length > 0 ? newProjects[newProjects.length - 1] : { };
+      this.props.selectProject(newSelectedProj);
+      return {
+        projects: newProjects,
+      }
+    });
+  };
 
   render() {
     const {
@@ -37,11 +60,14 @@ export class ProjectList extends React.Component {
             <ProjectItem
               project={project}
               key={project.id}
+              handleDeleteProject={this.handleDeleteProject}
             />
           ))
         }
         </div>
-        <AddNewProject />
+        <AddNewProject 
+        addNewProject={this.addNewProject}
+        />
       </div>
     );
   }
