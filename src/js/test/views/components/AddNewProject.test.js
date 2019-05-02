@@ -3,8 +3,6 @@ import { shallow } from 'enzyme';
 import { AddNewProject } from '../../../views/components/AddNewProject';
 import projects from '../../fixtures/projects';
 
-// const projectsController = jest.mock('../../../controllers/projectsController.js');
-
 describe('AddNewProject', () => {
   let wrapper;
   let addProject;

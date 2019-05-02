@@ -84,4 +84,13 @@ const mapStateToProps = state => ({
   editTodoMode: state.todoForm.editTodoMode,
 });
 
-export default connect(mapStateToProps, { addProject, addProjectModeSwitch, editProjectModeSwitch, selectProject, addTodoModeSwitch, editTodoModeSwitch})(AddNewProject);
+const mapDispatchToProps = dispatch => ({
+  addProject: project => dispatch(addProject(project)),
+  addProjectModeSwitch: () => dispatch(addProjectModeSwitch()),
+  editProjectModeSwitch: () => dispatch(editProjectModeSwitch()),
+  selectProject: project => dispatch(selectProject(project)),
+  addTodoModeSwitch: () => dispatch(addTodoModeSwitch()),
+  editTodoModeSwitch: () => dispatch(editTodoModeSwitch()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddNewProject);
