@@ -9,7 +9,7 @@ let handleDeleteProject;
 let clickUpdateProjectBtn;
 
 beforeEach(() => {
-  project = projects[0];
+  [project] = [projects[0]];
   handleDeleteProject = jest.fn();
   clickUpdateProjectBtn = jest.fn();
   wrapper = shallow(

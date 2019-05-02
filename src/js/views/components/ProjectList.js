@@ -39,7 +39,7 @@ export class ProjectList extends React.Component {
   handleDeleteProject = (id) => {
     this.setState((prevState) => {
       const newProjects = prevState.projects.filter(project => project.id !== id);
-      const newSelectedProj = newProjects.length > 0 ? newProjects[newProjects.length - 1] : { };
+      const newSelectedProj = newProjects.length > 0 ? newProjects[0] : { };
       this.props.selectProject(newSelectedProj);
       return {
         projects: newProjects,
