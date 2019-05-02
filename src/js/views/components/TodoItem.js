@@ -4,12 +4,14 @@ import 'react-dates/initialize';
 import moment from 'moment';
 import TodosForm from './TodosForm';
 import { updateTodo } from '../actions/todos';
+import { addTodoModeSwitch ,editTodoModeSwitch, setTodoForEdit } from '../actions/todoForm';
+import { addProjectModeSwitch, editProjectModeSwitch } from '../actions/projectForm';
 import todosController from '../../controllers/todosController';
 export class TodoItem extends React.Component {
   state = {
     todo: this.props.todo,
     done: false,
-    editTodoMode: false,
+    // editTodoMode: false,
     title: this.props.todo.title,
     description: this.props.todo.description,
     dueDate: this.props.todo.dueDate,
@@ -18,15 +20,17 @@ export class TodoItem extends React.Component {
   }
 
   tickTodo = () => {
-    this.setState((prevState) => ({
-      done: !prevState.done,
-    }));
+    this.props.editTodoModeSwitch
   }
 
-  clickUpdateBtn = () => {
-    this.setState(() => ({
-      editTodoMode: true,
-    }));
+  clickUpdateBtn = (e) => {
+    e.stopPropagation();
+    if(!this.props.editTodoMode) this.props.editTodoModeSwitch();
+    this.props.setTodoForEdit(this.props.todo.id);
+    if(this.props.addTodoMode) this.props.addTodoModeSwitch();
+    if(this.props.addProjectMode) this.props.addProjectModeSwitch();
+    if(this.props.editProjectMode) this.props.editProjectModeSwitch();
+    this.props.setTodoForEdit(this.props.todo.id);
   }
 
   handleSubmit = (updates) => {
@@ -36,9 +40,9 @@ export class TodoItem extends React.Component {
       todosController.update(updatedTodo);
       return {
         todo: updatedTodo,
-        editTodoMode: false,
       }
     });
+    this.props.editTodoModeSwitch();
   };
 
   handleDelete = (e) => {
@@ -107,12 +111,17 @@ export class TodoItem extends React.Component {
       </tr>
       
     )
-    return this.state.editTodoMode ? editOutput : regular; 
+    return (this.props.editTodoMode && this.props.todo.id === this.props.todoBeingEdited ) ? editOutput : regular; 
   }
 }
 
 const mapStateToProps = state => ({
   selectedProject: state.selectedProject,
+  addTodoMode: state.todoForm.addTodoMode,
+  editTodoMode: state.todoForm.editTodoMode,
+  todoBeingEdited: state.todoForm.todoBeingEdited,
+  addProjectMode: state.projectForm.addProjectMode,
+  editProjectMode: state.projectForm.editProjectMode,
 });
 
-export default connect(mapStateToProps, { updateTodo})(TodoItem);
+export default connect(mapStateToProps, { updateTodo, addTodoModeSwitch, editTodoModeSwitch, setTodoForEdit, addProjectModeSwitch, editProjectModeSwitch})(TodoItem);

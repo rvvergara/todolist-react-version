@@ -9,6 +9,10 @@ import {
   editProjectModeSwitch,
   setProjectForEdit,
 } from '../actions/projectForm';
+import {
+  addTodoModeSwitch,
+  editTodoModeSwitch,
+} from '../actions/todoForm';
 import { deleteProject, updateProject } from '../actions/projects';
 import { deleteTodo } from '../actions/todos';
 export class ProjectItem extends React.Component {
@@ -24,9 +28,12 @@ export class ProjectItem extends React.Component {
 
   clickUpdateProjectBtn = (e) => {
     e.stopPropagation();
-    this.props.setProjectForEdit(this.props.project.id);
+    if(!this.props.editProjectMode) 
     this.props.editProjectModeSwitch();
+    this.props.setProjectForEdit(this.props.project.id);
     if(this.props.addProjectMode) this.props.addProjectModeSwitch();
+    if(this.props.addTodoMode) this.props.addProjectModeSwitch();
+    if(this.props.editTodoMode) this.props.editTodoModeSwitch();
   };
 
 
@@ -92,6 +99,8 @@ const mapStateToProps = (state, props) => ({
   addProjectMode: state.projectForm.addProjectMode,
   editProjectMode: state.projectForm.editProjectMode,
   projectBeingEdited: state.projectForm.projectBeingEdited,
+  addTodoMode: state.todoForm.addTodoMode,
+  editTodoMode: state.todoForm.editTodoMode,
 });
 
-export default connect(mapStateToProps, { addProjectModeSwitch, editProjectModeSwitch, selectProject, setProjectForEdit, deleteProject, updateProject, deleteTodo })(ProjectItem);
+export default connect(mapStateToProps, { addProjectModeSwitch, editProjectModeSwitch, selectProject, setProjectForEdit, deleteProject, updateProject, deleteTodo, addTodoModeSwitch, editTodoModeSwitch, })(ProjectItem);

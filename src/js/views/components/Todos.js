@@ -6,11 +6,12 @@ import TodosForm from './TodosForm';
 import todosController from '../../controllers/todosController';
 import { getDataFromLocalStorage } from '../../controllers/helpers/common/storage';
 import { getTodos, addTodo, deleteTodo } from '../actions/todos';
+import { addTodoModeSwitch } from '../actions/todoForm';
 export class Todos extends React.Component {
   state = {
     todos: [],
     project: this.props.selectedProject,
-    addTodoMode: false,
+    // addTodoMode: false,
   }
   
   componentWillMount(){
@@ -19,9 +20,7 @@ export class Todos extends React.Component {
   }
 
   handleTodoBtn = () => {
-    this.setState(() => ({
-      addTodoMode: true,
-    }));
+    this.props.addTodoModeSwitch();
   }
 
   handleChange = (key, val) => this.setState({
@@ -78,10 +77,11 @@ export class Todos extends React.Component {
         }
         {this.props.selectedProject ? <AddTodoBtn
         handleTodoBtn={this.handleTodoBtn}
-        addTodoMode={this.state.addTodoMode}
+        addTodoMode={this.props.addTodoMode}
+        editTodoMode={this.props.editTodoMode}
         /> : "No todos for non-existent project"}
-        {this.state.addTodoMode && <TodosForm
-        addTodoMode={this.state.addTodoMode}
+        {this.props.addTodoMode && <TodosForm
+        addTodoMode={this.props.addTodoMode}
         handleSubmit={this.submitTodo}
         handleChange={this.handleChange}
         />}
@@ -94,6 +94,8 @@ const mapStateToProps = state => ({
   todos: state.todos,
   shownTodos: state.todos.filter(todo => todo.projectID === state.selectedProject.id),
   selectedProject: state.selectedProject,
+  addTodoMode: state.todoForm.addTodoMode,
+  editTodoMode: state.todoForm.editTodoMode,
 });
 
-export default connect(mapStateToProps, { getTodos, addTodo, deleteTodo })(Todos);
+export default connect(mapStateToProps, { getTodos, addTodo, deleteTodo, addTodoModeSwitch })(Todos);
