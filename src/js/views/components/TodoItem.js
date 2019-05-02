@@ -4,9 +4,9 @@ import 'react-dates/initialize';
 import TodosForm from './TodosForm';
 import { updateTodo } from '../actions/todos';
 import todosController from '../../controllers/todosController';
-import { updateTodoInProject } from '../../controllers/helpers/todos/todoHelpers';
 export class TodoItem extends React.Component {
   state = {
+    todo: this.props.todo,
     done: false,
     editTodoMode: false,
     title: this.props.todo.title,
@@ -30,6 +30,14 @@ export class TodoItem extends React.Component {
 
   handleSubmit = (updates) => {
     this.props.updateTodo(this.props.todo.id, updates);
+    this.setState(() => {
+      const updatedTodo = {...this.state.todo, ...updates}
+      todosController.update(updatedTodo);
+      return {
+        todo: updatedTodo,
+        editTodoMode: false,
+      }
+    });
   }
 
   render() {
