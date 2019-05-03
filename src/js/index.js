@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import moment from 'moment';
 import configureStore from './views/store/configureStore';
 import {
   createProjectsArray,
@@ -10,10 +9,9 @@ import {
   from './controllers/helpers/projects/projectHelpers';
 import { createTodosArray } from './controllers/helpers/todos/todoHelpers';
 import TodoListApp from './views/components/TodoListApp';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'normalize.css/normalize.css';
 import 'react-dates/lib/css/_datepicker.css';
 import '../scss/styles.scss';
-import { addTodo } from './views/actions/todos';
 
 createProjectsArray();
 createDefaultProject();

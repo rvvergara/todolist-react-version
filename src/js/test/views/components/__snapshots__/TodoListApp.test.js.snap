@@ -4,6 +4,13 @@ exports[`TodoListApp should render correctly 1`] = `
 <div
   id="todo-app"
 >
+  <header>
+    <h1
+      className="header__h1"
+    >
+      Todo List App
+    </h1>
+  </header>
   <ConnectFunction />
   <ConnectFunction />
 </div>
