@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import 'react-dates/initialize';
 import moment from 'moment';
 import TodosForm from './TodosForm';
@@ -124,12 +125,12 @@ export class TodoItem extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  selectedProject: state.selectedProject,
-  addTodoMode: state.todoForm.addTodoMode,
-  editTodoMode: state.todoForm.editTodoMode,
-  todoBeingEdited: state.todoForm.todoBeingEdited,
   addProjectMode: state.projectForm.addProjectMode,
+  addTodoMode: state.todoForm.addTodoMode,
   editProjectMode: state.projectForm.editProjectMode,
+  editTodoMode: state.todoForm.editTodoMode,
+  selectedProject: state.selectedProject,
+  todoBeingEdited: state.todoForm.todoBeingEdited,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -140,5 +141,20 @@ const mapDispatchToProps = dispatch => ({
   setTodoForEdit: id => dispatch(setTodoForEdit(id)),
   updateTodo: (id, updates) => dispatch(updateTodo(id, updates)),
 });
+
+TodoItem.propTypes = {
+  addProjectMode: PropTypes.bool.isRequired,
+  addTodoMode: PropTypes.bool.isRequired,
+  editProjectMode: PropTypes.bool.isRequired,
+  editTodoMode: PropTypes.bool.isRequired,
+  selectedProject: PropTypes.instanceOf(Object).isRequired,
+  todoBeingEdited: PropTypes.string,
+  addProjectModeSwitch: PropTypes.func.isRequired,
+  addTodoModeSwitch: PropTypes.func.isRequired,
+  editProjectModeSwitch: PropTypes.func.isRequired,
+  editTodoModeSwitch: PropTypes.func.isRequired,
+  setTodoForEdit: PropTypes.func.isRequired,
+  updateTodo: PropTypes.func.isRequired,
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoItem);
