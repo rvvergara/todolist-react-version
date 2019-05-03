@@ -10,7 +10,7 @@ import todosController from '../../controllers/todosController';
 export class TodoItem extends React.Component {
   state = {
     todo: this.props.todo,
-    done: false,
+    done: this.props.todo.done,
     title: this.props.todo.title,
     description: this.props.todo.description,
     dueDate: this.props.todo.dueDate,
@@ -19,7 +19,15 @@ export class TodoItem extends React.Component {
   }
 
   tickTodo = () => {
-    
+    this.setState((prevState) => {
+      const newDone = !prevState.done;
+      todosController.update(this.props.todo.id, { done: newDone });
+      this.props.updateTodo(this.props.todo.id, {...prevState.todo, done: newDone});
+      return {
+        todo: {...prevState.todo, done: newDone},
+        done: newDone,
+      }
+    })
   }
 
   clickUpdateBtn = (e) => {
