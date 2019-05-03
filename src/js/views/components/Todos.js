@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import TodoItem from './TodoItem';
 import AddTodoBtn from './AddTodoBtn';
 import TodosForm from './TodosForm';
@@ -90,13 +91,13 @@ export class Todos extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  todos: state.todos,
-  shownTodos: state.todos.filter(todo => todo.projectID === state.selectedProject.id),
-  selectedProject: state.selectedProject,
-  addTodoMode: state.todoForm.addTodoMode,
-  editTodoMode: state.todoForm.editTodoMode,
   addProjectMode: state.projectForm.addProjectMode,
+  addTodoMode: state.todoForm.addTodoMode,
   editProjectMode: state.projectForm.editProjectMode,
+  editTodoMode: state.todoForm.editTodoMode,
+  selectedProject: state.selectedProject,
+  shownTodos: state.todos.filter(todo => todo.projectID === state.selectedProject.id),
+  todos: state.todos,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -108,5 +109,22 @@ const mapDispatchToProps = dispatch => ({
   editTodoModeSwitch: () => dispatch(editTodoModeSwitch()),
   getTodos: todos => dispatch(getTodos(todos)),
 });
+
+Todos.propTypes = {
+  addProjectMode: PropTypes.bool.isRequired,
+  addTodoMode: PropTypes.bool.isRequired,
+  editProjectMode: PropTypes.bool.isRequired,
+  editTodoMode: PropTypes.bool.isRequired,
+  selectedProject: PropTypes.instanceOf(Object).isRequired,
+  shownTodos: PropTypes.instanceOf(Object).isRequired,
+  todos: PropTypes.instanceOf(Object).isRequired,
+  addProjectModeSwitch: PropTypes.func.isRequired,
+  addTodo: PropTypes.func.isRequired,
+  addTodoModeSwitch: PropTypes.func.isRequired,
+  deleteTodo: PropTypes.func.isRequired,
+  editProjectModeSwitch: PropTypes.func.isRequired,
+  editTodoModeSwitch: PropTypes.func.isRequired,
+  getTodos: PropTypes.func.isRequired,
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Todos);
