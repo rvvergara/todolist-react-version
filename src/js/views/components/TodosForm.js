@@ -1,8 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import 'react-dates/initialize';
 import { SingleDatePicker } from 'react-dates';
-import PropTypes from 'prop-types';
 
 class TodosForm extends React.Component {
   state = {
@@ -113,6 +113,11 @@ class TodosForm extends React.Component {
       </div>
     );
   }
+}
+
+TodosForm.propTypes = {
+  todo: PropTypes.instanceOf(Object),
+  handleSubmit: PropTypes.func.isRequired,
 }
 
 export default TodosForm;

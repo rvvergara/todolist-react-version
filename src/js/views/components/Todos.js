@@ -82,7 +82,6 @@ export class Todos extends React.Component {
 
         {this.props.addTodoMode && 
           <TodosForm
-            addTodoMode={this.props.addTodoMode}
             handleSubmit={this.submitTodo}
           />}
       </div>
