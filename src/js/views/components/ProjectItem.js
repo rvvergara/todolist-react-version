@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import ProjectItemBtns from './ProjectItemBtns';
 import ProjectsForm from './ProjectsForm';
 import projectsController from '../../controllers/projectsController';
@@ -117,13 +118,13 @@ export class ProjectItem extends React.Component {
 };
 
 const mapStateToProps = (state, props) => ({
-  projects: state.projects,
-  projectTodos: state.todos.filter(todo => todo.projectID === props.project.id),
   addProjectMode: state.projectForm.addProjectMode,
-  editProjectMode: state.projectForm.editProjectMode,
-  projectBeingEdited: state.projectForm.projectBeingEdited,
   addTodoMode: state.todoForm.addTodoMode,
+  editProjectMode: state.projectForm.editProjectMode,
   editTodoMode: state.todoForm.editTodoMode,
+  projects: state.projects,
+  projectBeingEdited: state.projectForm.projectBeingEdited,
+  projectTodos: state.todos.filter(todo => todo.projectID === props.project.id),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -139,5 +140,24 @@ const mapDispatchToProps = (dispatch) => ({
   setProjectForEdit: id => dispatch(setProjectForEdit(id)),
   updateProject: (id, updates) => dispatch(updateProject(id, updates)),
 });
+
+ProjectItem.propTypes = {
+  addProjectMode: PropTypes.bool.isRequired,
+  addTodoMode: PropTypes.bool.isRequired,
+  editProjectMode: PropTypes.bool.isRequired,
+  editTodoMode: PropTypes.bool.isRequired,
+  projects: PropTypes.instanceOf(Object).isRequired,
+  projectBeingEdited: PropTypes.string,
+  projectTodos: PropTypes.instanceOf(Object).isRequired,
+  addProjectModeSwitch: PropTypes.func.isRequired,
+  addTodoModeSwitch: PropTypes.func.isRequired,
+  deleteProject: PropTypes.func.isRequired,
+  deleteAllTodos: PropTypes.func.isRequired,
+  editTodoModeSwitch: PropTypes.func.isRequired,
+  editProjectModeSwitch: PropTypes.func.isRequired,
+  selectProject: PropTypes.func.isRequired,
+  setProjectForEdit: PropTypes.func.isRequired,
+  updateProject: PropTypes.func.isRequired,
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectItem);
