@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import AddProjectBtn from './AddProjectBtn';
 import ProjectsForm from './ProjectsForm';
 import {
@@ -80,11 +81,11 @@ export class AddNewProject extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  projects: state.projects,
   addProjectMode: state.projectForm.addProjectMode,
-  editProjectMode: state.projectForm.editProjectMode,
   addTodoMode: state.todoForm.addTodoMode,
+  editProjectMode: state.projectForm.editProjectMode,
   editTodoMode: state.todoForm.editTodoMode,
+  projects: state.projects,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -95,5 +96,20 @@ const mapDispatchToProps = dispatch => ({
   addTodoModeSwitch: () => dispatch(addTodoModeSwitch()),
   editTodoModeSwitch: () => dispatch(editTodoModeSwitch()),
 });
+
+AddNewProject.propTypes = {
+  addProjectMode: PropTypes.bool.isRequired,
+  addTodoMode: PropTypes.bool.isRequired,
+  editProjectMode: PropTypes.bool.isRequired,
+  editTodoMode: PropTypes.bool.isRequired,
+  projects: PropTypes.instanceOf(Object).isRequired,
+  addProject: PropTypes.func.isRequired,
+  addNewProject: PropTypes.func.isRequired,
+  addProjectModeSwitch: PropTypes.func.isRequired,
+  editProjectModeSwitch: PropTypes.func.isRequired,
+  selectProject: PropTypes.func.isRequired,
+  addTodoModeSwitch: PropTypes.func.isRequired,
+  editTodoModeSwitch: PropTypes.func.isRequired,
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddNewProject);
