@@ -1,0 +1,120 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Todos rendering and mounting should render correctly 1`] = `
+<div>
+  <h2>
+    Todo list for 
+    First
+  </h2>
+  <table
+    className="table table-striped"
+  >
+    <thead>
+      <tr>
+        <th>
+          Title
+        </th>
+        <th>
+          Description
+        </th>
+        <th>
+          Due Date
+        </th>
+        <th>
+          Priority
+        </th>
+        <th>
+          Note
+        </th>
+        <th>
+          Status
+        </th>
+        <th>
+          Action
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <ConnectFunction
+        deleteTodo={[Function]}
+        key="10"
+        todo={
+          Object {
+            "description": "Sunt incididunt eu exercitation irure magna anim quis laboris incididunt ex occaecat.",
+            "done": false,
+            "dueDate": 235433,
+            "id": 10,
+            "notes": "Non anim quis veniam et ea.",
+            "projectName": "First",
+            "title": "First Task",
+          }
+        }
+      />
+    </tbody>
+  </table>
+  <AddTodoBtn
+    addTodoMode={false}
+    editTodoMode={false}
+    handleTodoBtn={[Function]}
+  />
+</div>
+`;
+
+exports[`Todos should handle interaction with the AddTodoBtn component it should call addTodoModeSwitch and render TodosForm and not show AddTodo button 1`] = `
+<div>
+  <h2>
+    Todo list for 
+    First
+  </h2>
+  <table
+    className="table table-striped"
+  >
+    <thead>
+      <tr>
+        <th>
+          Title
+        </th>
+        <th>
+          Description
+        </th>
+        <th>
+          Due Date
+        </th>
+        <th>
+          Priority
+        </th>
+        <th>
+          Note
+        </th>
+        <th>
+          Status
+        </th>
+        <th>
+          Action
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <ConnectFunction
+        deleteTodo={[Function]}
+        key="10"
+        todo={
+          Object {
+            "description": "Sunt incididunt eu exercitation irure magna anim quis laboris incididunt ex occaecat.",
+            "done": false,
+            "dueDate": 235433,
+            "id": 10,
+            "notes": "Non anim quis veniam et ea.",
+            "projectName": "First",
+            "title": "First Task",
+          }
+        }
+      />
+    </tbody>
+  </table>
+  <TodosForm
+    addTodoMode={true}
+    handleSubmit={[Function]}
+  />
+</div>
+`;

@@ -70,7 +70,6 @@ export default class TodoListApp extends React.Component {
       <div id="todo-app">
         <ProjectList />
         <Todos
-        selectedProject={selectedProject}
         />
       </div>
     );

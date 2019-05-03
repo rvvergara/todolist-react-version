@@ -9,10 +9,6 @@ import { getTodos, addTodo, deleteTodo } from '../actions/todos';
 import { addTodoModeSwitch, editTodoModeSwitch } from '../actions/todoForm';
 import { addProjectModeSwitch, editProjectModeSwitch } from '../actions/projectForm';
 export class Todos extends React.Component {
-  state = {
-    todos: [],
-    project: this.props.selectedProject,
-  }
   
   componentWillMount(){
     const todos = getDataFromLocalStorage('todosArray');
@@ -21,21 +17,13 @@ export class Todos extends React.Component {
 
   handleTodoBtn = () => {
     this.props.addTodoModeSwitch();
-    if(this.props.editTodoMode) this.props.editTodoModeSwitch();
     if(this.props.addProjectMode) this.props.addProjectModeSwitch();
     if(this.props.editProjectMode) this.props.editProjectModeSwitch();
   }
 
-  handleChange = (key, val) => this.setState({
-    [key]: val,
-  });
-
   submitTodo = (todoFromForm) => {
     const newTodo = this.props.addTodo(todoFromForm, this.props.selectedProject.id);
     todosController.create(newTodo.todo);
-    this.setState({
-      addTodoMode: false,
-    });
     this.props.addTodoModeSwitch();
   }
 
@@ -50,7 +38,7 @@ export class Todos extends React.Component {
   render() {
     return (
       <div>
-        {this.state.project ? <h2>
+        {this.props.selectedProject ? <h2>
           Todo list for&nbsp;
           { this.props.selectedProject.name }
         </h2> : <h2>Project Deleted</h2>}
@@ -95,7 +83,6 @@ export class Todos extends React.Component {
           <TodosForm
             addTodoMode={this.props.addTodoMode}
             handleSubmit={this.submitTodo}
-            handleChange={this.handleChange}
           />}
       </div>
     )
@@ -112,4 +99,14 @@ const mapStateToProps = state => ({
   editProjectMode: state.projectForm.editProjectMode,
 });
 
-export default connect(mapStateToProps, { getTodos, addTodo, deleteTodo, addTodoModeSwitch, editTodoModeSwitch, addProjectModeSwitch, editProjectModeSwitch })(Todos);
+const mapDispatchToProps = dispatch => ({
+  addProjectModeSwitch: () => dispatch(addProjectModeSwitch()),
+  addTodo: (todo, projectID) => dispatch(addTodo(todo, projectID)),
+  addTodoModeSwitch: () => dispatch(addTodoModeSwitch()),
+  deleteTodo: id => dispatch(deleteTodo(id)),
+  editProjectModeSwitch: () => dispatch(addProjectModeSwitch()),
+  editTodoModeSwitch: () => dispatch(editTodoModeSwitch()),
+  getTodos: todos => dispatch(getTodos(todos)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Todos);
