@@ -14,19 +14,21 @@ const todoController = (
       return todo;
     },
 
-    update(todoData) {
+    update(id, updates) {
       const projectsArray = localStorageData.getDataFromLocalStorage('projectsArray');
       const todosArray = localStorageData.getDataFromLocalStorage('todosArray');
-      const projectInArray = projectsArray.find(project => project.id === todoData.projectID);
-      const projectIndexInArray = projectsArray.findIndex(project => project.id === todoData.projectID);
+      const todoFromArray = todosArray.find(todo => todo.id === id);
+      const projectInArray = projectsArray.find(project => project.id === todoFromArray.projectID);
+      const projectIndexInArray = projectsArray.findIndex(project => project.id === projectInArray.id);
       const projectStandAlone = localStorageData.getDataFromLocalStorage(projectInArray.name);
-      const todoIndexInProject = projectStandAlone.todos.findIndex(todo => todo.id === todoData.id);
-      const todoIndexInTodosArray = todosArray.findIndex(todo => todo.id === todoData.id);
+      const todoIndexInProject = projectStandAlone.todos.findIndex(todo => todo.id === id);
+      const todoIndexInTodosArray = todosArray.findIndex(todo => todo.id === id);
+      const updatedTodo = { ...todoFromArray, ...updates };
       // 1. Change todo in todosArray
-      todosArray[todoIndexInTodosArray] = todoData;
+      todosArray[todoIndexInTodosArray] = updatedTodo;
       localStorageData.setDataIntoLocalStorage('todosArray', todosArray);
       // 2. Change todo is project
-      projectStandAlone[todoIndexInProject] = todoData;
+      projectStandAlone[todoIndexInProject] = updatedTodo;
       localStorageData.setDataIntoLocalStorage(projectStandAlone.name, projectStandAlone);
       // 3. Change project in projectsArray
       projectsArray[projectIndexInArray] = projectStandAlone;

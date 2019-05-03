@@ -19,7 +19,7 @@ export class TodoItem extends React.Component {
   }
 
   tickTodo = () => {
-    this.props.editTodoModeSwitch
+    
   }
 
   clickUpdateBtn = (e) => {
@@ -33,15 +33,16 @@ export class TodoItem extends React.Component {
   }
 
   handleSubmit = (updates) => {
-    this.props.updateTodo(this.props.todo.id, updates);
+    const { updateTodo, todo, editTodoModeSwitch } = this.props;
+    updateTodo(todo.id, updates);
     this.setState(() => {
       const updatedTodo = {...this.state.todo, ...updates}
-      todosController.update(updatedTodo);
+      todosController.update(todo.id, updates);
       return {
         todo: updatedTodo,
       }
     });
-    this.props.editTodoModeSwitch();
+    editTodoModeSwitch();
   };
 
   handleDelete = (e) => {
@@ -123,4 +124,13 @@ const mapStateToProps = state => ({
   editProjectMode: state.projectForm.editProjectMode,
 });
 
-export default connect(mapStateToProps, { updateTodo, addTodoModeSwitch, editTodoModeSwitch, setTodoForEdit, addProjectModeSwitch, editProjectModeSwitch})(TodoItem);
+const mapDispatchToProps = dispatch => ({
+  addProjectModeSwitch: () => dispatch(addProjectModeSwitch()),
+  addTodoModeSwitch: () => dispatch(addTodoModeSwitch()),
+  editProjectModeSwitch: () => dispatch(editProjectModeSwitch()),
+  editTodoModeSwitch: () => dispatch(editTodoModeSwitch()),
+  setTodoForEdit: id => dispatch(setTodoForEdit(id)),
+  updateTodo: (id, updates) => dispatch(updateTodo(id, updates)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoItem);
