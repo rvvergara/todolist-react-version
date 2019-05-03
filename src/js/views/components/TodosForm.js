@@ -58,54 +58,59 @@ class TodosForm extends React.Component {
 
   render() {
     return (
-      <form
-        onSubmit={this.submitTodo}
-      >
-        <input
-          className="form-control"
-          type="text"
-          placeholder="Title"
-          value={this.state.title}
-          onChange={e => this.handleChange('title', e.target.value)}
-        />
-        <input
-          className="form-control"
-          type="text"
-          placeholder="Description"
-          value={this.state.description}
-          onChange={e => this.handleChange('description', e.target.value)}
-        />
-        <SingleDatePicker 
-          date={this.state.dueDate}
-          onDateChange={this.onDateChange}
-          focused={this.state.calendarFocused}
-          onFocusChange={this.onFocusChange}
-          numberOfMonths={1}
-        />
-        <select
-          className="form-control"
-          value={this.state.priority}
-          onChange={e => this.handleChange('priority', e.target.value)}
+      <div>
+        {
+          this.state.error && <div>{this.state.error}</div>
+        }
+        <form
+          onSubmit={this.submitTodo}
         >
-          <option value="Priority">Priority</option>
-          <option value="Low">Low</option>
-          <option value="Medium">Medium</option>
-          <option value="High">High</option>
-        </select>
-        <input
-          className="form-control"
-          type="text"
-          value={this.state.notes}
-          placeholder="Notes"
-          onChange={e => this.handleChange('notes', e.target.value)}
-        />
-        <button
-          type="submit"
-          className="d-none"
-        >
-          Add
-        </button>
-      </form>
+          <input
+            className="form-control"
+            type="text"
+            placeholder="Title"
+            value={this.state.title}
+            onChange={e => this.handleChange('title', e.target.value)}
+          />
+          <input
+            className="form-control"
+            type="text"
+            placeholder="Description"
+            value={this.state.description}
+            onChange={e => this.handleChange('description', e.target.value)}
+          />
+          <SingleDatePicker 
+            date={this.state.dueDate}
+            onDateChange={this.onDateChange}
+            focused={this.state.calendarFocused}
+            onFocusChange={this.onFocusChange}
+            numberOfMonths={1}
+          />
+          <select
+            className="form-control"
+            value={this.state.priority}
+            onChange={e => this.handleChange('priority', e.target.value)}
+          >
+            <option value="Priority">Priority</option>
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+          </select>
+          <input
+            className="form-control"
+            type="text"
+            value={this.state.notes}
+            placeholder="Notes"
+            onChange={e => this.handleChange('notes', e.target.value)}
+          />
+          <button
+            type="submit"
+            className="d-none"
+          >
+            Add
+          </button>
+        </form>
+      </div>
     );
   }
 }
