@@ -22,7 +22,7 @@ export class TodoItem extends React.Component {
     this.setState((prevState) => {
       const newDone = !prevState.done;
       todosController.update(this.props.todo.id, { done: newDone });
-      this.props.updateTodo(this.props.todo.id, {...prevState.todo, done: newDone});
+      this.props.updateTodo(this.props.todo.id, {title: prevState.todo.title,done: newDone});
       return {
         todo: {...prevState.todo, done: newDone},
         done: newDone,

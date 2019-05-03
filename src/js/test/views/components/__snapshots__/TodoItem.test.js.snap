@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TodoItem should render correctly and have correct initial state 1`] = `
+<tr
+  className=""
+  id={11}
+>
+  <td>
+    Second Task
+  </td>
+  <td>
+    Minim proident occaecat nulla ad nisi.
+  </td>
+  <td>
+    Thursday Jan 1, 1970
+  </td>
+  <td />
+  <td>
+    Cillum aute eu magna anim id tempor non cupidatat consequat deserunt ad.
+  </td>
+  <td>
+    <input
+      checked={false}
+      defaultValue={false}
+      onChange={[Function]}
+      type="checkbox"
+    />
+  </td>
+  <td>
+    <button
+      className="btn btn-sm btn-warning"
+      disabled={false}
+      onClick={[Function]}
+    >
+      Update
+    </button>
+    <button
+      className="btn btn-sm btn-danger"
+      disabled={false}
+      onClick={[Function]}
+    >
+      Delete
+    </button>
+  </td>
+</tr>
+`;
